@@ -1,0 +1,22 @@
+$background-color-normal: #f7f7f7;
+$background-color-active: #f3f3f3;
+
+@mixin icon {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+@mixin image {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
