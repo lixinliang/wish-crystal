@@ -46,6 +46,10 @@ let webpackConfig = {
         options: vueLoaderConfig
       },
       {
+        resourceQuery: /customBlocks/,
+        loader: 'babel-loader'
+      },
+      {
         test: /\.js$/,
         loader: 'babel-loader',
         include: [resolve('src'), resolve('test')]
@@ -75,6 +79,11 @@ let webpackConfig = {
         }
       }
     ]
+  },
+  resolveLoader: {
+    alias: {
+      'i18n-loader': require.resolve('./i18n-loader')
+    }
   }
 }
 
