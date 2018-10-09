@@ -6,7 +6,7 @@ import VueRouter from 'vue-router'
 Vue.use(Vuex)
 Vue.use(VueRouter)
 
-Object.assign(window, {
+_.assign(window, {
   _,
   Vue,
   Vuex,
