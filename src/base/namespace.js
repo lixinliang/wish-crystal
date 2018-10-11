@@ -14,6 +14,12 @@ _.assign(window, {
 })
 
 Vue.prototype.$_ = _
+Vue.prototype.$now = +new Date()
 Vue.prototype.$util = window.util
 Vue.prototype.$event = window.$event
 Vue.prototype.$window = window
+Vue.prototype.$timestamp = process.env.TIMESTAMP || 0
+
+setInterval(() => {
+  Vue.prototype.$now = +new Date()
+}, 100)
