@@ -20,3 +20,7 @@ Vue.filter('log', (value) => {
   console.log(value)
   return value
 })
+
+Vue.filter('format', (value, expression) => {
+  return window.moment(value).format(expression)
+})
