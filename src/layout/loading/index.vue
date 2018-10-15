@@ -1,6 +1,6 @@
 <template>
   <div class="layout-loading">
-    <loading v-model="loading"/>
+    <loading v-model="show" :text="text"/>
   </div>
 </template>
 
@@ -13,25 +13,14 @@ export default {
   },
   data () {
     return {
-      loading: false
+      show: false,
+      text: ''
     }
   },
   created () {
-    let sid = 0
-    window.$event.on('app:loading', ({ active, timeout }) => {
-      if (active) {
-        this.loading = true
-        const value = +timeout || 0
-        if (value) {
-          sid = setTimeout(() => {
-            this.loading = false
-          }, value)
-        }
-      }
-      if (!active) {
-        clearTimeout(sid)
-        this.loading = false
-      }
+    window.$event.on('app:loading', ({ show, text }) => {
+      this.show = !!show
+      this.text = `${text}`
     })
   }
 }
