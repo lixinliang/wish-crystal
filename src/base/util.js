@@ -17,6 +17,41 @@ util.sleep = (delay) => {
 // nextTick 封装 promise
 util.nextTick = () => new Promise((resolve) => Vue.nextTick(resolve))
 
+util.timeout = (delay) => {
+  let sid = 0
+  const tick = new Promise((resolve) => (sid = setTimeout(resolve, delay)))
+  return { sid, tick }
+}
+
+// util.interval = async (callback, delay) => {
+//   clearTimeout(callback['@interval'])
+//   await callback()
+//   callback['@interval'] = setTimeout(() => {
+//     util.interval(callback, second)
+//   }, second * 1000)
+// }
+
+// requestAnimationFrame 封装
+util.loop = (callback) => {
+  requestAnimationFrame(animate)
+  async function animate (time) {
+    await callback(time)
+    requestAnimationFrame(animate)
+  }
+}
+
+util.until = (callback) => {
+  requestAnimationFrame(animate)
+  async function animate (time) {
+    const stop = await callback(time)
+    if (stop) {
+      // noop
+    } else {
+      requestAnimationFrame(animate)
+    }
+  }
+}
+
 // 创建 get / set 对象
 util.observe = (obj) => {
   const state = (obj && typeof obj === 'object') ? obj : {}
@@ -141,35 +176,6 @@ util.canvas = (width, height) => {
 util.test = (className) => !!document.querySelector(`html.${className}`)
 
 const requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || ((fn) => setTimeout(fn, 16.7))
-
-// requestAnimationFrame 封装
-util.loop = (callback) => {
-  requestAnimationFrame(animate)
-  async function animate (time) {
-    await callback(time)
-    requestAnimationFrame(animate)
-  }
-}
-
-util.until = (callback) => {
-  requestAnimationFrame(animate)
-  async function animate (time) {
-    const stop = await callback(time)
-    if (stop) {
-      // noop
-    } else {
-      requestAnimationFrame(animate)
-    }
-  }
-}
-
-util.interval = async (callback, second) => {
-  clearTimeout(callback['@interval'])
-  await callback()
-  callback['@interval'] = setTimeout(() => {
-    util.interval(callback, second)
-  }, second * 1000)
-}
 
 // lazyload
 util.testMeet = (el, trim = 0) => {
