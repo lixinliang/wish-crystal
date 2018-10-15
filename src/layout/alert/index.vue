@@ -1,6 +1,6 @@
 <template>
   <div class="layout-alert">
-    alert
+    <alert v-model="show" :title="title" :content="content" @on-hide="hide"/>
   </div>
 </template>
 
@@ -13,9 +13,23 @@ export default {
   },
   data () {
     return {
+      show: false,
+      title: '',
+      content: ''
     }
   },
   created () {
+    window.$event.on('app:alert', ({ show, title, content }) => {
+      this.show = !!show
+      this.title = `${title}`
+      this.content = `${content}`
+    })
+  },
+  methods: {
+    hide () {
+      // todo
+      console.log('hide')
+    }
   }
 }
 </script>
