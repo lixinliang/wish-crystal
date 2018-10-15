@@ -1,6 +1,9 @@
 $background-color-normal: #f7f7f7;
 $background-color-active: #f3f3f3;
 
+$iphonex-status-bar: 20px;
+$iphonex-home-indicator: 34px;
+
 @mixin icon {
   background-size: contain;
   background-repeat: no-repeat;
@@ -20,3 +23,32 @@ $background-color-active: #f3f3f3;
     clear: both;
   }
 }
+
+@mixin index {
+  height: 100%;
+    overflow: hidden;
+    position: relative;
+    background-color: $background-color-normal;
+    .logo {
+      width: 96px;
+      height: 96px;
+      margin: 60px auto 10px;
+      position: relative;
+      i {
+        width: 100%;
+        height: 100%;
+        @include icon;
+        display: block;
+        overflow: hidden;
+        border-radius: 15px;
+        border: 1px solid #c7c7c7;
+        pointer-events: none;
+      }
+    }
+    p {
+      font-size: 18px;
+      line-height: 34px;
+      text-align: center;
+    }
+}
+
