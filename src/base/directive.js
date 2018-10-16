@@ -28,19 +28,20 @@ Vue.use({
   }
 })
 
+// todo
 // v-mc
-Vue.use({
-  install (Vue) {
-    Vue.directive('mc', {
-      bind (el, { value }) {
-        const mc = new window.Hammer.Manager(el)
-        value['@mc'] = mc
-        value(mc)
-      },
-      unbind (el, { value }) {
-        const mc = value['@mc']
-        mc.destroy()
-      }
-    })
-  }
-})
+// Vue.use({
+//   install (Vue) {
+//     Vue.directive('mc', {
+//       bind (el, { value }) {
+//         const mc = new window.Hammer.Manager(el)
+//         value['@mc'] = mc
+//         value(mc)
+//       },
+//       unbind (el, { value }) {
+//         const mc = value['@mc']
+//         mc.destroy()
+//       }
+//     })
+//   }
+// })
