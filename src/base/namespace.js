@@ -17,6 +17,7 @@ Vue.prototype.$_ = _
 Vue.prototype.$util = window.util
 Vue.prototype.$event = window.$event
 Vue.prototype.$window = window
+Vue.prototype.$storage = window.util.observe({})
 Vue.prototype.$timestamp = process.env.TIMESTAMP || 0
 
 Vue.prototype.$ = window.util.observe({
@@ -36,3 +37,10 @@ window.$event.on('root:tick', (bool) => {
 })
 
 window.$event.emit('root:tick', true)
+
+Vue.prototype.$push = (name) => {
+  window.router.push(`/${name}`)
+}
+Vue.prototype.$pop = () => {
+  window.router.go(-1)
+}
