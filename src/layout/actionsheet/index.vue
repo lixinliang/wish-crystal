@@ -31,12 +31,10 @@ export default {
   },
   methods: {
     click (key) {
-      // todo
-      console.log('click', key)
+      window.$event.emit('layout-actionsheet:click', key)
     },
     close () {
-      // todo
-      console.log('close')
+      window.$event.emit('layout-actionsheet:close')
     }
   }
 }
