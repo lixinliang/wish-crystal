@@ -27,8 +27,7 @@ export default {
   },
   methods: {
     hide () {
-      // todo
-      console.log('hide')
+      window.$event.emit('layout-alert:click')
     }
   }
 }
