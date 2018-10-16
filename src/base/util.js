@@ -210,3 +210,27 @@ util.find = (el) => {
 }
 
 util.copy = (obj) => JSON.parse(JSON.stringify([obj]))[0]
+
+util.load = (file) => new Promise((resolve) => window.loadjs(`./static/assets/${file}`, { success: resolve }))
+
+util.actionsheet = (options) => new Promise((resolve) => {
+  const base = {
+    show: true
+  }
+  const disposable = [
+    window.$event.listen('layout-actionsheet:click', (payload) => {
+      _.forEach(disposable, (item) => item.remove())
+      resolve({
+        type: 'click',
+        payload
+      })
+    }),
+    window.$event.listen('layout-actionsheet:close', () => {
+      _.forEach(disposable, (item) => item.remove())
+      resolve({
+        type: 'close'
+      })
+    })
+  ]
+  window.$event.emit('app:actionsheet', _.assign({}, base, options))
+})
