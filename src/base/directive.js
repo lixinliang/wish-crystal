@@ -1,5 +1,7 @@
 import Vue from 'vue'
 
+const { _ } = window
+
 // v-visible
 Vue.use({
   install (Vue) {
@@ -22,13 +24,25 @@ Vue.use({
 // v-image
 Vue.use({
   install (Vue) {
-    Vue.directive('image', (el, { value }) => {
+    Vue.directive('image', (el, { value, arg, modifiers }) => {
+      if (arg === 'size') {
+        const size = _.head(_.keys(modifiers))
+        if (size) {
+          const [ w, h ] = `${size}`.split('x')
+          const width = +w || 0
+          const height = +h || 0
+          if (width && height) {
+            el.style['width'] = `${width}px`
+            el.style['height'] = `${height}px`
+          }
+        }
+      }
       el.style['background-image'] = value ? `url(${value})` : ''
     })
   }
 })
 
-// todo
+// todo v-mc
 // v-mc
 // Vue.use({
 //   install (Vue) {
