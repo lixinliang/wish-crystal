@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-navbar" :class="style" v-if="this.$route.name">
+  <div class="layout-navbar" v-if="this.$route.name">
     <x-header v-if="displayHeader" :left-options="{ backText, showBack, preventGoBack }" :right-options="{ showMore }" @on-click-title="onClickTitle" @on-click-back="onClickBack" @on-click-more="onClickMore">
       <span class="title">{{$t(`layout-navbar@${$route.name}`)}}</span>
       <span slot="left" v-if="displayCancel" class="left cancel" @click="onCancel">{{$t(`layout-navbar@cancel`)}}</span>
@@ -21,7 +21,7 @@ import list from '@/img/list.svg'
 import i18nBase from './i18n-base'
 import i18nPage from './i18n-page'
 
-const { _ } = window
+// const { _ } = window
 
 export default {
   components: {
@@ -32,15 +32,15 @@ export default {
   data () {
     return {
       grid,
-      list,
-      store: new Vuex.Store
+      list
+      // store: new Vuex.Store
     }
   },
   computed: {
-    style () {
-      const { state, getter } = this.store
-      _.assign({}, state, getter)
-    },
+    // style () {
+    //   const { state, getter } = this.store
+    //   _.assign({}, state, getter)
+    // },
     displayHeader () {
       switch (this.$route.name) {
         case 'index':
@@ -122,9 +122,9 @@ export default {
     }
   },
   created () {
-    window.$event.on('layout-navbar:replace-state', (state) => {
-      this.store.replaceState(state)
-    })
+    // window.$event.on('layout-navbar:replace-state', (state) => {
+    //   this.store.replaceState(state)
+    // })
   }
 }
 </script>
