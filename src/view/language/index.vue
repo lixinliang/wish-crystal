@@ -1,8 +1,8 @@
 <template>
   <div id="language">
     <group>
-      <cell v-for="(item, $index) in list" :key="$index" :title="item.title" :disabled="$i18n.locale() === item.language" @click.native="$i18n.set(item.language)">
-        <icon v-visible="$i18n.locale() === item.language" slot type="success-no-circle"></icon>
+      <cell v-for="(item, $index) in list" :key="$index" :title="item.title" :disabled="$storage.user.lang === item.language" @click.native="set(item)">
+        <icon v-visible="$storage.user.lang === item.language" slot type="success-no-circle"></icon>
       </cell>
     </group>
   </div>
@@ -29,6 +29,12 @@ export default {
           language: 'en'
         }
       ]
+    }
+  },
+  methods: {
+    async set ({ language }) {
+      await this.$forage({ type: 'set', key: 'user@lang', value: language })
+      this.$i18n.set(language)
     }
   }
 }
