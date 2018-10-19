@@ -26,7 +26,8 @@ let webpackConfig = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
-      'package.json': resolve('package.json')
+      'package.json': resolve('package.json'),
+      'changelog.yml': resolve('changelog.yml')
     }
   },
   module: {
@@ -82,6 +83,10 @@ let webpackConfig = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
+      },
+      {
+        test: /\.(yaml|yml)$/,
+        loader: 'js-yaml-loader'
       }
     ]
   },
