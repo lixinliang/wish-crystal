@@ -24,3 +24,14 @@ Vue.filter('log', (value) => {
 Vue.filter('format', (value, expression) => {
   return window.moment(value).format(expression)
 })
+
+Vue.filter('badge', (value) => {
+  const badge = +value || 0
+  if (badge <= 0) {
+    return ''
+  }
+  if (badge >= 100) {
+    return '99+'
+  }
+  return `${badge}`
+})
