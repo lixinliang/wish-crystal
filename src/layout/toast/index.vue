@@ -7,6 +7,8 @@
 <script>
 import { Toast } from 'vux'
 
+const { _ } = window
+
 export default {
   components: {
     Toast
@@ -17,7 +19,7 @@ export default {
     }
   },
   created () {
-    window.$event.on('app:toast', ({ text, width }) => {
+    window.$event.on('app:toast', ({ text = '', width = '' }) => {
       const item = {}
       item.text = `${text}`
       item.width = `${width}`
@@ -28,7 +30,7 @@ export default {
     window.util.loop(async () => {
       await window.util.sleep(60 * 1000)
       if (this.list.length) {
-        const bool = window._.every(this.list, 'disabled')
+        const bool = _.every(this.list, 'disabled')
         if (bool) {
           this.list = []
         }
