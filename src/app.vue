@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="g-head">
+    <div class="g-head" @touchmove.stop.prevent>
       <layout-navbar ref="navbar"></layout-navbar>
     </div>
     <div class="g-body">
@@ -53,7 +53,6 @@ export default {
     min-height: 100%;
     overflow: hidden;
     position: relative;
-    // -webkit-overflow-scrolling: touch;
     background-color: $background-color-normal;
     .g-head {
       height: 0;
