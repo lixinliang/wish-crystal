@@ -10,10 +10,17 @@ const base = [
 
 const config = {
   about: {
+    assets: ['hammer.min.js'],
     component: () => import(/* webpackChunkName: "about" */'@/view/about')
   },
   changelog: {
     component: () => import(/* webpackChunkName: "changelog" */'@/view/changelog')
+  },
+  checkcode: {
+    component: () => import(/* webpackChunkName: "checkcode" */'@/view/checkcode')
+  },
+  develop: {
+    component: () => import(/* webpackChunkName: "develop" */'@/view/develop')
   },
   home: {
     component: () => import(/* webpackChunkName: "home" */'@/view/home')
@@ -44,6 +51,9 @@ const config = {
   },
   profile: {
     component: () => import(/* webpackChunkName: "profile" */'@/view/profile')
+  },
+  setting: {
+    component: () => import(/* webpackChunkName: "setting" */'@/view/setting')
   },
   tree: {
     component: () => import(/* webpackChunkName: "tree" */'@/view/tree')
