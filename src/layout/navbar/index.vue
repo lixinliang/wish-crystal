@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-navbar" v-if="this.$route.name">
+  <div class="layout-navbar" v-fade="this.$route.name && displayHeader" :class="style">
     <x-header v-if="displayHeader" :left-options="{ backText, showBack, preventGoBack }" :right-options="{ showMore }" @on-click-title="onClickTitle" @on-click-back="onClickBack" @on-click-more="onClickMore">
       <span class="title">{{$t(`layout-navbar@${$route.name}`)}}</span>
       <span slot="left" v-if="displayCancel" class="left cancel" @click="onCancel">{{$t(`layout-navbar@cancel`)}}</span>
@@ -21,8 +21,6 @@ import list from '@/img/list.svg'
 import i18nBase from './i18n-base'
 import i18nPage from './i18n-page'
 
-// const { _ } = window
-
 export default {
   components: {
     XHeader,
@@ -32,15 +30,11 @@ export default {
   data () {
     return {
       grid,
-      list
-      // store: new Vuex.Store
+      list,
+      style: null
     }
   },
   computed: {
-    // style () {
-    //   const { state, getter } = this.store
-    //   _.assign({}, state, getter)
-    // },
     displayHeader () {
       switch (this.$route.name) {
         case 'index':
@@ -50,6 +44,7 @@ export default {
     },
     showBack () {
       switch (this.$route.name) {
+        case 'checkcode':
         case 'home':
         case 'name':
         case 'person':
@@ -73,6 +68,7 @@ export default {
     },
     displayCancel () {
       switch (this.$route.name) {
+        case 'checkcode':
         case 'name':
           return true
       }
@@ -80,6 +76,7 @@ export default {
     },
     displaySave () {
       switch (this.$route.name) {
+        case 'checkcode':
         case 'name':
           return true
       }
@@ -122,9 +119,13 @@ export default {
     }
   },
   created () {
-    // window.$event.on('layout-navbar:replace-state', (state) => {
-    //   this.store.replaceState(state)
-    // })
+    window.$event.on('layout-navbar:style', (callback) => {
+      if (callback) {
+        this.style = callback()
+      } else {
+        this.style = null
+      }
+    })
   }
 }
 </script>
@@ -148,10 +149,6 @@ export default {
       &:active {
         opacity: .5;
       }
-      &.is-disabled {
-        opacity: .5;
-        pointer-events: none;
-      }
     }
     .grid-or-list {
       width: 20px;
@@ -170,6 +167,7 @@ export default {
 
 <style lang="scss">
   .layout-navbar {
+    background-color: #35495e;
     .vux-header {
       .vux-header-left {
         .vux-header-back {
@@ -208,21 +206,22 @@ export default {
 <style lang="scss">
   @import '~@/global';
   .g-body {
-    padding-top: 46px;
+    padding-top: $navbar + $ios-status-bar;
+  }
+  .layout-navbar {
+    height: $navbar + $ios-status-bar;
+    .vux-header {
+      top: $navbar + $ios-status-bar - $xheader;
+    }
   }
   html.iphonex {
     .g-body {
-      padding-top: 46px + $iphonex-status-bar;
+      padding-top: $navbar + $ios-status-bar + $iphonex-status-bar;
     }
-  }
-</style>
-
-<style lang="scss">
-  @import '~@/global';
-  html.iphonex {
     .layout-navbar {
+      height: $navbar + $ios-status-bar + $iphonex-status-bar;
       .vux-header {
-        padding-top: 3px + $iphonex-status-bar;
+        top: $navbar + $ios-status-bar + $iphonex-status-bar - $xheader;
       }
     }
   }
