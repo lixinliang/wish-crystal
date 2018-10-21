@@ -9,6 +9,12 @@ layout-navbar@about:
 layout-navbar@changelog:
   en: Change Log
   zh-CN: 更新日志
+layout-navbar@checkcode:
+  en: Check Code
+  zh-CN: 校验码
+layout-navbar@develop:
+  en: Develop
+  zh-CN: 开发者选项
 layout-navbar@home:
   en: Home
   zh-CN: 首页
@@ -27,6 +33,9 @@ layout-navbar@photo:
 layout-navbar@profile:
   en: Profile
   zh-CN: 个人信息
+layout-navbar@setting:
+  en: Setting
+  zh-CN: 设置
 layout-navbar@tree:
   en: Dependence Trees
   zh-CN: 依赖树
