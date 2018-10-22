@@ -23,6 +23,7 @@ util.timeout = (delay) => {
   return { sid, tick }
 }
 
+// todo
 // util.interval = async (callback, delay) => {
 //   clearTimeout(callback['@interval'])
 //   await callback()
@@ -234,3 +235,7 @@ util.actionsheet = (options) => new Promise((resolve) => {
   ]
   window.$event.emit('app:actionsheet', _.assign({}, base, options))
 })
+
+util.uuid = () => {
+  return ('0000' + Math.ceil(Math.random() * 256 * 256).toString(16)).slice(-4)
+}
