@@ -3,7 +3,10 @@ $background-color-active: #f3f3f3;
 
 $green-color: #09bb07;
 
-$iphonex-status-bar: 20px;
+$navbar: 44px;
+$xheader: 46px;
+$ios-status-bar: 20px;
+$iphonex-status-bar: 24px;
 $iphonex-home-indicator: 34px;
 
 @mixin icon {
@@ -26,19 +29,15 @@ $iphonex-home-indicator: 34px;
   }
 }
 
-@mixin noop {
-  // todo
+@mixin page-base {
   height: 100%;
   overflow: hidden;
   position: relative;
   background-color: $background-color-normal;
 }
 
-@mixin index {
-  height: 100%;
-  overflow: hidden;
-  position: relative;
-  background-color: $background-color-normal;
+@mixin page-index {
+  @include page-base;
   .logo {
     width: 96px;
     height: 96px;
