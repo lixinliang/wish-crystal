@@ -42,20 +42,28 @@ Vue.use({
   }
 })
 
-// todo v-mc
+const closure = {}
+
 // v-mc
-// Vue.use({
-//   install (Vue) {
-//     Vue.directive('mc', {
-//       bind (el, { value }) {
-//         const mc = new window.Hammer.Manager(el)
-//         value['@mc'] = mc
-//         value(mc)
-//       },
-//       unbind (el, { value }) {
-//         const mc = value['@mc']
-//         mc.destroy()
-//       }
-//     })
-//   }
-// })
+Vue.use({
+  install (Vue) {
+    Vue.directive('mc', {
+      bind (el, { value }) {
+        let uuid
+        const mc = new window.Hammer.Manager(el)
+        while (uuid && !closure[uuid]) {
+          uuid = window.util.uuid()
+        }
+        closure[uuid] = mc
+        el.dataset.mc = uuid
+        value(mc)
+      },
+      unbind (el, { value }) {
+        const uuid = el.dataset.mc
+        const mc = closure[uuid]
+        closure[uuid] = null
+        mc.destroy()
+      }
+    })
+  }
+})
