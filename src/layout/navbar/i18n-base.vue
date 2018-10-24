@@ -12,4 +12,10 @@ layout-navbar@cancel:
 layout-navbar@save:
   en: Save
   zh-CN: 保存
+layout-navbar@confirm:
+  en: Confirm
+  zh-CN: 确定
+layout-navbar@create:
+  en: Create
+  zh-CN: 创建
 </i18n>
