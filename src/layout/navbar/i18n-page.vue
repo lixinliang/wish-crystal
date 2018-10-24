@@ -42,4 +42,13 @@ layout-navbar@tree:
 layout-navbar@wish:
   en: Wish Note
   zh-CN: 心愿贴
+layout-navbar@wish-add:
+  en: Create Wish Note
+  zh-CN: 创建心愿贴
+layout-navbar@wish-detail:
+  en: Wish Note Detail
+  zh-CN: 查看心愿贴
+layout-navbar@wish-edit:
+  en: Edit Wish Note
+  zh-CN: 编辑心愿贴
 </i18n>
