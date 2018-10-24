@@ -8,12 +8,10 @@
     </div>
     <layout-alert/>
     <layout-toast/>
+    <layout-picker/>
+    <layout-confirm/>
     <layout-loading/>
     <layout-actionsheet/>
-    <!-- todo confirm -->
-    <!-- todo picker -->
-    <!-- todo view box -->
-    <!-- todo scroller -->
     <!-- todo webview -->
   </div>
 </template>
@@ -22,12 +20,17 @@
 app@save-success:
   en: Saved Successfully
   zh-CN: 保存成功
+app@create-success:
+  en: Created Successfully
+  zh-CN: 创建成功
 </i18n>
 
 <script>
 import layoutAlert from '@/layout/alert'
 import layoutToast from '@/layout/toast'
 import layoutNavbar from '@/layout/navbar'
+import layoutPicker from '@/layout/picker'
+import layoutConfirm from '@/layout/confirm'
 import layoutLoading from '@/layout/loading'
 import layoutActionsheet from '@/layout/actionsheet'
 import router from './router'
@@ -35,9 +38,11 @@ import router from './router'
 export default {
   router,
   components: {
-    layoutNavbar,
     layoutAlert,
     layoutToast,
+    layoutNavbar,
+    layoutPicker,
+    layoutConfirm,
     layoutLoading,
     layoutActionsheet
   }
