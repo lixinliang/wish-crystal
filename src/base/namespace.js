@@ -38,9 +38,18 @@ window.$event.on('root:tick', (bool) => {
 
 window.$event.emit('root:tick', true)
 
-Vue.prototype.$push = (name) => {
-  window.router.push(`/${name}`)
-}
 Vue.prototype.$pop = () => {
   window.router.go(-1)
+}
+Vue.prototype.$push = (name, params) => {
+  window.router.push({
+    name,
+    params
+  })
+}
+Vue.prototype.$replace = (name, params) => {
+  window.router.replace({
+    name,
+    params
+  })
 }
