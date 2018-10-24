@@ -29,6 +29,24 @@ $iphonex-home-indicator: 34px;
   }
 }
 
+@mixin ellipsis ($line: 0) {
+  @if ($line == 0) {
+    overflow: hidden;
+    white-space: nowrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    text-overflow: ellipsis;
+  } @else {
+    overflow: hidden;
+    display: -webkit-box;
+    word-wrap: break-word;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: $line;
+    -webkit-box-orient: vertical;
+  }
+}
+
 @mixin page-base {
   height: 100%;
   overflow: hidden;
