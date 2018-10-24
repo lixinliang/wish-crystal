@@ -60,6 +60,15 @@ const config = {
   },
   wish: {
     component: () => import(/* webpackChunkName: "wish" */'@/view/wish')
+  },
+  'wish-add': {
+    component: () => import(/* webpackChunkName: "wish-add" */'@/view/wish-add')
+  },
+  'wish-detail': {
+    component: () => import(/* webpackChunkName: "wish-detail" */'@/view/wish-detail')
+  },
+  'wish-edit': {
+    component: () => import(/* webpackChunkName: "wish-edit" */'@/view/wish-edit')
   }
 }
 
