@@ -1,21 +1,25 @@
 <template>
   <div id="language">
-    <group>
-      <cell v-for="(item, $index) in list" :key="$index" :title="item.title" :disabled="$storage.user.lang === item.language" @click.native="set(item)">
-        <icon v-visible="$storage.user.lang === item.language" slot type="success-no-circle"></icon>
-      </cell>
-    </group>
+    <widget-scroll-box>
+      <group>
+        <cell v-for="(item, $index) in list" :key="$index" :title="item.title" :disabled="$storage.user.lang === item.language" @click.native="set(item)">
+          <icon v-visible="$storage.user.lang === item.language" slot type="success-no-circle"></icon>
+        </cell>
+      </group>
+    </widget-scroll-box>
   </div>
 </template>
 
 <script>
 import { Cell, Icon, Group } from 'vux'
+import widgetScrollBox from '@/widget/scroll-box'
 
 export default {
   components: {
     Cell,
     Icon,
-    Group
+    Group,
+    widgetScrollBox
   },
   data () {
     return {
@@ -43,10 +47,7 @@ export default {
 <style lang="scss" scoped>
   @import '~@/global';
   #language {
-    height: 100%;
-    overflow: hidden;
-    position: relative;
-    background-color: $background-color-normal;
+    @include page-base;
   }
 </style>
 
