@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-tabbar">
+  <div class="layout-tabbar" @touchmove.prevent>
     <tabbar>
       <tabbar-item v-for="(item, $index) in tab" :key="$index" :selected="$route.name === item.name" @click.native="click(item)">
         <template slot="icon">
