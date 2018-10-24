@@ -4,9 +4,14 @@
       <span class="title">{{$t(`layout-navbar@${$route.name}`)}}</span>
       <span slot="left" v-if="displayCancel" class="left cancel" @click="onCancel">{{$t(`layout-navbar@cancel`)}}</span>
       <span slot="right" v-if="displaySave" class="right save" @click="onSave">{{$t(`layout-navbar@save`)}}</span>
+      <span slot="right" v-if="displayCreate" class="right create" @click="onCreate">{{$t(`layout-navbar@create`)}}</span>
+      <span slot="right" v-if="displayConfirm" class="right confirm" @click="onConfirm">{{$t(`layout-navbar@confirm`)}}</span>
       <span slot="right" v-if="displayGridOrList" class="right grid-or-list" @click="onGridOrList">
         <em v-if="$storage.config['home:style'] === 'grid'" v-html="grid"/>
         <em v-if="$storage.config['home:style'] === 'list'" v-html="list"/>
+      </span>
+      <span slot="right" v-if="displayPlus" class="right plus" @click="onPlus">
+        <em v-html="plus"/>
       </span>
     </x-header>
     <i18n-base></i18n-base>
@@ -18,6 +23,7 @@
 import { XHeader } from 'vux'
 import grid from '@/img/grid.svg'
 import list from '@/img/list.svg'
+import plus from '@/img/plus.svg'
 import i18nBase from './i18n-base'
 import i18nPage from './i18n-page'
 
@@ -31,6 +37,7 @@ export default {
     return {
       grid,
       list,
+      plus,
       style: null
     }
   },
@@ -49,6 +56,8 @@ export default {
         case 'name':
         case 'person':
         case 'wish':
+        case 'wish-add':
+        case 'wish-edit':
           return false
       }
       return true
@@ -57,11 +66,16 @@ export default {
       return this.$t('layout-navbar@back')
     },
     preventGoBack () {
+      switch (this.$route.name) {
+        case 'wish-edit':
+          return true
+      }
       return false
     },
     showMore () {
       switch (this.$route.name) {
         case 'photo':
+        case 'wish-detail':
           return true
       }
       return false
@@ -70,6 +84,8 @@ export default {
       switch (this.$route.name) {
         case 'checkcode':
         case 'name':
+        case 'wish-add':
+        case 'wish-edit':
           return true
       }
       return false
@@ -78,6 +94,17 @@ export default {
       switch (this.$route.name) {
         case 'checkcode':
         case 'name':
+        case 'wish-edit':
+          return true
+      }
+      return false
+    },
+    displayConfirm () {
+      return false
+    },
+    displayCreate () {
+      switch (this.$route.name) {
+        case 'wish-add':
           return true
       }
       return false
@@ -85,6 +112,13 @@ export default {
     displayGridOrList () {
       switch (this.$route.name) {
         case 'home':
+          return true
+      }
+      return false
+    },
+    displayPlus () {
+      switch (this.$route.name) {
+        case 'wish':
           return true
       }
       return false
@@ -106,6 +140,12 @@ export default {
     onSave () {
       window.$event.emit('layout-navbar:click', 'save')
     },
+    onConfirm () {
+      window.$event.emit('layout-navbar:click', 'confirm')
+    },
+    onCreate () {
+      window.$event.emit('layout-navbar:click', 'create')
+    },
     async onGridOrList () {
       const style = this.$storage.config['home:style']
       let value
@@ -116,6 +156,9 @@ export default {
         value = 'list'
       }
       await this.$forage({ type: 'set', key: 'config@home:style', value })
+    },
+    onPlus () {
+      window.$event.emit('layout-navbar:click', 'plus')
     }
   },
   created () {
@@ -142,7 +185,9 @@ export default {
         opacity: .5;
       }
     }
-    .save {
+    .save,
+    .create,
+    .confirm {
       font-weight: 400;
       color: $green-color;
       cursor: pointer;
@@ -150,7 +195,8 @@ export default {
         opacity: .5;
       }
     }
-    .grid-or-list {
+    .grid-or-list,
+    .plus {
       width: 20px;
       height: 20px;
       display: inline-block;
