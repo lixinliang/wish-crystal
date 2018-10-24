@@ -35,3 +35,7 @@ Vue.filter('badge', (value) => {
   }
   return `${badge}`
 })
+
+Vue.filter('decodeURIComponent', (value) => {
+  return decodeURIComponent(`${value}`)
+})
