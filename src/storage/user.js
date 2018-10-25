@@ -1,17 +1,19 @@
 import Vue from 'vue'
 
 export default {
-  proto: [
-    'name',
-    'avatar',
-    'lang'
-  ],
-  async init (forage) {
-    const value = await forage({ type: 'get', key: 'user@lang' })
-    if (Vue.i18n.localeExists(value)) {
+  'name': null,
+  'avatar': null,
+  'lang': {
+    defaultValue () {
+      return Vue.i18n.locale()
+    },
+    afterAssign (value) {
       Vue.i18n.set(value)
-    } else {
-      await forage({ type: 'set', key: 'user@lang', value })
+    }
+  },
+  'checkcode': {
+    defaultValue () {
+      return window.util.uuid()
     }
   }
 }
