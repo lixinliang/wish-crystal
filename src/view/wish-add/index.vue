@@ -111,4 +111,9 @@ export default {
       }
     }
   }
+  #wish-add {
+    input {
+      padding-left: 4px;
+    }
+  }
 </style>
