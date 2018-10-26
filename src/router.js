@@ -92,6 +92,12 @@ const routes = _.map(config, ({ alias, assets = [], component, beforeEnter }, na
 const router = new VueRouter({ routes })
 
 const beforeHook = async (to, from, next) => {
+  if (!navigator.standalone) {
+    if (to.name !== 'index') {
+      next('index')
+      return
+    }
+  }
   console.log(`[router.js]@beforeHook:to.name=${to.name}`)
   // 加载依赖资源
   const assets = _.concat(base, to.meta.assets)
