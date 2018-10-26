@@ -11,9 +11,6 @@ document.title = title
 const axios = window.util.load('axios.min.js')
 const localforage = window.util.load('localforage.min.js')
 
-// document.addEventListener('touchmove', (event) => {
-//   event.preventDefault()
-// }, false)
 
 // 启动应用
 window.$event.once('root:launch', async () => {
