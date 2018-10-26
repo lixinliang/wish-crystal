@@ -4,7 +4,6 @@ import VueRouter from 'vue-router'
 const closure = {}
 
 const base = [
-  'axios.min.js',
   'moment.min.js'
 ]
 
