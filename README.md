@@ -7,7 +7,6 @@ coming soon.
 
 * 兼容 iPhone X
 * 强制切换 测试环境 地址
-* 首页 样式 icon 反了
 * 关于 居中 样式
 
 * 增加 转场动画 拆分为 push / pop / replace

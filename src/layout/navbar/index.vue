@@ -7,8 +7,8 @@
       <span slot="right" v-if="displayCreate" class="right create" @click="onCreate">{{$t(`layout-navbar@create`)}}</span>
       <span slot="right" v-if="displayConfirm" class="right confirm" @click="onConfirm">{{$t(`layout-navbar@confirm`)}}</span>
       <span slot="right" v-if="displayGridOrList" class="right grid-or-list" @click="onGridOrList">
-        <em v-if="$storage.config['home:style'] === 'grid'" v-html="grid"/>
-        <em v-if="$storage.config['home:style'] === 'list'" v-html="list"/>
+        <em v-if="$storage.config['home:style'] === 'list'" v-html="grid"/>
+        <em v-if="$storage.config['home:style'] === 'grid'" v-html="list"/>
       </span>
       <span slot="right" v-if="displayPlus" class="right plus" @click="onPlus">
         <em v-html="plus"/>
