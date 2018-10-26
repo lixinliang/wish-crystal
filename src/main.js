@@ -15,6 +15,7 @@ const localforage = window.util.load('localforage.min.js')
 //   event.preventDefault()
 // }, false)
 
+// 启动应用
 window.$event.once('root:launch', async () => {
   await axios
   await localforage
@@ -23,6 +24,7 @@ window.$event.once('root:launch', async () => {
   window.$event.emit('root:create')
 })
 
+// 创建应用
 window.$event.on('root:create', () => {
   if (window.vm) {
     return
@@ -35,6 +37,7 @@ window.$event.on('root:create', () => {
   window.vm = new Vue(app).$mount('#app')
 })
 
+// 销毁应用
 window.$event.on('root:destroy', () => {
   if (!window.vm) {
     return
@@ -45,10 +48,13 @@ window.$event.on('root:destroy', () => {
   window.router.replace('/')
 })
 
+// 重启应用
+// 但是 storage 没有重新初始化
 window.$event.on('root:reboot', async () => {
   window.$event.emit('root:destroy')
   await window.util.nextTick()
   window.$event.emit('root:create')
 })
 
+// 启动应用
 window.$event.emit('root:launch')
