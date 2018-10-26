@@ -1,6 +1,6 @@
 <template>
   <div id="photo" @touchmove.prevent>
-    <input ref="file" type="file" accept="image/*" capture="capture" @change="change">
+    <input ref="file" type="file" accept="image/*" @change="change">
     <widget-default-avatar :width="size" :height="size"/>
   </div>
 </template>
