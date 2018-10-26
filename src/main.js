@@ -8,16 +8,25 @@ import app from './app'
 const title = '愿望水晶'
 document.title = title
 
-const axios = window.util.load('axios.min.js')
-const localforage = window.util.load('localforage.min.js')
+let axios
+let localforage
 
+if (navigator.standalone) {
+  // app 环境 引入依赖模块
+  axios = window.util.load('axios.min.js')
+  localforage = window.util.load('localforage.min.js')
+}
 
 // 启动应用
 window.$event.once('root:launch', async () => {
-  await axios
-  await localforage
-  await storage()
-  await window.util.nextTick()
+  if (navigator.standalone) {
+    // app 环境 引入依赖模块
+    await axios
+    await localforage
+    // app 环境 初始化 storage
+    await storage()
+    await window.util.nextTick()
+  }
   window.$event.emit('root:create')
 })
 
