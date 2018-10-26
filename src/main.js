@@ -15,6 +15,10 @@ if (navigator.standalone) {
   // app 环境 引入依赖模块
   axios = window.util.load('axios.min.js')
   localforage = window.util.load('localforage.min.js')
+  // iphonex 兼容
+  if (window.util.test('iphonex')) {
+    document.documentElement.style.height = `${window.screen.height}px`
+  }
 }
 
 // 启动应用

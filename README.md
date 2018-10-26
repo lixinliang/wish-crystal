@@ -5,7 +5,6 @@ coming soon.
 
 # TODO
 
-* 兼容 iPhone X
 * 强制切换 测试环境 地址
 * 关于 居中 样式
 
