@@ -26,3 +26,4 @@ coming soon.
 * 模块显式文件名 chunk name
 * splash动画提升开启的感知速度
 * mainifest 缓存
+* SDK 建立独立模块 从 layout 中迁移
