@@ -7,9 +7,7 @@
       <p>{{$t('about@title')}}</p>
       <p @click="toast">{{$t('about@version')}}：{{version}}.{{$timestamp|format('YYYYMMDD.HHmmss')}}</p>
       <p>
-        <span @click="$push('changelog')">{{$t('about@changelog')}}</span>
-        <span>·</span>
-        <span @click="$push('tree')">{{$t('about@tree')}}</span>
+        <em><span @click="$push('changelog')">{{$t('about@changelog')}}</span>·<span @click="$push('tree')">{{$t('about@tree')}}</span></em>
       </p>
       <div class="copyright">李昕亮(393464140@qq.com) 版权所有<br>Copyright © {{year}} lixinliang. All Rights Reserved.</div>
     </widget-scroll-box>
@@ -98,12 +96,31 @@ export default {
   #about {
     @include page-index;
     p {
-      span {
+      em {
+        position: relative;
         display: inline-block;
         height: 34px;
         line-height: 34px;
         font-size: 12px;
         color: $green-color;
+        font-style: normal;
+        span {
+          top: 0;
+          width: 120px;
+          position: absolute;
+          cursor: pointer;
+          &:active {
+            opacity: .7;
+          }
+          &:first-child {
+            right: 10px;
+            text-align: right;
+          }
+          &:last-child {
+            left: 10px;
+            text-align: left;
+          }
+        }
       }
     }
     .copyright {

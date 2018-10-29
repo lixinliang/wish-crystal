@@ -6,7 +6,6 @@ coming soon.
 # TODO
 
 * 强制切换 测试环境 地址
-* 关于 居中 样式
 
 * 增加 转场动画 拆分为 push / pop / replace
 * 更新提示 / 新功能介绍模块 intro
