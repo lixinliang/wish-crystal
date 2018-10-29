@@ -1,10 +1,15 @@
+// app 入口 main.js
+// 基础模块 base
 import './base'
+// 基础样式 style
 import './style.scss'
 import Vue from 'vue'
+// 数据管理库
 import storage from './storage'
 // @depend 依赖 storage.js
 import app from './app'
 
+// 页面标题
 const title = '愿望水晶'
 document.title = title
 
