@@ -6,13 +6,6 @@
     <div class="g-body">
       <router-view ref="view"></router-view>
     </div>
-    <layout-alert/>
-    <layout-toast/>
-    <layout-picker/>
-    <layout-confirm/>
-    <layout-loading/>
-    <layout-actionsheet/>
-    <!-- todo webview -->
   </div>
 </template>
 
@@ -26,25 +19,15 @@ app@create-success:
 </i18n>
 
 <script>
-import layoutAlert from '@/layout/alert'
-import layoutToast from '@/layout/toast'
-import layoutNavbar from '@/layout/navbar'
-import layoutPicker from '@/layout/picker'
-import layoutConfirm from '@/layout/confirm'
-import layoutLoading from '@/layout/loading'
-import layoutActionsheet from '@/layout/actionsheet'
+import sdk from './sdk'
 import router from './router'
+
+console.log(sdk)
 
 export default {
   router,
   components: {
-    layoutAlert,
-    layoutToast,
-    layoutNavbar,
-    layoutPicker,
-    layoutConfirm,
-    layoutLoading,
-    layoutActionsheet
+    sdk
   }
 }
 </script>
