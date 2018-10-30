@@ -1,5 +1,5 @@
 const html = document.documentElement
-const { userAgent } = window.navigator
+const { userAgent, standalone, onLine } = window.navigator
 const { width, height } = window.screen
 
 if (/android/.test(userAgent)) {
@@ -15,8 +15,14 @@ html.classList.add(`width${width}`)
 html.classList.add(`height${height}`)
 html.classList.add(`dpi${devicePixelRatio}`)
 
-if (navigator.standalone) {
+if (standalone) {
   html.classList.add('standalone')
+}
+
+if (onLine) {
+  html.classList.add('online')
+} else {
+  html.classList.add('offline')
 }
 
 if (process.env.NODE_ENV === 'development') {
