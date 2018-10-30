@@ -7,11 +7,6 @@ body {
   font-size: 12px;
 }
 
-html,
-body {
-  height: 100%;
-}
-
 * {
   outline: none;
   font-weight: 300;
@@ -37,22 +32,6 @@ p {
 input,
 textarea {
   user-select: auto;
-}
-
-[contenteditable="true"] {
-  &,
-  * {
-    user-select: text !important;
-    white-space: normal !important;
-    word-break: break-all !important;
-    word-wrap: break-word !important;
-  }
-  * {
-    color: inherit !important;
-  }
-  *:not(img) {
-    font-size: inherit !important;
-  }
 }
 
 svg {
