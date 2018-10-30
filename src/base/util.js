@@ -7,21 +7,17 @@ const util = {}
 window.util = util
 
 // 定时器 封装 promise
-util.sleep = (delay) => {
-  let sid = 0
-  const promise = new Promise((resolve) => (sid = setTimeout(resolve, delay)))
-  promise.sid = sid
-  return promise
-}
+util.sleep = (delay) => (new Promise((resolve) => (setTimeout(resolve, delay))))
 
-// nextTick 封装 promise
-util.nextTick = () => new Promise((resolve) => Vue.nextTick(resolve))
-
+// 定时器包含 sid 封装 promise
 util.timeout = (delay) => {
   let sid = 0
   const tick = new Promise((resolve) => (sid = setTimeout(resolve, delay)))
   return { sid, tick }
 }
+
+// nextTick 封装 promise
+util.nextTick = () => (new Promise((resolve) => (Vue.nextTick(resolve))))
 
 // todo
 // util.interval = async (callback, delay) => {
@@ -119,37 +115,37 @@ util.log = (...args) => {
 // @mapValues --> @keyBy, key => @computed
 // @keyBy --> keys, key => key
 // @computed --> () => state[key]
-util.mapState = (state, keys, defaults) => _.assign({}, _.mapValues(_.keyBy(keys, (key) => key), (key) => () => state[key]), defaults)
+// util.mapState = (state, keys, defaults) => _.assign({}, _.mapValues(_.keyBy(keys, (key) => key), (key) => () => state[key]), defaults)
 
 // 映射 this[path] 到 vue component compute
 // @assign --> {}, @mapValues, defaults
 // @mapValues --> @keyBy, key => @computed
 // @keyBy --> keys, key => key
 // @computed --> () => this[...path][key]
-util.mapPath = (path, keys, defaults) => _.assign({}, _.mapValues(_.keyBy(keys, (key) => key), (key) => function () {
-  return _.get(this, path)[key]
-}), defaults)
+// util.mapPath = (path, keys, defaults) => _.assign({}, _.mapValues(_.keyBy(keys, (key) => key), (key) => function () {
+//   return _.get(this, path)[key]
+// }), defaults)
 
 // 映射 store state 到 store mutation
 // @assign --> {}, @mapValues, defaults
 // @mapValues --> @keyBy, key => @mutation,
 // @keyBy --> keys, key => key
 // @mutation --> (state, value) => state[key] = value
-util.commitable = (keys, defaults) => _.assign({}, _.mapValues(_.keyBy(keys, (key) => key), (key) => (state, value) => (state[key] = value)), defaults)
+// util.commitable = (keys, defaults) => _.assign({}, _.mapValues(_.keyBy(keys, (key) => key), (key) => (state, value) => (state[key] = value)), defaults)
 
 // 请求 img 封装 promise
-util.img = (url) => new Promise((resolve) => {
+util.img = (url) => (new Promise((resolve) => {
   const img = new Image()
   img.onload = img.onerror = resolve.bind(null, img)
   img.src = url
-})
+}))
 
 // file reader 封装 promise
-util.reader = (file) => new Promise((resolve) => {
+util.reader = (file) => (new Promise((resolve) => {
   const reader = new FileReader()
   reader.onload = resolve.bind(null, reader)
   reader.readAsDataURL(file)
-})
+}))
 
 // exif 封装 promise
 // util.exif = (img) => new Promise((resolve) => {
@@ -175,6 +171,7 @@ util.canvas = (width, height) => {
 // 设备判断 系统版本判断 等等
 // @depend 依赖 detect.js
 util.test = (className) => !!document.querySelector(`html.${className}`)
+document.documentElement.classList.contains('fontface')
 
 const requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || ((fn) => setTimeout(fn, 16.7))
 
