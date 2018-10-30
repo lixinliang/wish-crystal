@@ -14,6 +14,9 @@ const config = {
     assets: ['hammer.min.js'],
     component: () => import(/* webpackChunkName: "about" */'@/view/about')
   },
+  blank: {
+    component: () => import(/* webpackChunkName: "blank" */'@/view/blank')
+  },
   changelog: {
     component: () => import(/* webpackChunkName: "changelog" */'@/view/changelog')
   },
