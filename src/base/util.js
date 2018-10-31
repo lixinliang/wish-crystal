@@ -115,13 +115,14 @@ util.canvas = (width, height) => {
 }
 
 // 设备判断 系统版本判断 等等
-// @depend 依赖 detect.js
+// @depend 结合 detect.js 使用
 util.test = _.bind(DOMTokenList.prototype.contains, document.documentElement.classList)
 
 // 利用 json 简单数据 深拷贝
 util.copy = (obj) => (JSON.parse(JSON.stringify([obj]))[0])
 
 // 加载资源 封装 promise
+// @depend 依赖 loadjs
 util.load = (file) => (new Promise((resolve) => (window.loadjs(`./static/assets/${file}`, { success: resolve }))))
 
 // 创建四位随机字符
