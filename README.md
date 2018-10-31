@@ -27,3 +27,4 @@ coming soon.
 * splash动画提升开启的感知速度
 * mainifest 缓存
 * SDK 建立独立模块 从 layout 中迁移
+* 保存路由父页面状态例如滚动等
