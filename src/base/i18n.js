@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import vuexI18n from 'vuex-i18n'
@@ -21,8 +22,7 @@ if (/zh/.test(navigator.language)) {
 
 window.i18n = store
 
-const { _ } = window
-
+// webpage plugin i18n-loader 通讯使用
 window.$event.on('i18n:add', (i18n) => {
   _.forEach(i18n, (value, key) => {
     if (Vue.i18n.keyExists(key)) {
