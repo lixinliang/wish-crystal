@@ -6,7 +6,7 @@ import './style.scss'
 import Vue from 'vue'
 // 数据管理库
 import storage from './storage'
-// @depend 依赖 storage.js
+// app 应用
 import app from './app'
 
 // 页面标题
@@ -16,7 +16,7 @@ document.title = title
 let axios
 let localforage
 
-if (navigator.standalone) {
+if (window.util.test('standalone')) {
   // app 环境 引入依赖模块
   axios = window.util.load('axios.min.js')
   localforage = window.util.load('localforage.min.js')
@@ -24,7 +24,7 @@ if (navigator.standalone) {
 
 // 启动应用
 window.$event.once('root:launch', async () => {
-  if (navigator.standalone) {
+  if (window.util.test('standalone')) {
     // app 环境 引入依赖模块
     await axios
     await localforage
