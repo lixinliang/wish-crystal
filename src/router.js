@@ -35,8 +35,8 @@ const config = {
     component: () => import(/* webpackChunkName: "index" */'@/view/index'),
     beforeEnter (to, from, next) {
       if (window.util.test('standalone')) {
-        // app 环境 跳转到 首页
-        next('home')
+        // app 环境 跳转到 启动动画
+        next('splash')
         return
       }
       next()
@@ -59,6 +59,9 @@ const config = {
   },
   setting: {
     component: () => import(/* webpackChunkName: "setting" */'@/view/setting')
+  },
+  splash: {
+    component: () => import(/* webpackChunkName: "splash" */'@/view/splash')
   },
   tree: {
     component: () => import(/* webpackChunkName: "tree" */'@/view/tree')
