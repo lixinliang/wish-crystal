@@ -9,6 +9,9 @@ if (/android/.test(userAgent)) {
   if (width === 375 && height === 812) {
     html.classList.add('iphonex')
   }
+  if (width === 414 && height === 896) {
+    html.classList.add('iphonex')
+  }
 }
 
 html.classList.add(`width${width}`)
