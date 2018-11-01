@@ -151,5 +151,3 @@ util.actionsheet = (options) => (new Promise((resolve) => {
   ]
   window.$event.emit('app:actionsheet', _.assign({}, base, options))
 }))
-
-export default util
