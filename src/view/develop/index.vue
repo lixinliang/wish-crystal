@@ -1,6 +1,7 @@
 <template>
   <div id="develop">
     <widget-scroll-box>
+      <layout-navbar-shadow/>
       <group>
         <cell :title="$t('develop@checkcode')" :value="$storage.user.checkcode" is-link @click.native="$push('checkcode')"/>
       </group>
@@ -8,10 +9,14 @@
         <panel type="2" :list="list"/>
       </group>
     </widget-scroll-box>
+    <layout-navbar :title="$t('develop@layout-navbar-title')"/>
   </div>
 </template>
 
 <i18n>
+develop@layout-navbar-title:
+  en: Develop
+  zh-CN: 开发者选项
 develop@checkcode:
   en: Check Code
   zh-CN: 校验码
@@ -19,6 +24,8 @@ develop@checkcode:
 
 <script>
 import { Cell, Group, Panel } from 'vux'
+import layoutNavbar from '@/layout/navbar'
+import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
 
 export default {
@@ -26,6 +33,8 @@ export default {
     Cell,
     Group,
     Panel,
+    layoutNavbar,
+    layoutNavbarShadow,
     widgetScrollBox
   },
   data () {
