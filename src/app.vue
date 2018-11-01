@@ -6,14 +6,11 @@
 </template>
 
 <script>
-import sdk from './sdk'
+import './sdk'
 import router from './router'
 
 export default {
-  router,
-  components: {
-    sdk
-  }
+  router
 }
 </script>
 
