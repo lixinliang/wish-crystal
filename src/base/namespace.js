@@ -3,9 +3,11 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 
+// 注册 Vue plugin
 Vue.use(Vuex)
 Vue.use(VueRouter)
 
+// 占用全局命名空间
 _.assign(window, {
   _,
   Vue,
@@ -13,6 +15,7 @@ _.assign(window, {
   VueRouter
 })
 
+// 占用 Vue 原型链 命名空间
 Vue.prototype.$_ = _
 Vue.prototype.$util = window.util
 Vue.prototype.$event = window.$event
@@ -20,6 +23,7 @@ Vue.prototype.$window = window
 Vue.prototype.$storage = window.util.observe({})
 Vue.prototype.$timestamp = process.env.TIMESTAMP || 0
 
+// 占用 Vue 原型链 命名空间
 Vue.prototype.$ = window.util.observe({
   now: 0
 })
@@ -39,6 +43,7 @@ window.$event.on('root:tick', (bool) => {
 
 window.$event.emit('root:tick', true)
 
+// 占用 Vue 原型链 命名空间
 Vue.prototype.$pop = () => {
   window.router.go(-1)
 }
