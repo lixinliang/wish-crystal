@@ -26,6 +26,7 @@ Vue.prototype.$ = window.util.observe({
 Vue.prototype.$.now = +new Date()
 
 let sid = 0
+// 开始或停止 刷新时钟
 window.$event.on('root:tick', (bool) => {
   if (bool) {
     sid = setInterval(() => {
