@@ -3,13 +3,13 @@
     <div class="logo">
       <i v-image:size.96x96="icon"/>
     </div>
-    <p>{{$t('index@title')}}</p>
+    <p>{{$t('index@app')}}</p>
     <p>{{$t('index@version')}}：{{version}}.{{$timestamp|format('YYYYMMDD.HHmmss')}}</p>
   </div>
 </template>
 
 <i18n>
-index@title:
+index@app:
   en: Wish Crystal
   zh-CN: 愿望水晶
 index@version:
