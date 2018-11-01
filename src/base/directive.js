@@ -1,6 +1,5 @@
+import _ from 'lodash'
 import Vue from 'vue'
-
-const { _ } = window
 
 // v-visible
 Vue.use({
