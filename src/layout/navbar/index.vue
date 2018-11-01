@@ -1,174 +1,89 @@
 <template>
-  <div class="layout-navbar" v-fade="this.$route.name && displayHeader" :class="style">
-    <x-header v-if="displayHeader" :left-options="{ backText, showBack, preventGoBack }" :right-options="{ showMore }" @on-click-title="onClickTitle" @on-click-back="onClickBack" @on-click-more="onClickMore">
-      <span class="title">{{$t(`layout-navbar@${$route.name}`)}}</span>
-      <span slot="left" v-if="displayCancel" class="left cancel" @click="onCancel">{{$t(`layout-navbar@cancel`)}}</span>
-      <span slot="right" v-if="displaySave" class="right save" @click="onSave">{{$t(`layout-navbar@save`)}}</span>
-      <span slot="right" v-if="displayCreate" class="right create" @click="onCreate">{{$t(`layout-navbar@create`)}}</span>
-      <span slot="right" v-if="displayConfirm" class="right confirm" @click="onConfirm">{{$t(`layout-navbar@confirm`)}}</span>
-      <span slot="right" v-if="displayGridOrList" class="right grid-or-list" @click="onGridOrList">
-        <em v-if="$storage.config['home:style'] === 'list'" v-html="grid"/>
-        <em v-if="$storage.config['home:style'] === 'grid'" v-html="list"/>
-      </span>
-      <span slot="right" v-if="displayPlus" class="right plus" @click="onPlus">
-        <em v-html="plus"/>
-      </span>
+  <div class="layout-navbar">
+    <x-header :left-options="{ backText, showBack, preventGoBack }" :right-options="{ showMore }" @on-click-title="onClickTitle" @on-click-back="onClickBack" @on-click-more="onClickMore">
+      <slot name="left" slot="left"></slot>
+      <slot name="right" slot="right"></slot>
+      <span class="title" v-if="this.title">{{this.title}}</span>
     </x-header>
-    <i18n-base></i18n-base>
-    <i18n-page></i18n-page>
   </div>
 </template>
 
+<i18n>
+layout-navbar@back:
+  en: Back
+  zh-CN: 返回
+layout-navbar@cancel:
+  en: Cancel
+  zh-CN: 取消
+layout-navbar@save:
+  en: Save
+  zh-CN: 保存
+layout-navbar@confirm:
+  en: Confirm
+  zh-CN: 确定
+layout-navbar@create:
+  en: Create
+  zh-CN: 创建
+</i18n>
+
 <script>
 import { XHeader } from 'vux'
-import grid from '@/img/grid.svg'
-import list from '@/img/list.svg'
-import plus from '@/img/plus.svg'
-import i18nBase from './i18n-base'
-import i18nPage from './i18n-page'
 
 export default {
-  components: {
-    XHeader,
-    i18nBase,
-    i18nPage
-  },
-  data () {
-    return {
-      grid,
-      list,
-      plus,
-      style: null
+  props: {
+    left: {
+      type: String,
+      default: ''
+    },
+    right: {
+      type: String,
+      default: ''
+    },
+    title: {
+      type: String,
+      default: ''
     }
   },
+  components: {
+    XHeader
+  },
   computed: {
-    displayHeader () {
-      switch (this.$route.name) {
-        case 'index':
-          return false
-      }
-      return true
-    },
     showBack () {
-      switch (this.$route.name) {
-        case 'checkcode':
-        case 'home':
-        case 'name':
-        case 'person':
-        case 'wish':
-        case 'wish-add':
-        case 'wish-edit':
-          return false
-      }
-      return true
+      return !this.$slots.left
     },
     backText () {
-      return this.$t('layout-navbar@back')
+      return this.left || this.$t('layout-navbar@back')
     },
     preventGoBack () {
-      switch (this.$route.name) {
-        case 'wish-edit':
-          return true
-      }
-      return false
+      return true
     },
     showMore () {
-      switch (this.$route.name) {
-        case 'photo':
-        case 'wish-detail':
-          return true
-      }
-      return false
-    },
-    displayCancel () {
-      switch (this.$route.name) {
-        case 'checkcode':
-        case 'name':
-        case 'wish-add':
-        case 'wish-edit':
-          return true
-      }
-      return false
-    },
-    displaySave () {
-      switch (this.$route.name) {
-        case 'checkcode':
-        case 'name':
-        case 'wish-edit':
-          return true
-      }
-      return false
-    },
-    displayConfirm () {
-      return false
-    },
-    displayCreate () {
-      switch (this.$route.name) {
-        case 'wish-add':
-          return true
-      }
-      return false
-    },
-    displayGridOrList () {
-      switch (this.$route.name) {
-        case 'home':
-          return true
-      }
-      return false
-    },
-    displayPlus () {
-      switch (this.$route.name) {
-        case 'wish':
-          return true
-      }
       return false
     }
   },
   methods: {
     onClickTitle () {
-      window.$event.emit('layout-navbar:click', 'title')
+      this.$emit('tap', {
+        type: 'title'
+      })
     },
     onClickBack () {
-      window.$event.emit('layout-navbar:click', 'back')
+      let back = true
+      this.$emit('tap', {
+        type: 'left',
+        preventDefault () {
+          back = false
+        }
+      })
+      if (back) {
+        this.$pop()
+      }
     },
     onClickMore () {
-      window.$event.emit('layout-navbar:click', 'more')
+      this.$emit('tap', {
+        type: 'right'
+      })
     },
-    onCancel () {
-      window.$event.emit('layout-navbar:click', 'cancel')
-    },
-    onSave () {
-      window.$event.emit('layout-navbar:click', 'save')
-    },
-    onConfirm () {
-      window.$event.emit('layout-navbar:click', 'confirm')
-    },
-    onCreate () {
-      window.$event.emit('layout-navbar:click', 'create')
-    },
-    async onGridOrList () {
-      const style = this.$storage.config['home:style']
-      let value
-      if (style === 'list') {
-        value = 'grid'
-      }
-      if (style === 'grid') {
-        value = 'list'
-      }
-      await this.$forage({ type: 'set', key: 'config@home:style', value })
-    },
-    onPlus () {
-      window.$event.emit('layout-navbar:click', 'plus')
-    }
-  },
-  created () {
-    window.$event.on('layout-navbar:style', (callback) => {
-      if (callback) {
-        this.style = callback()
-      } else {
-        this.style = null
-      }
-    })
   }
 }
 </script>
@@ -176,45 +91,24 @@ export default {
 <style lang="scss" scoped>
   @import '~@/global';
   .layout-navbar {
+    top: 0;
+    left: 0;
+    width: 100%;
+    position: absolute;
+    background-color: #35495e;
     .title {
       font-weight: 400;
-    }
-    .cancel {
-      cursor: pointer;
-      &:active {
-        opacity: .5;
-      }
-    }
-    .save,
-    .create,
-    .confirm {
-      font-weight: 400;
-      color: $green-color;
-      cursor: pointer;
-      &:active {
-        opacity: .5;
-      }
-    }
-    .grid-or-list,
-    .plus {
-      width: 20px;
-      height: 20px;
-      display: inline-block;
-      cursor: pointer;
-      &:active {
-        opacity: .5;
-      }
-      em {
-        pointer-events: none;
-      }
     }
   }
 </style>
 
 <style lang="scss">
   .layout-navbar {
-    background-color: #35495e;
     .vux-header {
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      position: absolute;
       .vux-header-left {
         .vux-header-back {
           &:active {
@@ -237,13 +131,6 @@ export default {
             font-size: 12px;
           }
         }
-        .grid-or-list {
-          svg {
-            width: 20px;
-            height: 20px;
-            display: inline-block;
-          }
-        }
       }
     }
   }
@@ -251,24 +138,12 @@ export default {
 
 <style lang="scss">
   @import '~@/global';
-  .g-body {
-    padding-top: $navbar + $ios-status-bar;
-  }
   .layout-navbar {
     height: $navbar + $ios-status-bar;
-    .vux-header {
-      top: $navbar + $ios-status-bar - $xheader;
-    }
   }
   html.iphonex {
-    .g-body {
-      padding-top: $navbar + $ios-status-bar + $iphonex-status-bar;
-    }
     .layout-navbar {
       height: $navbar + $ios-status-bar + $iphonex-status-bar;
-      .vux-header {
-        top: $navbar + $ios-status-bar + $iphonex-status-bar - $xheader;
-      }
     }
   }
 </style>
