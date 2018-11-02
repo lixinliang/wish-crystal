@@ -31,14 +31,6 @@ import { XHeader } from 'vux'
 
 export default {
   props: {
-    left: {
-      type: String,
-      default: ''
-    },
-    right: {
-      type: String,
-      default: ''
-    },
     title: {
       type: String,
       default: ''
@@ -49,10 +41,10 @@ export default {
   },
   computed: {
     showBack () {
-      return !this.$slots.left
+      return true
     },
     backText () {
-      return this.left || this.$t('layout-navbar@back')
+      return this.$t('layout-navbar@back')
     },
     preventGoBack () {
       return true
