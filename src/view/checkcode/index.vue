@@ -8,7 +8,7 @@
     </widget-scroll-box>
     <layout-navbar :title="$t('checkcode@layout-navbar-title')" @tap="navbarTap">
       <a slot="left">{{$t('layout-navbar@cancel')}}</a>
-      <a slot="right" :class="{ 'disabled': disabled }">{{$t('layout-navbar@confirm')}}</a>
+      <a slot="right" class="primary" :class="{ 'disabled': disabled }">{{$t('layout-navbar@save')}}</a>
     </layout-navbar>
   </div>
 </template>
@@ -50,17 +50,13 @@ export default {
     }
   },
   methods: {
-    navbarTap ({ type, preventDefault }) {
-      console.log(type)
-      if (type === 'left') {
-        preventDefault()
-      }
+    async navbarTap ({ type, preventDefault }) {
       if (type === 'right') {
-        // const { value } = this
-        // await this.$forage({ type: 'set', key: 'user@checkcode', value })
-        // const text = this.$t('app@save-success')
-        // window.$event.emit('app:toast', { text, width: '20em' })
-        // this.$pop()
+        const { value } = this
+        await this.$forage({ type: 'set', key: 'user@checkcode', value })
+        const text = this.$t('sdk-toast@save-success')
+        this.$sdk.toast({ text, width: '20em' })
+        this.$pop()
       }
     }
   }
@@ -71,9 +67,11 @@ export default {
   @import '~@/global';
   #checkcode {
     @include page-base;
+    .primary {
+      @include navbar-button-primary;
+    }
     .disabled {
-      opacity: .5;
-      pointer-events: none;
+      @include navbar-button-disabled;
     }
   }
 </style>
