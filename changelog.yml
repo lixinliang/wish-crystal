@@ -1,5 +1,6 @@
 v1.0.1 - null:
   zh-CN:
+    - '[feature] 拆分 SDK 模块'
     - '[fixed] 兼容 iPhone X'
     - '[fixed] 首页切换布局的 icon 错误'
     - '[fixed] 调整部分页面 UI'
