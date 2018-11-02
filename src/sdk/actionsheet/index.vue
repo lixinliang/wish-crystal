@@ -20,21 +20,38 @@ export default {
   data () {
     return {
       show: false,
-      menus: {}
+      menus: []
     }
   },
   created () {
-    window.$event.on('app:actionsheet', ({ show, menus }) => {
-      this.show = !!show
+    window.sdk.actionsheet = async ({ menus }) => {
       this.menus = menus
-    })
+      this.show = true
+      const result = await Promise.race([
+        new Promise((resolve) => window.$event.once('layout-actionsheet:click', resolve)),
+        new Promise((resolve) => window.$event.once('layout-actionsheet:close', resolve))
+      ])
+      return result
+    }
   },
   methods: {
-    click (key) {
-      window.$event.emit('layout-actionsheet:click', key)
+    click (index) {
+      if (index === 'cancel') {
+        window.$event.emit('layout-actionsheet:close', {
+          index: -1
+        })
+        return
+      }
+      const value = this.menus[index]
+      window.$event.emit('layout-actionsheet:click', {
+        index,
+        value
+      })
     },
     close () {
-      window.$event.emit('layout-actionsheet:close')
+      window.$event.emit('layout-actionsheet:close', {
+        index: -1
+      })
     }
   }
 }
