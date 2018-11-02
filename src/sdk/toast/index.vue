@@ -4,6 +4,15 @@
   </div>
 </template>
 
+<i18n>
+sdk-toast@save-success:
+  en: Saved Successfully
+  zh-CN: 保存成功
+sdk-toast@create-success:
+  en: Created Successfully
+  zh-CN: 创建成功
+</i18n>
+
 <script>
 import { Toast } from 'vux'
 
@@ -19,14 +28,14 @@ export default {
     }
   },
   created () {
-    window.$event.on('app:toast', ({ text = '', width = '' }) => {
+    window.sdk.toast = ({ text = '', width = '' }) => {
       const item = {}
       item.text = `${text}`
       item.width = `${width}`
       item.id = this.$.now
       item.disabled = false
       this.list.push(item)
-    })
+    }
     window.util.loop(async () => {
       await window.util.sleep(60 * 1000)
       if (this.list.length) {
