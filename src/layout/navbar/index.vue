@@ -1,9 +1,9 @@
 <template>
-  <div class="layout-navbar">
-    <x-header :left-options="{ backText, showBack, preventGoBack }" :right-options="{ showMore }" @on-click-title="onClickTitle" @on-click-back="onClickBack" @on-click-more="onClickMore">
-      <slot name="left" slot="left"></slot>
-      <slot name="right" slot="right"></slot>
+  <div class="layout-navbar" @touchmove.prevent @click="click">
+    <x-header :left-options="{ backText, showBack, preventGoBack }" :right-options="{ showMore }">
       <span class="title" v-if="this.title">{{this.title}}</span>
+      <slot slot="left" name="left"/>
+      <slot slot="right" name="right"/>
     </x-header>
   </div>
 </template>
@@ -62,28 +62,30 @@ export default {
     }
   },
   methods: {
-    onClickTitle () {
-      this.$emit('tap', {
-        type: 'title'
-      })
-    },
-    onClickBack () {
-      let back = true
-      this.$emit('tap', {
-        type: 'left',
-        preventDefault () {
-          back = false
+    click (event) {
+      if (event.target.matches('.vux-header-left *')) {
+        let back = true
+        this.$emit('tap', {
+          type: 'left',
+          preventDefault () {
+            back = false
+          }
+        })
+        if (back) {
+          this.$pop()
         }
-      })
-      if (back) {
-        this.$pop()
       }
-    },
-    onClickMore () {
-      this.$emit('tap', {
-        type: 'right'
-      })
-    },
+      if (event.target.matches('.vux-header-right *')) {
+        this.$emit('tap', {
+          type: 'right'
+        })
+      }
+      if (event.target.matches('.vux-header-title *')) {
+        this.$emit('tap', {
+          type: 'title'
+        })
+      }
+    }
   }
 }
 </script>
