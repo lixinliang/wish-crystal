@@ -79,3 +79,11 @@ $iphonex-home-indicator: 34px;
   }
 }
 
+@mixin navbar-button-primary {
+  color: $green-color;
+}
+
+@mixin navbar-button-disabled {
+  opacity: .5;
+  pointer-events: none;
+}
