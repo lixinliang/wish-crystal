@@ -1,15 +1,23 @@
 <template>
   <div id="wish-add">
     <widget-scroll-box>
+      <layout-navbar-shadow/>
       <group>
         <x-input v-model="title" :max="20" :placeholder="$t('wish-add@title')"/>
         <x-textarea v-model="content" :max="200" :placeholder="$t('wish-add@content')"/>
       </group>
     </widget-scroll-box>
+    <layout-navbar :title="$t('wish-add@layout-navbar-title')" @tap="navbarTap">
+      <a slot="left">{{$t('layout-navbar@cancel')}}</a>
+      <a slot="right" class="primary" :class="{ 'disabled': disabled }">{{$t('layout-navbar@create')}}</a>
+    </layout-navbar>
   </div>
 </template>
 
 <i18n>
+wish-add@layout-navbar-title:
+  en: Create Wish Note
+  zh-CN: 创建心愿贴
 wish-add@title:
   en: Title
   zh-CN: 标题
@@ -20,17 +28,17 @@ wish-add@content:
 
 <script>
 import { Group, XInput, XTextarea } from 'vux'
+import layoutNavbar from '@/layout/navbar'
+import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
-
-const { _ } = window
-
-const disposable = []
 
 export default {
   components: {
     Group,
     XInput,
     XTextarea,
+    layoutNavbar,
+    layoutNavbarShadow,
     widgetScrollBox
   },
   data () {
@@ -39,9 +47,19 @@ export default {
       content: ''
     }
   },
-  created () {
-    const toy = window.$event.listen('layout-navbar:click', async (type) => {
-      if (type === 'create') {
+  computed: {
+    disabled () {
+      const { title, content } = this
+      if (title && content) {
+        return false
+      } else {
+        return true
+      }
+    }
+  },
+  methods: {
+    async navbarTap ({ type }) {
+      if (type === 'right') {
         const { now } = this.$
         const { name, checkcode } = this.$storage.user
         const key = `${now}${checkcode}`
@@ -64,31 +82,11 @@ export default {
         }
         this.$set(this.$storage.wish.map, key, value)
         await this.$forage({ type: 'update', key: 'wish@map' })
-        const text = this.$t('app@create-success')
-        window.$event.emit('app:toast', { text, width: '20em' })
+        const text = this.$t('sdk-toast@create-success')
+        this.$sdk.toast({ text })
         this.$pop()
       }
-      if (type === 'cancel') {
-        this.$pop()
-      }
-    })
-    disposable.push(toy)
-    window.$event.emit('layout-navbar:style', () => {
-      return window.util.computed({
-        'has-create-is-disabled': () => {
-          const { title, content } = this
-          if (title && content) {
-            return false
-          } else {
-            return true
-          }
-        }
-      })
-    })
-  },
-  destroyed () {
-    _.forEach(disposable, (item) => item.remove())
-    window.$event.emit('layout-navbar:style')
+    }
   }
 }
 </script>
@@ -97,20 +95,16 @@ export default {
   @import '~@/global';
   #wish-add {
     @include page-base;
+    .primary {
+      @include navbar-button-primary;
+    }
+    .disabled {
+      @include navbar-button-disabled;
+    }
   }
 </style>
 
 <style lang="scss">
-  .layout-navbar {
-    &.has-create-is-disabled {
-      .vux-header {
-        .create {
-          opacity: .5;
-          pointer-events: none;
-        }
-      }
-    }
-  }
   #wish-add {
     input {
       padding-left: 4px;
