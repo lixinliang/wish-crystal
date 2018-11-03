@@ -77,8 +77,8 @@ export default {
   methods: {
     click ({ name }) {
       if (name === 'more') {
-        // todo
-        // window.$event.emit('app:alert', { show: true, content: this.$t('home@coming-soon') })
+        const content = this.$t('home@coming-soon')
+        this.$sdk.alert({ content })
         return
       }
       this.$push(name)
