@@ -25,8 +25,6 @@ import layoutNavbar from '@/layout/navbar'
 import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
 
-const { _ } = window
-
 export default {
   components: {
     Group,
@@ -50,7 +48,7 @@ export default {
     }
   },
   methods: {
-    async navbarTap ({ type, preventDefault }) {
+    async navbarTap ({ type }) {
       if (type === 'right') {
         const { value } = this
         await this.$forage({ type: 'set', key: 'user@checkcode', value })
