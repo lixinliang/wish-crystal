@@ -34,6 +34,10 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    right: {
+      type: String,
+      default: ''
     }
   },
   components: {
@@ -41,7 +45,7 @@ export default {
   },
   computed: {
     showBack () {
-      return true
+      return !this.$slots.left
     },
     backText () {
       return this.$t('layout-navbar@back')
@@ -50,7 +54,7 @@ export default {
       return true
     },
     showMore () {
-      return false
+      return this.right === 'more'
     }
   },
   methods: {
