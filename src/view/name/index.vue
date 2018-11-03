@@ -1,25 +1,36 @@
 <template>
   <div id="name">
     <widget-scroll-box>
+      <layout-navbar-shadow/>
       <group>
         <x-input :max="20" v-model="value"/>
       </group>
     </widget-scroll-box>
+    <layout-navbar :title="$t('name@layout-navbar-title')" @tap="navbarTap">
+      <a slot="left">{{$t('layout-navbar@cancel')}}</a>
+      <a slot="right" class="primary" :class="{ 'disabled': disabled }">{{$t('layout-navbar@save')}}</a>
+    </layout-navbar>
   </div>
 </template>
 
+<i18n>
+name@layout-navbar-title:
+  en: Nickname
+  zh-CN: 昵称
+</i18n>
+
 <script>
 import { Group, XInput } from 'vux'
+import layoutNavbar from '@/layout/navbar'
+import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
-
-const { _ } = window
-
-const disposable = []
 
 export default {
   components: {
     Group,
     XInput,
+    layoutNavbar,
+    layoutNavbarShadow,
     widgetScrollBox
   },
   data () {
@@ -27,35 +38,25 @@ export default {
       value: this.$storage.user.name
     }
   },
-  created () {
-    const toy = window.$event.listen('layout-navbar:click', async (type) => {
-      if (type === 'save') {
+  computed: {
+    disabled () {
+      if (this.value && this.value !== this.$storage.user.name) {
+        return false
+      } else {
+        return true
+      }
+    }
+  },
+  methods: {
+    async navbarTap ({ type }) {
+      if (type === 'right') {
         const { value } = this
         await this.$forage({ type: 'set', key: 'user@name', value })
-        const text = this.$t('app@save-success')
-        window.$event.emit('app:toast', { text, width: '20em' })
+        const text = this.$t('sdk-toast@save-success')
+        this.$sdk.toast({ text, width: '20em' })
         this.$pop()
       }
-      if (type === 'cancel') {
-        this.$pop()
-      }
-    })
-    disposable.push(toy)
-    window.$event.emit('layout-navbar:style', () => {
-      return window.util.computed({
-        'has-save-is-disabled': () => {
-          if (this.value && this.value !== this.$storage.user.name) {
-            return false
-          } else {
-            return true
-          }
-        }
-      })
-    })
-  },
-  destroyed () {
-    _.forEach(disposable, (item) => item.remove())
-    window.$event.emit('layout-navbar:style')
+    }
   }
 }
 </script>
@@ -64,18 +65,11 @@ export default {
   @import '~@/global';
   #name {
     @include page-base;
-  }
-</style>
-
-<style lang="scss">
-  .layout-navbar {
-    &.has-save-is-disabled {
-      .vux-header {
-        .save {
-          opacity: .5;
-          pointer-events: none;
-        }
-      }
+    .primary {
+      @include navbar-button-primary;
+    }
+    .disabled {
+      @include navbar-button-disabled;
     }
   }
 </style>
