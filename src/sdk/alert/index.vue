@@ -1,17 +1,19 @@
 <template>
   <div class="layout-alert">
-    <alert v-model="show" :title="title" :content="content" :button-text="$t('layout-alert@ok')" @on-hide="hide"/>
+    <alert v-model="show" :title="title" :content="content" :button-text="$t('sdk-alert@ok')" @on-hide="hide"/>
   </div>
 </template>
 
 <i18n>
-layout-alert@ok:
+sdk-alert@ok:
   en: OK
   zh-CN: 好的
 </i18n>
 
 <script>
 import { Alert } from 'vux'
+
+let resolve
 
 export default {
   components: {
@@ -25,15 +27,18 @@ export default {
     }
   },
   created () {
-    window.$event.on('app:alert', ({ show, title = '', content = '' }) => {
-      this.show = !!show
+    window.sdk.alert = async ({ title = '', content = '' }) => {
+      this.show = true
       this.title = `${title}`
       this.content = `${content}`
-    })
+      let promise
+      ({ promise, resolve } = window.util.promise())
+      await promise
+    }
   },
   methods: {
     hide () {
-      window.$event.emit('layout-alert:click')
+      resolve()
     }
   }
 }
