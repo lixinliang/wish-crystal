@@ -2,24 +2,26 @@
   <div id="photo" @touchmove.prevent>
     <input ref="file" type="file" accept="image/*" @change="change">
     <widget-default-avatar :width="size" :height="size"/>
+    <layout-navbar :title="$t('photo@layout-navbar-title')" :right="'more'" @tap="navbarTap"/>
   </div>
 </template>
 
 <i18n>
+photo@layout-navbar-title:
+  en: Photo
+  zh-CN: 头像
 photo@select-photo:
   en: Choose from Album
   zh-CN: 从相册选择图片
 </i18n>
 
 <script>
+import layoutNavbar from '@/layout/navbar'
 import widgetDefaultAvatar from '@/widget/default-avatar'
-
-const { _ } = window
-
-const disposable = []
 
 export default {
   components: {
+    layoutNavbar,
     widgetDefaultAvatar
   },
   data () {
@@ -28,10 +30,20 @@ export default {
     }
   },
   methods: {
+    async navbarTap ({ type }) {
+      if (type === 'right') {
+        const menus = [this.$t(`photo@select-photo`)]
+        const result = await this.$sdk.actionsheet({ menus })
+        const { index } = result
+        if (index === 0) {
+          this.$refs.file.click()
+        }
+      }
+    },
     async change (evnet) {
       const { files } = this.$refs.file
       if (files.length) {
-        window.$event.emit('app:loading', { show: true })
+        this.$sdk.loading({ show: true })
         const sleep = window.util.sleep(2000)
         const file = files[0]
         const { result } = await window.util.reader(file)
@@ -39,27 +51,11 @@ export default {
         const value = img.src
         await sleep
         await this.$forage({ type: 'set', key: 'user@avatar', value })
-        window.$event.emit('app:loading', { show: false })
-        const text = this.$t('app@save-success')
-        window.$event.emit('app:toast', { text, width: '20em' })
+        this.$sdk.loading({ show: false })
+        const text = this.$t('sdk-toast@save-success')
+        this.$sdk.toast({ text })
       }
     }
-  },
-  created () {
-    const toy = window.$event.listen('layout-navbar:click', async (type) => {
-      if (type === 'more') {
-        const menus = _.map(['select-photo'], (key) => this.$t(`photo@${key}`))
-        const result = await window.util.actionsheet({ menus })
-        const { payload } = result
-        if (payload === 0) {
-          this.$refs.file.click()
-        }
-      }
-    })
-    disposable.push(toy)
-  },
-  destroyed () {
-    _.forEach(disposable, (item) => item.remove())
   }
 }
 </script>
@@ -73,7 +69,8 @@ export default {
       top: 50%;
       transform: translateY(-50%);
       position: relative;
-      margin: 0 auto;
+      margin-left: auto;
+      margin-right: auto;
       border-radius: 0;
     }
     input[type="file"] {
@@ -82,6 +79,22 @@ export default {
       opacity: 0;
       font-size: 0;
       position: absolute;
+    }
+  }
+</style>
+
+<style lang="scss">
+  @import '~@/global';
+  #photo {
+    .widget-default-avatar {
+      margin-top: ($navbar + $ios-status-bar) * .5;
+    }
+  }
+  html.iphonex {
+    #photo {
+      .widget-default-avatar {
+        margin-top: ($navbar + $ios-status-bar + $iphonex-status-bar) * .5;
+      }
     }
   }
 </style>
