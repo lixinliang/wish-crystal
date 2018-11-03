@@ -9,8 +9,8 @@ export default {
     const { canvas, context } = window.util.canvas(width, height)
     canvas.style['top'] = 0
     canvas.style['left'] = 0
-    canvas.style['width'] = '100%'
-    canvas.style['height'] = '100%'
+    canvas.style['width'] = `${width}px`
+    canvas.style['height'] = `${height}px`
     canvas.style['z-index'] = 99999
     canvas.style['opacity'] = 1
     canvas.style['position'] = 'absolute'
