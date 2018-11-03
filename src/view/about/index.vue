@@ -76,7 +76,7 @@ export default {
   methods: {
     toast () {
       const text = this.$t('about@up-to-date')
-      this.$sdk.toast({ text, width: '20em' })
+      this.$sdk.toast({ text })
     },
     hammer (mc) {
       mc.add([new window.Hammer.Press()])
