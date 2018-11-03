@@ -28,7 +28,7 @@ export default {
     }
   },
   created () {
-    window.sdk.toast = ({ text = '', width = '' }) => {
+    window.sdk.toast = ({ text = '', width = '20em' }) => {
       const item = {}
       item.text = `${text}`
       item.width = `${width}`
