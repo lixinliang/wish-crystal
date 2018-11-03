@@ -10,7 +10,10 @@ import storage from './storage'
 import app from './app'
 
 // 页面标题
-const title = '愿望水晶'
+let title = '愿望水晶'
+if (window.util.test('development')) {
+  title = '愿望水晶-dev'
+}
 document.title = title
 
 let axios
