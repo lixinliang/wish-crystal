@@ -1,6 +1,7 @@
 <template>
   <div id="person">
     <widget-scroll-box>
+      <layout-navbar-shadow/>
       <group>
         <cell is-link @click.native="$push('profile')">
           <template slot="icon">
@@ -17,11 +18,15 @@
         <cell :title="$t('person@setting')" is-link @click.native="$push('setting')"></cell>
       </group>
     </widget-scroll-box>
-    <layout-tabbar></layout-tabbar>
+    <layout-tabbar/>
+    <layout-navbar :title="$t('person@layout-navbar-title')"/>
   </div>
 </template>
 
 <i18n>
+person@layout-navbar-title:
+  en: Me
+  zh-CN: 我
 person@setting:
   en: Setting
   zh-CN: 设置
@@ -30,6 +35,8 @@ person@setting:
 <script>
 import { Cell, Group } from 'vux'
 import layoutTabbar from '@/layout/tabbar'
+import layoutNavbar from '@/layout/navbar'
+import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
 import widgetDefaultName from '@/widget/default-name'
 import widgetDefaultAvatar from '@/widget/default-avatar'
@@ -39,6 +46,8 @@ export default {
     Cell,
     Group,
     layoutTabbar,
+    layoutNavbar,
+    layoutNavbarShadow,
     widgetScrollBox,
     widgetDefaultName,
     widgetDefaultAvatar
@@ -52,6 +61,16 @@ export default {
     @include page-base;
     .avatar {
       padding-right: 5px;
+    }
+  }
+</style>
+
+<style lang="scss">
+  #person {
+    .layout-navbar {
+      .vux-header-left {
+        display: none;
+      }
     }
   }
 </style>
