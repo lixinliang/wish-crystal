@@ -18,10 +18,10 @@ export default {
     }
   },
   created () {
-    window.$event.on('app:loading', ({ show, text = '' }) => {
+    window.sdk.loading = async ({ show, text = '' }) => {
       this.show = !!show
       this.text = `${text}`
-    })
+    }
   }
 }
 </script>
