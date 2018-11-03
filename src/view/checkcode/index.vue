@@ -53,7 +53,7 @@ export default {
         const { value } = this
         await this.$forage({ type: 'set', key: 'user@checkcode', value })
         const text = this.$t('sdk-toast@save-success')
-        this.$sdk.toast({ text, width: '20em' })
+        this.$sdk.toast({ text })
         this.$pop()
       }
     }
