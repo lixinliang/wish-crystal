@@ -1,6 +1,7 @@
 <template>
   <div id="profile">
     <widget-scroll-box>
+      <layout-navbar-shadow/>
       <group>
         <cell :title="$t('profile@photo')" is-link @click.native="$push('photo')">
           <widget-default-avatar :width="60" :height="60"/>
@@ -11,10 +12,14 @@
         <cell :title="$t('profile@checkcode')" :value="$storage.user.checkcode"/>
       </group>
     </widget-scroll-box>
+    <layout-navbar :title="$t('profile@layout-navbar-title')"/>
   </div>
 </template>
 
 <i18n>
+profile@layout-navbar-title:
+  en: Profile
+  zh-CN: 个人信息
 profile@photo:
   en: Photo
   zh-CN: 头像
@@ -28,6 +33,8 @@ profile@checkcode:
 
 <script>
 import { Cell, Group } from 'vux'
+import layoutNavbar from '@/layout/navbar'
+import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
 import widgetDefaultName from '@/widget/default-name'
 import widgetDefaultAvatar from '@/widget/default-avatar'
@@ -36,6 +43,8 @@ export default {
   components: {
     Cell,
     Group,
+    layoutNavbar,
+    layoutNavbarShadow,
     widgetScrollBox,
     widgetDefaultName,
     widgetDefaultAvatar
