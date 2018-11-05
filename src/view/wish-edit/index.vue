@@ -9,7 +9,7 @@
     </widget-scroll-box>
     <layout-navbar :title="$t('wish-edit@layout-navbar-title')" @tap="navbarTap">
       <a slot="left">{{$t('layout-navbar@cancel')}}</a>
-      <a slot="right" class="primary" :class="{ 'disabled': disabled }">{{$t('layout-navbar@create')}}</a>
+      <a slot="right" class="primary" :class="{ 'disabled': disabled }">{{$t('layout-navbar@save')}}</a>
     </layout-navbar>
   </div>
 </template>
@@ -46,7 +46,13 @@ export default {
   },
   computed: {
     item () {
-      return this.$route && this.$route.params && this.$route.params.item
+      const item = this.$route && this.$route.params && this.$route.params.item
+      if (item) {
+        const { title, content } = item
+        this.title = decodeURIComponent(title)
+        this.content = decodeURIComponent(content)
+        return item
+      }
     },
     disabled () {
       const { title, content } = this
@@ -61,12 +67,6 @@ export default {
     return {
       title: '',
       content: ''
-    }
-  },
-  created () {
-    if (this.item) {
-      this.title = this.item.title
-      this.content = this.item.content
     }
   },
   methods: {
