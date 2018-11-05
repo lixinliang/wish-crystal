@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-confirm">
+  <div class="sdk-confirm">
     <confirm v-model="show" :title="'title'" :content="'content'" :confirmText="'confirmText'" :cancelText="'cancelText'" @on-cancel="cancel" @on-confirm="confirm" @on-hide="hide"/>
   </div>
 </template>
