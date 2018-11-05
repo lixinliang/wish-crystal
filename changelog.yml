@@ -1,5 +1,6 @@
 v1.0.1 - null:
   zh-CN:
+    - '[feature] 新增「编辑心愿贴」页面'
     - '[feature] 重构 navigation 导航组件'
     - '[feature] 拆分 SDK 模块'
     - '[fixed] 兼容 iPhone X'
