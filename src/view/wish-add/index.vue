@@ -65,7 +65,7 @@ export default {
         const key = `${now}${checkcode}`
         const born = now
         const uid = checkcode
-        const wid = window.util.uuid()
+        const wid = window.util.uuid(4)
         const title = encodeURIComponent(this.title)
         const content = encodeURIComponent(this.content)
         const value = {
