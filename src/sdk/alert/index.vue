@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-alert">
+  <div class="sdk-alert">
     <alert v-model="show" :title="title" :content="content" :button-text="$t('sdk-alert@ok')" @on-hide="hide"/>
   </div>
 </template>
