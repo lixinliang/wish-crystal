@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-actionsheet">
+  <div class="sdk-actionsheet">
     <actionsheet v-model="show" :menus="menus" :cancel-text="$t('sdk-actionsheet@cancel')" show-cancel @on-click-menu="click" @on-click-mask="close"/>
   </div>
 </template>
@@ -57,3 +57,20 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+  @import '~@/global';
+  html.iphonex {
+    #sdk {
+      .sdk-actionsheet {
+        .vux-actionsheet {
+          .weui-actionsheet__action {
+            .weui-actionsheet__cell {
+              padding-bottom: 10px + $iphonex-home-indicator;
+            }
+          }
+        }
+      }
+    }
+  }
+</style>
