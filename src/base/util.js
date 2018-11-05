@@ -114,6 +114,17 @@ util.canvas = (width, height) => {
   }
 }
 
+util.html = (html) => {
+  const div = document.createElement('div')
+  div.innerHTML = html
+  return div.firstElementChild
+}
+
+util.xml = (svg) => {
+  const xml = new XMLSerializer().serializeToString(svg)
+  return `data:image/svg+xml;base64,${btoa(xml)}`
+}
+
 // 设备判断 系统版本判断 等等
 // @depend 结合 detect.js 使用
 util.test = _.bind(DOMTokenList.prototype.contains, document.documentElement.classList)
@@ -125,8 +136,8 @@ util.copy = (obj) => (JSON.parse(JSON.stringify([obj]))[0])
 // @depend 依赖 loadjs
 util.load = (file) => (new Promise((resolve) => (window.loadjs(`./static/assets/${file}`, { success: resolve }))))
 
-// 创建四位随机字符
-util.uuid = () => ('0000' + Math.ceil(Math.random() * 256 * 256).toString(16)).slice(-4)
+// 创建随机十六进制
+util.uuid = (length) => (_.repeat('0', length) + Math.ceil(Math.random() * Math.pow(16, length)).toString(16)).slice(-length)
 
 // todo
 // 迁移到 sdk
