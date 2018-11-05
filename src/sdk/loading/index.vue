@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-loading">
+  <div class="sdk-loading">
     <loading v-model="show" :text="text"/>
   </div>
 </template>
