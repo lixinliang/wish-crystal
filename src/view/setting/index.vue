@@ -4,6 +4,7 @@
       <layout-navbar-shadow/>
       <group>
         <cell :title="$t('setting@language')" is-link @click.native="$push('language')"></cell>
+        <cell :title="$t('setting@splash')" is-link @click.native="$push('splash')"></cell>
         <cell :title="$t('setting@about')" :value="version" is-link @click.native="$push('about')"></cell>
       </group>
       <group>
@@ -27,6 +28,9 @@ setting@layout-navbar-title:
 setting@language:
   en: Language
   zh-CN: 多语言
+setting@splash:
+  en: Splash
+  zh-CN: 启屏动画
 setting@about:
   en: About
   zh-CN: 关于
