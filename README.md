@@ -5,7 +5,6 @@ coming soon.
 
 # TODO
 
-* action sheet cancel 兼容 iPhone X
 * splash动画提升开启的感知速度
 
 ---
