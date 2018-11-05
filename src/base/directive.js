@@ -51,7 +51,7 @@ Vue.use({
         let uuid
         const mc = new window.Hammer.Manager(el)
         while (uuid && !closure[uuid]) {
-          uuid = window.util.uuid()
+          uuid = window.util.uuid(4)
         }
         closure[uuid] = mc
         el.dataset.mc = uuid
