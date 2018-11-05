@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-picker">
+  <div class="sdk-picker">
     <popup-picker :show="show" :title="'title'" :confirmText="'confirmText'" :cancelText="'cancelText'" :data="[['1', '2']]" @on-change="change" @on-hide="hide"/>
   </div>
 </template>
