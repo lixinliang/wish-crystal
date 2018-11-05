@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-toast">
+  <div class="sdk-toast">
     <toast v-for="item in list" :key="item.id" :value="true" :text="item.text" :width="item.width" :type="'text'" @on-hide="remove(item)"/>
   </div>
 </template>
