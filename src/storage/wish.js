@@ -5,7 +5,7 @@ const { $storage } = Vue.prototype
 
 let domain = '//webpage.applinzi.com'
 
-if (process.env.NODE_ENV === 'development') {
+if (window.util.test('development')) {
   domain = 'http://172.26.137.5:5050'
 }
 

@@ -6,33 +6,27 @@ const util = {}
 
 window.util = util
 
-// 定时器 封装 promise
-util.sleep = (delay) => {
-  let sid = 0
-  const promise = new Promise((resolve) => (sid = setTimeout(resolve, delay)))
-  promise.sid = sid
-  return promise
+// promise 封装 暴露 resolve reject
+util.promise = () => {
+  const result = {}
+  result.promise = new Promise((resolve, reject) => {
+    result.resolve = resolve
+    result.reject = reject
+  })
+  return result
 }
+
+// 定时器 封装 promise
+util.sleep = (delay) => (new Promise((resolve) => (setTimeout(resolve, delay))))
 
 // nextTick 封装 promise
-util.nextTick = () => new Promise((resolve) => Vue.nextTick(resolve))
+util.nextTick = () => (new Promise((resolve) => (Vue.nextTick(resolve))))
 
-util.timeout = (delay) => {
-  let sid = 0
-  const tick = new Promise((resolve) => (sid = setTimeout(resolve, delay)))
-  return { sid, tick }
-}
+// requestAnimationFrame fallback
+const requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || ((fn) => setTimeout(fn, 16.7))
 
-// todo
-// util.interval = async (callback, delay) => {
-//   clearTimeout(callback['@interval'])
-//   await callback()
-//   callback['@interval'] = setTimeout(() => {
-//     util.interval(callback, second)
-//   }, second * 1000)
-// }
-
-// requestAnimationFrame 封装
+// requestAnimationFrame 封装 promise
+// 循环任务
 util.loop = (callback) => {
   requestAnimationFrame(animate)
   async function animate (time) {
@@ -41,27 +35,15 @@ util.loop = (callback) => {
   }
 }
 
-util.until = (callback) => {
-  requestAnimationFrame(animate)
-  async function animate (time) {
-    const stop = await callback(time)
-    if (stop) {
-      // noop
-    } else {
-      requestAnimationFrame(animate)
-    }
-  }
-}
-
 // 创建 get / set 对象
 util.observe = (obj) => {
-  const state = (obj && typeof obj === 'object') ? obj : {}
+  const state = _.assign({}, obj)
   return (new Vuex.Store({ state })).state
 }
 
 // 创建 get 对象 readonly
 util.computed = (obj) => {
-  const getters = (obj && typeof obj === 'object') ? obj : {}
+  const getters = _.assign({}, obj)
   return (new Vuex.Store({ getters })).getters
 }
 
@@ -79,18 +61,7 @@ util.watch = (obj, key, callback) => {
   })
 }
 
-// 类型检查 @see https://github.com/karlpatrickespiritu/args-checker-js 实现函数重载
-// util.check = (target, expression) => {
-//   try {
-//     return (function () {
-//       return window.args.expect(arguments, expression, _.noop)
-//     }).apply(null, target)
-//   } catch (e) {
-//     return false
-//   }
-// }
-
-// 转字符串
+// any 转字符串
 util.anyToString = async (any) => {
   const string = await any
   if (typeof string === 'object') {
@@ -99,7 +70,7 @@ util.anyToString = async (any) => {
   return `${string}`
 }
 
-// 转数组
+// any 转数组
 util.anyToArray = (any) => {
   const array = [].slice.call(any || [])
   if (array.length) {
@@ -107,57 +78,28 @@ util.anyToArray = (any) => {
   }
 }
 
-// 打印 log 支持 promise
+// log 支持 promise
 util.log = (...args) => {
   Promise.all(args).then((args) => {
     console.log.apply(console, args)
   })
 }
 
-// 映射 store state 到 vue component compute
-// @assign --> {}, @mapValues, defaults
-// @mapValues --> @keyBy, key => @computed
-// @keyBy --> keys, key => key
-// @computed --> () => state[key]
-util.mapState = (state, keys, defaults) => _.assign({}, _.mapValues(_.keyBy(keys, (key) => key), (key) => () => state[key]), defaults)
-
-// 映射 this[path] 到 vue component compute
-// @assign --> {}, @mapValues, defaults
-// @mapValues --> @keyBy, key => @computed
-// @keyBy --> keys, key => key
-// @computed --> () => this[...path][key]
-util.mapPath = (path, keys, defaults) => _.assign({}, _.mapValues(_.keyBy(keys, (key) => key), (key) => function () {
-  return _.get(this, path)[key]
-}), defaults)
-
-// 映射 store state 到 store mutation
-// @assign --> {}, @mapValues, defaults
-// @mapValues --> @keyBy, key => @mutation,
-// @keyBy --> keys, key => key
-// @mutation --> (state, value) => state[key] = value
-util.commitable = (keys, defaults) => _.assign({}, _.mapValues(_.keyBy(keys, (key) => key), (key) => (state, value) => (state[key] = value)), defaults)
-
-// 请求 img 封装 promise
-util.img = (url) => new Promise((resolve) => {
+// img 封装 promise
+util.img = (url) => (new Promise((resolve) => {
   const img = new Image()
   img.onload = img.onerror = resolve.bind(null, img)
   img.src = url
-})
+}))
 
 // file reader 封装 promise
-util.reader = (file) => new Promise((resolve) => {
+util.reader = (file) => (new Promise((resolve) => {
   const reader = new FileReader()
-  reader.onload = resolve.bind(null, reader)
+  reader.onload = reader.onerror = resolve.bind(null, reader)
   reader.readAsDataURL(file)
-})
+}))
 
-// exif 封装 promise
-// util.exif = (img) => new Promise((resolve) => {
-//   EXIF.getData(img, () => {
-//     resolve(EXIF.getAllTags(img))
-//   })
-// })
-
+// 初始化 canvas
 util.canvas = (width, height) => {
   height = height || width
   const canvas = document.createElement('canvas')
@@ -172,49 +114,37 @@ util.canvas = (width, height) => {
   }
 }
 
+util.html = (html) => {
+  const div = document.createElement('div')
+  div.innerHTML = html
+  return div.firstElementChild
+}
+
+util.xml = (svg) => {
+  const xml = new XMLSerializer().serializeToString(svg)
+  return `data:image/svg+xml;base64,${btoa(xml)}`
+}
+
 // 设备判断 系统版本判断 等等
-// @depend 依赖 detect.js
-util.test = (className) => !!document.querySelector(`html.${className}`)
+// @depend 结合 detect.js 使用
+util.test = _.bind(DOMTokenList.prototype.contains, document.documentElement.classList)
 
-const requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || ((fn) => setTimeout(fn, 16.7))
+// 利用 json 简单数据 深拷贝
+util.copy = (obj) => (JSON.parse(JSON.stringify([obj]))[0])
 
-// lazyload
-util.testMeet = (el, trim = 0) => {
-  const bcr = el.getBoundingClientRect()
-  const mw = el.offsetWidth
-  const mh = el.offsetHeight
-  const w = window.innerWidth
-  const h = window.innerHeight
-  const boolX = (!((bcr.right - trim) <= 0 && ((bcr.left + mw) - trim) <= 0) && !((bcr.left + trim) >= w && (bcr.right + trim) >= (mw + w)))
-  const boolY = (!((bcr.bottom - trim) <= 0 && ((bcr.top + mh) - trim) <= 0) && !((bcr.top + trim) >= h && (bcr.bottom + trim) >= (mh + h)))
-  return boolX && boolY
-}
+// 加载资源 封装 promise
+// @depend 依赖 loadjs
+util.load = (file) => (new Promise((resolve) => (window.loadjs(`./static/assets/${file}`, { success: resolve }))))
 
-// log vue tree node
-util.find = (el) => {
-  const match = (node) => {
-    const { $el, $children } = node
-    if ($el === el) {
-      return node
-    } else {
-      if ($children.length) {
-        for (let i = 0; i < $children.length; i++) {
-          const value = match($children[i])
-          if (value) {
-            return value
-          }
-        }
-      }
-    }
-  }
-  return match(window.vm)
-}
+// 创建随机十六进制
+util.uuid = (length) => (_.repeat('0', length) + Math.ceil(Math.random() * Math.pow(16, length)).toString(16)).slice(-length)
 
-util.copy = (obj) => JSON.parse(JSON.stringify([obj]))[0]
+// 创建范围
+util.range = (min, max) => (value) => (Math.max(min, Math.min(value, max)))
 
-util.load = (file) => new Promise((resolve) => window.loadjs(`./static/assets/${file}`, { success: resolve }))
-
-util.actionsheet = (options) => new Promise((resolve) => {
+// todo
+// 迁移到 sdk
+util.actionsheet = (options) => (new Promise((resolve) => {
   const base = {
     show: true
   }
@@ -234,8 +164,4 @@ util.actionsheet = (options) => new Promise((resolve) => {
     })
   ]
   window.$event.emit('app:actionsheet', _.assign({}, base, options))
-})
-
-util.uuid = () => {
-  return ('0000' + Math.ceil(Math.random() * 256 * 256).toString(16)).slice(-4)
-}
+}))

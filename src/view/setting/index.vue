@@ -1,8 +1,10 @@
 <template>
   <div id="setting">
     <widget-scroll-box>
+      <layout-navbar-shadow/>
       <group>
         <cell :title="$t('setting@language')" is-link @click.native="$push('language')"></cell>
+        <cell :title="$t('setting@splash')" is-link @click.native="$push('splash')"></cell>
         <cell :title="$t('setting@about')" :value="version" is-link @click.native="$push('about')"></cell>
       </group>
       <group>
@@ -15,13 +17,20 @@
         <x-button type="warn" @click.native="logout">{{$t('setting@logout')}}</x-button>
       </div>
     </widget-scroll-box>
+    <layout-navbar :title="$t('setting@layout-navbar-title')"/>
   </div>
 </template>
 
 <i18n>
+setting@layout-navbar-title:
+  en: Setting
+  zh-CN: 设置
 setting@language:
   en: Language
   zh-CN: 多语言
+setting@splash:
+  en: Splash
+  zh-CN: 启屏动画
 setting@about:
   en: About
   zh-CN: 关于
@@ -48,6 +57,8 @@ setting@can-not-logout:
 <script>
 import { Cell, Group, XButton } from 'vux'
 import pkg from 'package.json'
+import layoutNavbar from '@/layout/navbar'
+import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
 
 const { version } = pkg
@@ -57,6 +68,8 @@ export default {
     Cell,
     Group,
     XButton,
+    layoutNavbar,
+    layoutNavbarShadow,
     widgetScrollBox
   },
   data () {
@@ -71,15 +84,15 @@ export default {
       await window.util.sleep(1500)
       this.clearCacheProcessing = false
       const text = this.$t('setting@clear-cache-success')
-      window.$event.emit('app:toast', { text, width: '20em' })
+      this.$sdk.toast({ text })
     },
     reset () {
       const text = this.$t('setting@can-not-reset')
-      window.$event.emit('app:toast', { text, width: '20em' })
+      this.$sdk.toast({ text })
     },
     logout () {
       const text = this.$t('setting@can-not-logout')
-      window.$event.emit('app:toast', { text, width: '20em' })
+      this.$sdk.toast({ text })
     }
   }
 }

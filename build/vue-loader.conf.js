@@ -6,7 +6,6 @@ const sourceMapEnabled = isProduction
   ? config.build.productionSourceMap
   : config.dev.cssSourceMap
 
-
 module.exports = {
   loaders: Object.assign(utils.cssLoaders({
     sourceMap: sourceMapEnabled,
@@ -15,7 +14,7 @@ module.exports = {
     'i18n': 'i18n-loader'
   }),
   cssSourceMap: sourceMapEnabled,
-  cacheBusting: config.dev.cacheBusting, 
+  cacheBusting: config.dev.cacheBusting,
   transformToRequire: {
     video: 'src',
     source: 'src',

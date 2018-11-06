@@ -13,7 +13,7 @@ export default {
   },
   'checkcode': {
     defaultValue () {
-      return window.util.uuid()
+      return window.util.uuid(4)
     }
   }
 }

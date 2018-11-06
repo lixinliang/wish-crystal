@@ -1,10 +1,11 @@
 import _ from 'lodash'
 import VueRouter from 'vue-router'
 
+// 记录已加载的资源
 const closure = {}
 
+// 公共依赖
 const base = [
-  'axios.min.js',
   'moment.min.js'
 ]
 
@@ -12,6 +13,9 @@ const config = {
   about: {
     assets: ['hammer.min.js'],
     component: () => import(/* webpackChunkName: "about" */'@/view/about')
+  },
+  blank: {
+    component: () => import(/* webpackChunkName: "blank" */'@/view/blank')
   },
   changelog: {
     component: () => import(/* webpackChunkName: "changelog" */'@/view/changelog')
@@ -30,8 +34,9 @@ const config = {
     assets: ['micro-app.min.js'],
     component: () => import(/* webpackChunkName: "index" */'@/view/index'),
     beforeEnter (to, from, next) {
-      if (navigator.standalone) {
-        next('home')
+      if (window.util.test('standalone')) {
+        // app 环境 跳转到 启动动画
+        next('splash')
         return
       }
       next()
@@ -54,6 +59,9 @@ const config = {
   },
   setting: {
     component: () => import(/* webpackChunkName: "setting" */'@/view/setting')
+  },
+  splash: {
+    component: () => import(/* webpackChunkName: "splash" */'@/view/splash')
   },
   tree: {
     component: () => import(/* webpackChunkName: "tree" */'@/view/tree')
@@ -91,6 +99,7 @@ const router = new VueRouter({ routes })
 
 const beforeHook = async (to, from, next) => {
   console.log(`[router.js]@beforeHook:to.name=${to.name}`)
+  // 加载依赖资源
   const assets = _.concat(base, to.meta.assets)
   const files = _.map(assets, async (file) => {
     if (!file) {

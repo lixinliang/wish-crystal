@@ -1,14 +1,24 @@
 <template>
   <div id="home">
     <widget-scroll-box>
-      <grid-style v-if="$storage.config['home:style'] === 'grid'" :list="list" @click="click"></grid-style>
-      <list-style v-if="$storage.config['home:style'] === 'list'" :list="list" @click="click"></list-style>
+      <layout-navbar-shadow/>
+      <grid-style v-if="$storage.config['home:style'] === 'grid'" :list="menu" @click="click"></grid-style>
+      <list-style v-if="$storage.config['home:style'] === 'list'" :list="menu" @click="click"></list-style>
     </widget-scroll-box>
-    <layout-tabbar></layout-tabbar>
+    <layout-tabbar/>
+    <layout-navbar :title="$t('home@layout-navbar-title')" @tap="navbarTap">
+      <a slot="right">
+        <em v-if="$storage.config['home:style'] === 'grid'" v-html="list"/>
+        <em v-if="$storage.config['home:style'] === 'list'" v-html="grid"/>
+      </a>
+    </layout-navbar>
   </div>
 </template>
 
 <i18n>
+home@layout-navbar-title:
+  en: Home
+  zh-CN: 首页
 home@wish:
   en: Wish Note
   zh-CN: 心愿贴
@@ -24,20 +34,28 @@ home@coming-soon:
 import star from '@/img/star.svg'
 import wish from '@/img/wish.svg'
 import layoutTabbar from '@/layout/tabbar'
+import layoutNavbar from '@/layout/navbar'
+import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
 import gridStyle from './grid-style'
 import listStyle from './list-style'
+import grid from '@/img/grid.svg'
+import list from '@/img/list.svg'
 
 export default {
   components: {
     gridStyle,
     listStyle,
     layoutTabbar,
+    layoutNavbar,
+    layoutNavbarShadow,
     widgetScrollBox
   },
   data () {
     return {
-      list: [
+      grid,
+      list,
+      menu: [
         {
           name: 'wish',
           icon: wish,
@@ -59,10 +77,24 @@ export default {
   methods: {
     click ({ name }) {
       if (name === 'more') {
-        window.$event.emit('app:alert', { show: true, content: this.$t('home@coming-soon') })
+        const content = this.$t('home@coming-soon')
+        this.$sdk.alert({ content })
         return
       }
       this.$push(name)
+    },
+    async navbarTap ({ type }) {
+      if (type === 'right') {
+        const style = this.$storage.config['home:style']
+        let value
+        if (style === 'list') {
+          value = 'grid'
+        }
+        if (style === 'grid') {
+          value = 'list'
+        }
+        await this.$forage({ type: 'set', key: 'config@home:style', value })
+      }
     }
   }
 }
@@ -72,5 +104,22 @@ export default {
   @import '~@/global';
   #home {
     @include page-base;
+  }
+</style>
+
+<style lang="scss">
+  #home {
+    .layout-navbar {
+      .vux-header-left {
+        display: none;
+      }
+      .vux-header-right {
+        svg {
+          width: 20px;
+          height: 20px;
+          display: inline-block;
+        }
+      }
+    }
   }
 </style>

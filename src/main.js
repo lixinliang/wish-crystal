@@ -1,28 +1,44 @@
+// app 入口 main.js
+// 基础模块 base
 import './base'
+// 基础样式 style
 import './style.scss'
 import Vue from 'vue'
+// 数据管理库
 import storage from './storage'
-// @depend 依赖 storage.js
+// app 应用
 import app from './app'
 
-const title = '愿望水晶'
+// 页面标题
+let title = '愿望水晶'
+if (window.util.test('development')) {
+  title = '愿望水晶-dev'
+}
 document.title = title
 
-const axios = window.util.load('axios.min.js')
-const localforage = window.util.load('localforage.min.js')
+let axios
+let localforage
 
-// document.addEventListener('touchmove', (event) => {
-//   event.preventDefault()
-// }, false)
+if (window.util.test('standalone')) {
+  // app 环境 引入依赖模块
+  axios = window.util.load('axios.min.js')
+  localforage = window.util.load('localforage.min.js')
+}
 
+// 启动应用
 window.$event.once('root:launch', async () => {
-  await axios
-  await localforage
-  await storage()
-  await window.util.nextTick()
+  if (window.util.test('standalone')) {
+    // app 环境 引入依赖模块
+    await axios
+    await localforage
+    // app 环境 初始化 storage
+    await storage()
+    await window.util.nextTick()
+  }
   window.$event.emit('root:create')
 })
 
+// 创建应用
 window.$event.on('root:create', () => {
   if (window.vm) {
     return
@@ -35,6 +51,7 @@ window.$event.on('root:create', () => {
   window.vm = new Vue(app).$mount('#app')
 })
 
+// 销毁应用
 window.$event.on('root:destroy', () => {
   if (!window.vm) {
     return
@@ -45,10 +62,13 @@ window.$event.on('root:destroy', () => {
   window.router.replace('/')
 })
 
+// 重启应用
+// 但是 storage 没有重新初始化
 window.$event.on('root:reboot', async () => {
   window.$event.emit('root:destroy')
   await window.util.nextTick()
   window.$event.emit('root:create')
 })
 
+// 启动应用
 window.$event.emit('root:launch')

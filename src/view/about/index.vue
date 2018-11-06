@@ -1,23 +1,26 @@
 <template>
   <div id="about">
     <widget-scroll-box>
+      <layout-navbar-shadow/>
       <div class="logo" v-mc="hammer">
         <i v-image:size.96x96="icon"/>
       </div>
-      <p>{{$t('about@title')}}</p>
+      <p>{{$t('about@app')}}</p>
       <p @click="toast">{{$t('about@version')}}：{{version}}.{{$timestamp|format('YYYYMMDD.HHmmss')}}</p>
       <p>
-        <span @click="$push('changelog')">{{$t('about@changelog')}}</span>
-        <span>·</span>
-        <span @click="$push('tree')">{{$t('about@tree')}}</span>
+        <em><span @click="$push('changelog')">{{$t('about@changelog')}}</span>·<span @click="$push('tree')">{{$t('about@tree')}}</span></em>
       </p>
       <div class="copyright">李昕亮(393464140@qq.com) 版权所有<br>Copyright © {{year}} lixinliang. All Rights Reserved.</div>
     </widget-scroll-box>
+    <layout-navbar :title="$t('about@layout-navbar-title')"/>
   </div>
 </template>
 
 <i18n>
-about@title:
+about@layout-navbar-title:
+  en: About
+  zh-CN: 关于
+about@app:
   en: Wish Crystal
   zh-CN: 愿望水晶
 about@version:
@@ -40,6 +43,8 @@ about@develop:
 <script>
 import pkg from 'package.json'
 import icon from '@/img/logo.png'
+import layoutNavbar from '@/layout/navbar'
+import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
 
 const { _ } = window
@@ -47,6 +52,8 @@ const { version } = pkg
 
 export default {
   components: {
+    layoutNavbar,
+    layoutNavbarShadow,
     widgetScrollBox
   },
   data () {
@@ -69,24 +76,27 @@ export default {
   methods: {
     toast () {
       const text = this.$t('about@up-to-date')
-      window.$event.emit('app:toast', { text, width: '20em' })
+      this.$sdk.toast({ text })
     },
     hammer (mc) {
       mc.add([new window.Hammer.Press()])
-      let sid
+      let pressup
       mc.on('press', async (event) => {
-        const timeout = window.util.timeout(5000)
-        sid = timeout.sid
-        await timeout.tick
-        const menus = _.map(['develop'], (key) => this.$t(`about@${key}`))
-        const result = await window.util.actionsheet({ menus })
-        const { payload } = result
-        if (payload === 0) {
+        const { promise, resolve } = window.util.promise()
+        pressup = resolve
+        const stop = await Promise.race([promise, window.util.sleep(5000)])
+        if (stop) {
+          return
+        }
+        const menus = [this.$t(`about@develop`)]
+        const result = await this.$sdk.actionsheet({ menus })
+        const { index } = result
+        if (index === 0) {
           this.$push('develop')
         }
       })
       mc.on('pressup', (event) => {
-        clearTimeout(sid)
+        pressup(true)
       })
     }
   }
@@ -98,12 +108,31 @@ export default {
   #about {
     @include page-index;
     p {
-      span {
+      em {
+        position: relative;
         display: inline-block;
         height: 34px;
         line-height: 34px;
         font-size: 12px;
         color: $green-color;
+        font-style: normal;
+        span {
+          top: 0;
+          width: 120px;
+          position: absolute;
+          cursor: pointer;
+          &:active {
+            opacity: .7;
+          }
+          &:first-child {
+            right: 10px;
+            text-align: right;
+          }
+          &:last-child {
+            left: 10px;
+            text-align: left;
+          }
+        }
       }
     }
     .copyright {

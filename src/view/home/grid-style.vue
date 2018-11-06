@@ -44,6 +44,11 @@ export default {
 <style lang="scss" scoped>
   @import '~@/global';
   .grid-style {
+    .weui-grids {
+      &::before {
+        z-index: 1;
+      }
+    }
     .weui-grid {
       background-color: #fff;
       &:active {

@@ -1,6 +1,7 @@
 <template>
   <div id="wish-detail">
     <widget-scroll-box>
+      <layout-navbar-shadow/>
       <group v-if="item">
         <x-input v-model="title" readonly/>
         <x-textarea v-model="content" readonly :rows="14"/>
@@ -9,10 +10,14 @@
         <x-button type="warn" @click.native="remove">{{$t('wish-detail@remove')}}</x-button>
       </div>
     </widget-scroll-box>
+    <layout-navbar :title="$t('wish-detail@layout-navbar-title')" :right="'more'" @tap="navbarTap"/>
   </div>
 </template>
 
 <i18n>
+wish-detail@layout-navbar-title:
+  en: Wish Note Detail
+  zh-CN: 查看心愿贴
 wish-detail@edit:
   en: Edit
   zh-CN: 编辑
@@ -29,11 +34,9 @@ wish-detail@can-not-remove:
 
 <script>
 import { Group, XInput, XButton, XTextarea } from 'vux'
+import layoutNavbar from '@/layout/navbar'
+import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
-
-const { _ } = window
-
-const disposable = []
 
 export default {
   components: {
@@ -41,6 +44,8 @@ export default {
     XInput,
     XButton,
     XTextarea,
+    layoutNavbar,
+    layoutNavbarShadow,
     widgetScrollBox
   },
   data () {
@@ -61,29 +66,23 @@ export default {
     }
   },
   methods: {
-    remove () {
-      const text = this.$t('wish-detail@can-not-remove')
-      window.$event.emit('app:toast', { text, width: '20em' })
-    }
-  },
-  created () {
-    const toy = window.$event.listen('layout-navbar:click', async (type) => {
-      if (type === 'more') {
-        const menus = _.map(['edit'], (key) => this.$t(`wish-detail@${key}`))
-        const result = await window.util.actionsheet({ menus })
-        const { payload } = result
-        if (payload === 0) {
-          // const { item } = this
-          // this.$replace('wish-edit', { item })
-          const text = this.$t('wish-detail@can-not-edit')
-          window.$event.emit('app:toast', { text, width: '20em' })
+    async navbarTap ({ type }) {
+      if (type === 'right') {
+        const menus = [this.$t(`wish-detail@edit`)]
+        const result = await this.$sdk.actionsheet({ menus })
+        const { index } = result
+        if (index === 0) {
+          const { item } = this
+          this.$replace('wish-edit', { item })
+          // const text = this.$t('wish-detail@can-not-edit')
+          // this.$sdk.toast({ text })
         }
       }
-    })
-    disposable.push(toy)
-  },
-  destroyed () {
-    _.forEach(disposable, (item) => item.remove())
+    },
+    remove () {
+      const text = this.$t('wish-detail@can-not-remove')
+      this.$sdk.toast({ text })
+    }
   }
 }
 </script>

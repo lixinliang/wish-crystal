@@ -1,17 +1,27 @@
 <template>
   <div id="language">
     <widget-scroll-box>
+      <layout-navbar-shadow/>
       <group>
         <cell v-for="(item, $index) in list" :key="$index" :title="item.title" :disabled="$storage.user.lang === item.language" @click.native="set(item)">
           <icon v-visible="$storage.user.lang === item.language" slot type="success-no-circle"></icon>
         </cell>
       </group>
     </widget-scroll-box>
+    <layout-navbar :title="$t('language@layout-navbar-title')"/>
   </div>
 </template>
 
+<i18n>
+language@layout-navbar-title:
+  en: Language
+  zh-CN: 选择语言
+</i18n>
+
 <script>
 import { Cell, Icon, Group } from 'vux'
+import layoutNavbar from '@/layout/navbar'
+import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
 
 export default {
@@ -19,6 +29,8 @@ export default {
     Cell,
     Icon,
     Group,
+    layoutNavbar,
+    layoutNavbarShadow,
     widgetScrollBox
   },
   data () {
