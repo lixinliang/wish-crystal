@@ -5,10 +5,6 @@ coming soon.
 
 # TODO
 
-* splash动画提升开启的感知速度
-
----
-
 * 分类 tag 进度条
 * 心愿贴 删除 / 编辑
 * 增加 转场动画 拆分为 push / pop / replace
