@@ -1,5 +1,5 @@
 <template>
-  <div id="sdk">
+  <div id="sdk" @touchmove.prevent>
     <alert/>
     <toast/>
     <!-- <picker/> -->
