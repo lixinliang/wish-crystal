@@ -141,27 +141,3 @@ util.uuid = (length) => (_.repeat('0', length) + Math.ceil(Math.random() * Math.
 
 // 创建范围
 util.range = (min, max) => (value) => (Math.max(min, Math.min(value, max)))
-
-// todo
-// 迁移到 sdk
-util.actionsheet = (options) => (new Promise((resolve) => {
-  const base = {
-    show: true
-  }
-  const disposable = [
-    window.$event.listen('layout-actionsheet:click', (payload) => {
-      _.forEach(disposable, (item) => item.remove())
-      resolve({
-        type: 'click',
-        payload
-      })
-    }),
-    window.$event.listen('layout-actionsheet:close', () => {
-      _.forEach(disposable, (item) => item.remove())
-      resolve({
-        type: 'close'
-      })
-    })
-  ]
-  window.$event.emit('app:actionsheet', _.assign({}, base, options))
-}))
