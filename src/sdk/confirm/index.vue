@@ -17,23 +17,16 @@ export default {
     }
   },
   created () {
-    // window.$event.on('app:actionsheet', ({ show, menus }) => {
-    //   this.show = !!show
-    //   this.menus = menus
-    // })
   },
   methods: {
     confirm (...args) {
       console.log('confirm', args)
-      // window.$event.emit('layout-actionsheet:close')
     },
     cancel (...args) {
       console.log('cancel', args)
-      // window.$event.emit('layout-actionsheet:click', key)
     },
     hide (...args) {
       console.log('hide', args)
-      // window.$event.emit('layout-actionsheet:close')
     }
   }
 }
