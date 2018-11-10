@@ -4,7 +4,7 @@
       <layout-navbar-shadow/>
       <group>
         <cell :title="$t('setting@language')" is-link @click.native="$push('language')"></cell>
-        <cell :title="$t('setting@splash')" is-link @click.native="$push('splash')"></cell>
+        <cell :title="$t('setting@splash')" is-link @click.native="$replace('splash')"></cell>
         <cell :title="$t('setting@about')" :value="version" is-link @click.native="$push('about')"></cell>
       </group>
       <group>
