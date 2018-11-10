@@ -48,9 +48,13 @@ $iphonex-home-indicator: 34px;
 }
 
 @mixin page-base {
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
   overflow: hidden;
   position: relative;
+  position: absolute;
   background-color: $background-color-normal;
 }
 
