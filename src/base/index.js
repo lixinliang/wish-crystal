@@ -12,3 +12,5 @@ import './directive'
 import './namespace'
 // @depend 依赖 namespace.js event.js
 import './i18n'
+// @depend 依赖 namespace.js event.js
+import './navigation'
