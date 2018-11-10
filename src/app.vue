@@ -18,7 +18,7 @@
 import './sdk'
 import router from './router'
 
-const duration = 3000
+const duration = 200
 
 let taskAfterEnter = window.util.promise()
 let taskAfterLeave = window.util.promise()
@@ -144,7 +144,7 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-  $duration: 3000;
+  $duration: 200;
   @mixin front {
     z-index: 1;
   }
