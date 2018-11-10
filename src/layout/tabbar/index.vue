@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     click ({ name }) {
-      this.$push(name)
+      this.$replace(name)
     }
   }
 }
