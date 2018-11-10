@@ -81,6 +81,10 @@ export default {
         this.$sdk.alert({ content })
         return
       }
+      if (name === 'wish') {
+        this.$replace(name)
+        return
+      }
       this.$push(name)
     },
     async navbarTap ({ type }) {
