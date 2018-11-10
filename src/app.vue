@@ -70,7 +70,7 @@ export default {
     },
     onAfterEnter (el) {
       if (this.direction === 'none') {
-        taskAfterLeave.resolve()
+        taskAfterEnter.resolve()
         return
       }
       if (this.direction === 'push') {
