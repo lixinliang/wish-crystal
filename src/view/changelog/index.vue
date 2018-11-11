@@ -10,6 +10,7 @@
         </widget-scroll-box>
       </widget-background-color>
     </navigation-effect-box>
+    <layout-navbar-color/>
     <layout-navbar :title="$t('changelog@layout-navbar-title')"/>
   </div>
 </template>
@@ -24,6 +25,7 @@ changelog@layout-navbar-title:
 import { Cell, Group } from 'vux'
 import changelog from 'changelog.yml'
 import layoutNavbar from '@/layout/navbar'
+import layoutNavbarColor from '@/layout/navbar-color'
 import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
 import widgetBackgroundColor from '@/widget/background-color'
@@ -34,6 +36,7 @@ export default {
     Cell,
     Group,
     layoutNavbar,
+    layoutNavbarColor,
     layoutNavbarShadow,
     widgetScrollBox,
     widgetBackgroundColor,
