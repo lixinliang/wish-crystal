@@ -1,9 +1,10 @@
 import Vue from 'vue'
-import component from './component'
+// 动画时间
 import duration from './duration'
+// 导航栏 style
+import './style.scss'
 
-Vue.component('navigation', component)
-
+// 方向变量
 let direction = 'none'
 
 // 占用 Vue 原型链 命名空间
@@ -26,6 +27,7 @@ Vue.prototype.$replace = (name, params) => {
   })
 }
 
+// app.vue transition 钩子
 const methods = {
   onBeforeEnter (el) {
     if (direction === 'none') {
@@ -37,7 +39,6 @@ const methods = {
     if (direction === 'pop') {
       el.classList.add('navigation-pop-enter-start')
     }
-    window.util.repaint(el)
   },
   async onEnter (el, done) {
     if (direction === 'none') {
@@ -50,7 +51,6 @@ const methods = {
     if (direction === 'pop') {
       el.classList.add('navigation-pop-enter-end')
     }
-    el.classList.add('navigation-animate')
     await window.util.sleep(duration)
     done()
   },
@@ -66,7 +66,6 @@ const methods = {
       el.classList.remove('navigation-pop-enter-start')
       el.classList.remove('navigation-pop-enter-end')
     }
-    el.classList.remove('navigation-animate')
   },
   onBeforeLeave (el) {
     if (direction === 'none') {
@@ -78,7 +77,6 @@ const methods = {
     if (direction === 'pop') {
       el.classList.add('navigation-pop-leave-start')
     }
-    window.util.repaint(el)
   },
   async onLeave (el, done) {
     if (direction === 'none') {
@@ -91,7 +89,6 @@ const methods = {
     if (direction === 'pop') {
       el.classList.add('navigation-pop-leave-end')
     }
-    el.classList.add('navigation-animate')
     await window.util.sleep(duration)
     done()
   },
@@ -107,7 +104,6 @@ const methods = {
       el.classList.remove('navigation-pop-leave-start')
       el.classList.remove('navigation-pop-leave-end')
     }
-    el.classList.remove('navigation-animate')
   }
 }
 
