@@ -1,5 +1,5 @@
 <template>
-  <div class="scroll-box"
+  <div class="widget-scroll-box"
     @touchstart="touchstart">
     <div class="scroll-view" ref="view">
       <div class="scroll-container">
@@ -36,7 +36,7 @@ export default {
     height: 100%;
     position: relative;
   }
-  .scroll-box {
+  .widget-scroll-box {
     @extend %full;
     overflow: hidden;
   }
