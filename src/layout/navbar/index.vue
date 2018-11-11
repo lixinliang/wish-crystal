@@ -97,7 +97,6 @@ export default {
     left: 0;
     width: 100%;
     position: absolute;
-    background-color: #35495e;
     .title {
       font-weight: 400;
     }
@@ -111,6 +110,7 @@ export default {
       bottom: 0;
       width: 100%;
       position: absolute;
+      background-color: transparent;
       .vux-header-left {
         .vux-header-back {
           &:active {
