@@ -1,11 +1,15 @@
 <template>
   <div id="changelog">
-    <widget-scroll-box>
-      <layout-navbar-shadow/>
-      <group v-for="(item, $key) in changelog" :key="$key" :title="$key">
-        <cell v-for="(title, $index) in item['zh-CN']" :key="$index" :title="title"></cell>
-      </group>
-    </widget-scroll-box>
+    <navigation-effect-box>
+      <widget-background-color>
+        <widget-scroll-box>
+          <layout-navbar-shadow/>
+          <group v-for="(item, $key) in changelog" :key="$key" :title="$key">
+            <cell v-for="(title, $index) in item['zh-CN']" :key="$index" :title="title"></cell>
+          </group>
+        </widget-scroll-box>
+      </widget-background-color>
+    </navigation-effect-box>
     <layout-navbar :title="$t('changelog@layout-navbar-title')"/>
   </div>
 </template>
@@ -22,6 +26,8 @@ import changelog from 'changelog.yml'
 import layoutNavbar from '@/layout/navbar'
 import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
+import widgetBackgroundColor from '@/widget/background-color'
+import navigationEffectBox from '@/navigation/effect-box'
 
 export default {
   components: {
@@ -29,7 +35,9 @@ export default {
     Group,
     layoutNavbar,
     layoutNavbarShadow,
-    widgetScrollBox
+    widgetScrollBox,
+    widgetBackgroundColor,
+    navigationEffectBox
   },
   data () {
     return {
