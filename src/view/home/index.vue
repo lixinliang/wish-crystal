@@ -1,5 +1,9 @@
 <template>
   <div id="home">
+    <navigation-effect-box>
+      <widget-background-color>
+      </widget-background-color>
+    </navigation-effect-box>
     <widget-scroll-box>
       <layout-navbar-shadow/>
       <grid-style v-if="$storage.config['home:style'] === 'grid'" :list="menu" @click="click"></grid-style>
@@ -37,6 +41,8 @@ import layoutTabbar from '@/layout/tabbar'
 import layoutNavbar from '@/layout/navbar'
 import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
+import widgetBackgroundColor from '@/widget/background-color'
+import navigationEffectBox from '@/navigation/effect-box'
 import gridStyle from './grid-style'
 import listStyle from './list-style'
 import grid from '@/img/grid.svg'
@@ -49,7 +55,9 @@ export default {
     layoutTabbar,
     layoutNavbar,
     layoutNavbarShadow,
-    widgetScrollBox
+    widgetScrollBox,
+    widgetBackgroundColor,
+    navigationEffectBox
   },
   data () {
     return {
