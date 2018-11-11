@@ -1,11 +1,16 @@
 <template>
   <div id="wish" :class="{ 'has-list': list.length }">
-    <widget-scroll-box>
-      <layout-navbar-shadow/>
-      <list v-if="list.length" :list="list"/>
-      <widget-empty v-else :type="'wish'" :label="$t('wish@empty')" :button="$t('wish@button')" @click="$push('wish-add')"/>
-    </widget-scroll-box>
-    <layout-tabbar/>
+    <navigation-effect-box>
+      <widget-background-color>
+        <widget-scroll-box>
+          <layout-navbar-shadow/>
+          <list v-if="list.length" :list="list"/>
+          <widget-empty v-else :type="'wish'" :label="$t('wish@empty')" :button="$t('wish@button')" @click="$push('wish-add')"/>
+        </widget-scroll-box>
+        <layout-tabbar/>
+      </widget-background-color>
+    </navigation-effect-box>
+    <layout-navbar-color/>
     <layout-navbar :title="$t('wish@layout-navbar-title')" @tap="navbarTap">
       <a slot="right">
         <em v-html="plus"/>
@@ -30,8 +35,11 @@ wish@button:
 import widgetEmpty from '@/widget/empty'
 import layoutTabbar from '@/layout/tabbar'
 import layoutNavbar from '@/layout/navbar'
+import layoutNavbarColor from '@/layout/navbar-color'
 import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
+import widgetBackgroundColor from '@/widget/background-color'
+import navigationEffectBox from '@/navigation/effect-box'
 import list from './list'
 import plus from '@/img/plus.svg'
 
@@ -41,8 +49,11 @@ export default {
     widgetEmpty,
     layoutTabbar,
     layoutNavbar,
+    layoutNavbarColor,
     layoutNavbarShadow,
-    widgetScrollBox
+    widgetScrollBox,
+    widgetBackgroundColor,
+    navigationEffectBox
   },
   data () {
     return {
