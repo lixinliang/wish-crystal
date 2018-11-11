@@ -1,6 +1,5 @@
 <template>
   <div id="app" :style="{ 'height': `${$window.screen.height}px` }">
-    <navigation/>
     <transition
       @before-enter="onBeforeEnter"
       @enter="onEnter"
