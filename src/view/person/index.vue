@@ -23,6 +23,7 @@
         <layout-tabbar/>
       </widget-background-color>
     </navigation-effect-box>
+    <layout-navbar-color/>
     <layout-navbar :title="$t('person@layout-navbar-title')"/>
   </div>
 </template>
@@ -40,6 +41,7 @@ person@setting:
 import { Cell, Group } from 'vux'
 import layoutTabbar from '@/layout/tabbar'
 import layoutNavbar from '@/layout/navbar'
+import layoutNavbarColor from '@/layout/navbar-color'
 import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
 import widgetBackgroundColor from '@/widget/background-color'
@@ -53,6 +55,7 @@ export default {
     Group,
     layoutTabbar,
     layoutNavbar,
+    layoutNavbarColor,
     layoutNavbarShadow,
     widgetScrollBox,
     widgetBackgroundColor,
