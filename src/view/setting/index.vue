@@ -21,6 +21,7 @@
         </widget-scroll-box>
       </widget-background-color>
     </navigation-effect-box>
+    <layout-navbar-color/>
     <layout-navbar :title="$t('setting@layout-navbar-title')"/>
   </div>
 </template>
@@ -62,6 +63,7 @@ setting@can-not-logout:
 import { Cell, Group, XButton } from 'vux'
 import pkg from 'package.json'
 import layoutNavbar from '@/layout/navbar'
+import layoutNavbarColor from '@/layout/navbar-color'
 import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
 import widgetBackgroundColor from '@/widget/background-color'
@@ -75,6 +77,7 @@ export default {
     Group,
     XButton,
     layoutNavbar,
+    layoutNavbarColor,
     layoutNavbarShadow,
     widgetScrollBox,
     widgetBackgroundColor,
