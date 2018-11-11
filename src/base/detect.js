@@ -20,6 +20,8 @@ html.classList.add(`dpi${devicePixelRatio}`)
 
 if (standalone) {
   html.classList.add('standalone')
+} else {
+  html.classList.add('browser')
 }
 
 if (onLine) {
