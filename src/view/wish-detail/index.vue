@@ -1,15 +1,20 @@
 <template>
   <div id="wish-detail">
-    <widget-scroll-box>
-      <layout-navbar-shadow/>
-      <group v-if="item">
-        <x-input v-model="title" readonly/>
-        <x-textarea v-model="content" readonly :rows="14"/>
-      </group>
-      <div class="button">
-        <x-button type="warn" @click.native="remove">{{$t('wish-detail@remove')}}</x-button>
-      </div>
-    </widget-scroll-box>
+    <navigation-effect-box>
+      <widget-background-color>
+        <widget-scroll-box>
+          <layout-navbar-shadow/>
+          <group v-if="item">
+            <x-input v-model="title" readonly/>
+            <x-textarea v-model="content" readonly :rows="14"/>
+          </group>
+          <div class="button">
+            <x-button type="warn" @click.native="remove">{{$t('wish-detail@remove')}}</x-button>
+          </div>
+        </widget-scroll-box>
+      </widget-background-color>
+    </navigation-effect-box>
+    <layout-navbar-color/>
     <layout-navbar :title="$t('wish-detail@layout-navbar-title')" :right="'more'" @tap="navbarTap"/>
   </div>
 </template>
@@ -35,8 +40,11 @@ wish-detail@can-not-remove:
 <script>
 import { Group, XInput, XButton, XTextarea } from 'vux'
 import layoutNavbar from '@/layout/navbar'
+import layoutNavbarColor from '@/layout/navbar-color'
 import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
+import widgetBackgroundColor from '@/widget/background-color'
+import navigationEffectBox from '@/navigation/effect-box'
 
 export default {
   components: {
@@ -45,8 +53,11 @@ export default {
     XButton,
     XTextarea,
     layoutNavbar,
+    layoutNavbarColor,
     layoutNavbarShadow,
-    widgetScrollBox
+    widgetScrollBox,
+    widgetBackgroundColor,
+    navigationEffectBox
   },
   data () {
     return {
