@@ -10,6 +10,7 @@
         </widget-scroll-box>
       </widget-background-color>
     </navigation-effect-box>
+    <layout-navbar-color/>
     <layout-navbar :title="$t('checkcode@layout-navbar-title')" @tap="navbarTap">
       <a slot="left">{{$t('layout-navbar@cancel')}}</a>
       <a slot="right" class="primary" :class="{ 'disabled': disabled }">{{$t('layout-navbar@save')}}</a>
@@ -26,6 +27,7 @@ checkcode@layout-navbar-title:
 <script>
 import { Group, XInput } from 'vux'
 import layoutNavbar from '@/layout/navbar'
+import layoutNavbarColor from '@/layout/navbar-color'
 import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
 import widgetBackgroundColor from '@/widget/background-color'
@@ -36,6 +38,7 @@ export default {
     Group,
     XInput,
     layoutNavbar,
+    layoutNavbarColor,
     layoutNavbarShadow,
     widgetScrollBox,
     widgetBackgroundColor,
