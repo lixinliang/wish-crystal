@@ -37,6 +37,5 @@ export default {
     pointer-events: none;
     overflow: hidden;
     border-radius: 3px;
-    // background-color: red;
   }
 </style>
