@@ -1,22 +1,26 @@
 <template>
   <div id="setting">
-    <widget-scroll-box>
-      <layout-navbar-shadow/>
-      <group>
-        <cell :title="$t('setting@language')" is-link @click.native="$push('language')"></cell>
-        <cell :title="$t('setting@splash')" is-link @click.native="$replace('splash')"></cell>
-        <cell :title="$t('setting@about')" :value="version" is-link @click.native="$push('about')"></cell>
-      </group>
-      <group>
-        <cell :title="$t('setting@clear-cache')" :isLoading="clearCacheProcessing" :disabled="clearCacheProcessing" is-link @click.native="clear"></cell>
-      </group>
-      <div class="button">
-        <x-button type="warn" @click.native="reset">{{$t('setting@reset')}}</x-button>
-      </div>
-      <div class="button">
-        <x-button type="warn" @click.native="logout">{{$t('setting@logout')}}</x-button>
-      </div>
-    </widget-scroll-box>
+    <navigation-effect-box>
+      <widget-background-color>
+        <widget-scroll-box>
+          <layout-navbar-shadow/>
+          <group>
+            <cell :title="$t('setting@language')" is-link @click.native="$push('language')"></cell>
+            <cell :title="$t('setting@splash')" is-link @click.native="$replace('splash')"></cell>
+            <cell :title="$t('setting@about')" :value="version" is-link @click.native="$push('about')"></cell>
+          </group>
+          <group>
+            <cell :title="$t('setting@clear-cache')" :isLoading="clearCacheProcessing" :disabled="clearCacheProcessing" is-link @click.native="clear"></cell>
+          </group>
+          <div class="button">
+            <x-button type="warn" @click.native="reset">{{$t('setting@reset')}}</x-button>
+          </div>
+          <div class="button">
+            <x-button type="warn" @click.native="logout">{{$t('setting@logout')}}</x-button>
+          </div>
+        </widget-scroll-box>
+      </widget-background-color>
+    </navigation-effect-box>
     <layout-navbar :title="$t('setting@layout-navbar-title')"/>
   </div>
 </template>
@@ -60,6 +64,8 @@ import pkg from 'package.json'
 import layoutNavbar from '@/layout/navbar'
 import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
+import widgetBackgroundColor from '@/widget/background-color'
+import navigationEffectBox from '@/navigation/effect-box'
 
 const { version } = pkg
 
@@ -70,7 +76,9 @@ export default {
     XButton,
     layoutNavbar,
     layoutNavbarShadow,
-    widgetScrollBox
+    widgetScrollBox,
+    widgetBackgroundColor,
+    navigationEffectBox
   },
   data () {
     return {
