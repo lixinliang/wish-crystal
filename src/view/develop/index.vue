@@ -1,14 +1,18 @@
 <template>
   <div id="develop">
-    <widget-scroll-box>
-      <layout-navbar-shadow/>
-      <group>
-        <cell :title="$t('develop@checkcode')" :value="$storage.user.checkcode" is-link @click.native="$push('checkcode')"/>
-      </group>
-      <group>
-        <panel type="2" :list="list"/>
-      </group>
-    </widget-scroll-box>
+    <navigation-effect-box>
+      <widget-background-color>
+        <widget-scroll-box>
+          <layout-navbar-shadow/>
+          <group>
+            <cell :title="$t('develop@checkcode')" :value="$storage.user.checkcode" is-link @click.native="$push('checkcode')"/>
+          </group>
+          <group>
+            <panel type="2" :list="list"/>
+          </group>
+        </widget-scroll-box>
+      </widget-background-color>
+    </navigation-effect-box>
     <layout-navbar :title="$t('develop@layout-navbar-title')"/>
   </div>
 </template>
@@ -27,6 +31,8 @@ import { Cell, Group, Panel } from 'vux'
 import layoutNavbar from '@/layout/navbar'
 import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
+import widgetBackgroundColor from '@/widget/background-color'
+import navigationEffectBox from '@/navigation/effect-box'
 
 export default {
   components: {
@@ -35,7 +41,9 @@ export default {
     Panel,
     layoutNavbar,
     layoutNavbarShadow,
-    widgetScrollBox
+    widgetScrollBox,
+    widgetBackgroundColor,
+    navigationEffectBox
   },
   data () {
     return {
