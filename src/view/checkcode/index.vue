@@ -1,11 +1,15 @@
 <template>
   <div id="checkcode">
-    <widget-scroll-box>
-      <layout-navbar-shadow/>
-      <group>
-        <x-input :min="4" :max="4" v-model="value"/>
-      </group>
-    </widget-scroll-box>
+    <navigation-effect-box>
+      <widget-background-color>
+        <widget-scroll-box>
+          <layout-navbar-shadow/>
+          <group>
+            <x-input :min="4" :max="4" v-model="value"/>
+          </group>
+        </widget-scroll-box>
+      </widget-background-color>
+    </navigation-effect-box>
     <layout-navbar :title="$t('checkcode@layout-navbar-title')" @tap="navbarTap">
       <a slot="left">{{$t('layout-navbar@cancel')}}</a>
       <a slot="right" class="primary" :class="{ 'disabled': disabled }">{{$t('layout-navbar@save')}}</a>
@@ -24,6 +28,8 @@ import { Group, XInput } from 'vux'
 import layoutNavbar from '@/layout/navbar'
 import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
+import widgetBackgroundColor from '@/widget/background-color'
+import navigationEffectBox from '@/navigation/effect-box'
 
 export default {
   components: {
@@ -31,7 +37,9 @@ export default {
     XInput,
     layoutNavbar,
     layoutNavbarShadow,
-    widgetScrollBox
+    widgetScrollBox,
+    widgetBackgroundColor,
+    navigationEffectBox
   },
   data () {
     return {
