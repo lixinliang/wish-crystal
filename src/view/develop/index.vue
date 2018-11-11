@@ -13,6 +13,7 @@
         </widget-scroll-box>
       </widget-background-color>
     </navigation-effect-box>
+    <layout-navbar-color/>
     <layout-navbar :title="$t('develop@layout-navbar-title')"/>
   </div>
 </template>
@@ -29,6 +30,7 @@ develop@checkcode:
 <script>
 import { Cell, Group, Panel } from 'vux'
 import layoutNavbar from '@/layout/navbar'
+import layoutNavbarColor from '@/layout/navbar-color'
 import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
 import widgetBackgroundColor from '@/widget/background-color'
@@ -40,6 +42,7 @@ export default {
     Group,
     Panel,
     layoutNavbar,
+    layoutNavbarColor,
     layoutNavbarShadow,
     widgetScrollBox,
     widgetBackgroundColor,
