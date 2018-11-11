@@ -1,5 +1,6 @@
 v1.0.2 - null:
   zh-CN:
+    - '[fixed] 兼容 iPhone X'
     - '[feature] 优化启屏动画速度'
     - '[feature] 新增转场动画'
     - '[fixed] SDK 组件样式 bug'
