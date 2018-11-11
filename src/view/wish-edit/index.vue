@@ -1,12 +1,17 @@
 <template>
   <div id="wish-edit">
-    <widget-scroll-box>
-      <layout-navbar-shadow/>
-      <group v-if="item">
-        <x-input v-model="title" :max="20" :placeholder="$t('wish-edit@title')"/>
-        <x-textarea v-model="content" :max="200" :placeholder="$t('wish-edit@content')"/>
-      </group>
-    </widget-scroll-box>
+    <navigation-effect-box>
+      <widget-background-color>
+        <widget-scroll-box>
+          <layout-navbar-shadow/>
+          <group v-if="item">
+            <x-input v-model="title" :max="20" :placeholder="$t('wish-edit@title')"/>
+            <x-textarea v-model="content" :max="200" :placeholder="$t('wish-edit@content')"/>
+          </group>
+        </widget-scroll-box>
+      </widget-background-color>
+    </navigation-effect-box>
+    <layout-navbar-color/>
     <layout-navbar :title="$t('wish-edit@layout-navbar-title')" @tap="navbarTap">
       <a slot="left">{{$t('layout-navbar@cancel')}}</a>
       <a slot="right" class="primary" :class="{ 'disabled': disabled }">{{$t('layout-navbar@save')}}</a>
@@ -32,8 +37,11 @@ wish-edit@can-not-edit:
 <script>
 import { Group, XInput, XTextarea } from 'vux'
 import layoutNavbar from '@/layout/navbar'
+import layoutNavbarColor from '@/layout/navbar-color'
 import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
+import widgetBackgroundColor from '@/widget/background-color'
+import navigationEffectBox from '@/navigation/effect-box'
 
 export default {
   components: {
@@ -41,8 +49,11 @@ export default {
     XInput,
     XTextarea,
     layoutNavbar,
+    layoutNavbarColor,
     layoutNavbarShadow,
-    widgetScrollBox
+    widgetScrollBox,
+    widgetBackgroundColor,
+    navigationEffectBox
   },
   computed: {
     item () {
