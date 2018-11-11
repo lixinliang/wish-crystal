@@ -1,0 +1,37 @@
+@mixin front {
+  z-index: 1;
+}
+@mixin back {
+  z-index: 0;
+}
+@mixin unreactive {
+  pointer-events: none;
+}
+.navigation-push-enter-start {
+  @include front;
+  @include unreactive;
+}
+.navigation-push-enter-end {
+  @include front;
+}
+.navigation-push-leave-start {
+  @include back;
+  @include unreactive;
+}
+.navigation-push-leave-end {
+  @include back;
+}
+.navigation-pop-enter-start {
+  @include back;
+  @include unreactive;
+}
+.navigation-pop-enter-end {
+  @include back;
+}
+.navigation-pop-leave-start {
+  @include front;
+  @include unreactive;
+}
+.navigation-pop-leave-end {
+  @include front;
+}
