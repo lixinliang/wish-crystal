@@ -37,7 +37,7 @@ export default {
   }
 </style>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @mixin left {
     transform: translate3d(-50% ,0, 0);
   }
@@ -59,10 +59,26 @@ export default {
   @mixin hide-shadow {
     box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0);
   }
+  @mixin normal {
+    $zindex: 100; // 导航动画 box 普通状态
+    z-index: $zindex;
+  }
+  @mixin below {
+    $zindex: 101; // 导航动画 box 底层状态
+    z-index: $zindex;
+  }
+  @mixin above {
+    $zindex: 102; // 导航动画 box 上层状态
+    z-index: $zindex;
+  }
+  .navigation-effect-box {
+    @include normal;
+  }
   .navigation-push-enter-start {
     .navigation-effect-box {
       @include right;
       @include hide-shadow;
+      @include above;
     }
     .vux-masker-box {
       @include hide-mask;
@@ -72,6 +88,7 @@ export default {
     .navigation-effect-box {
       @include center;
       @include show-shadow;
+      @include above;
     }
     .vux-masker-box {
       @include hide-mask;
@@ -81,6 +98,7 @@ export default {
     .navigation-effect-box {
       @include center;
       @include hide-shadow;
+      @include below;
     }
     .vux-masker-box {
       @include hide-mask;
@@ -90,6 +108,7 @@ export default {
     .navigation-effect-box {
       @include left;
       @include hide-shadow;
+      @include below;
     }
     .vux-masker-box {
       @include show-mask;
@@ -99,6 +118,7 @@ export default {
     .navigation-effect-box {
       @include left;
       @include hide-shadow;
+      @include below;
     }
     .vux-masker-box {
       @include show-mask;
@@ -108,6 +128,7 @@ export default {
     .navigation-effect-box {
       @include center;
       @include hide-shadow;
+      @include below;
     }
     .vux-masker-box {
       @include hide-mask;
@@ -117,6 +138,7 @@ export default {
     .navigation-effect-box {
       @include center;
       @include show-shadow;
+      @include above;
     }
     .vux-masker-box {
       @include hide-mask;
@@ -126,6 +148,7 @@ export default {
     .navigation-effect-box {
       @include right;
       @include hide-shadow;
+      @include above;
     }
     .vux-masker-box {
       @include hide-mask;
