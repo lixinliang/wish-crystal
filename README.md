@@ -5,9 +5,11 @@ coming soon.
 
 # TODO
 
+---
+
 * 分类 tag 进度条
 * 心愿贴 删除 / 编辑
-* 增加 转场动画 拆分为 push / pop / replace
+* 模块缓存 / mainifest 缓存
 
 ---
 
@@ -24,7 +26,6 @@ coming soon.
 
 ---
 
-* 模块缓存 / mainifest 缓存
 * 模块显式文件名 chunk name
 * 日志系统 / 收集同步数据的日志记录
 * 保存路由父页面状态例如滚动等
