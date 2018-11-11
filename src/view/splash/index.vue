@@ -22,6 +22,8 @@ import heart from '@/img/heart.svg'
 const { _ } = window
 const { version } = pkg
 
+const zindex = 99999 // 启屏动画
+
 export default {
   async mounted () {
     // 创建画布
@@ -31,11 +33,12 @@ export default {
     const { canvas, context } = window.util.canvas(width, height)
     this.canvas = canvas
     this.context = context
+
     canvas.style['top'] = 0
     canvas.style['left'] = 0
     canvas.style['width'] = `${window.innerWidth}px`
     canvas.style['height'] = `${window.innerHeight}px`
-    canvas.style['z-index'] = 99999
+    canvas.style['z-index'] = zindex
     canvas.style['opacity'] = 1
     canvas.style['position'] = 'absolute'
     document.body.appendChild(canvas)
