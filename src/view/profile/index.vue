@@ -1,17 +1,22 @@
 <template>
   <div id="profile">
-    <widget-scroll-box>
-      <layout-navbar-shadow/>
-      <group>
-        <cell :title="$t('profile@photo')" is-link @click.native="$push('photo')">
-          <widget-default-avatar :width="60" :height="60"/>
-        </cell>
-        <cell :title="$t('profile@name')" is-link @click.native="$push('name')">
-          <widget-default-name/>
-        </cell>
-        <cell :title="$t('profile@checkcode')" :value="$storage.user.checkcode"/>
-      </group>
-    </widget-scroll-box>
+    <navigation-effect-box>
+      <widget-background-color>
+        <widget-scroll-box>
+          <layout-navbar-shadow/>
+          <group>
+            <cell :title="$t('profile@photo')" is-link @click.native="$push('photo')">
+              <widget-default-avatar :width="60" :height="60"/>
+            </cell>
+            <cell :title="$t('profile@name')" is-link @click.native="$push('name')">
+              <widget-default-name/>
+            </cell>
+            <cell :title="$t('profile@checkcode')" :value="$storage.user.checkcode"/>
+          </group>
+        </widget-scroll-box>
+      </widget-background-color>
+    </navigation-effect-box>
+    <layout-navbar-color/>
     <layout-navbar :title="$t('profile@layout-navbar-title')"/>
   </div>
 </template>
@@ -34,20 +39,26 @@ profile@checkcode:
 <script>
 import { Cell, Group } from 'vux'
 import layoutNavbar from '@/layout/navbar'
+import layoutNavbarColor from '@/layout/navbar-color'
 import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
 import widgetDefaultName from '@/widget/default-name'
 import widgetDefaultAvatar from '@/widget/default-avatar'
+import widgetBackgroundColor from '@/widget/background-color'
+import navigationEffectBox from '@/navigation/effect-box'
 
 export default {
   components: {
     Cell,
     Group,
     layoutNavbar,
+    layoutNavbarColor,
     layoutNavbarShadow,
     widgetScrollBox,
     widgetDefaultName,
-    widgetDefaultAvatar
+    widgetDefaultAvatar,
+    widgetBackgroundColor,
+    navigationEffectBox
   }
 }
 </script>
