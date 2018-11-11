@@ -174,3 +174,8 @@ util.debounce = (interval) => {
     queue = queue.then(resolve).then(() => util.sleep(interval))
   }))
 }
+
+// 触发浏览器 repaint
+util.repaint = (el) => {
+  return el.offsetTop
+}
