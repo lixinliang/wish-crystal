@@ -2,14 +2,15 @@
   <div id="home">
     <navigation-effect-box>
       <widget-background-color>
+        <widget-scroll-box>
+          <layout-navbar-shadow/>
+          <grid-style v-if="$storage.config['home:style'] === 'grid'" :list="menu" @click="click"></grid-style>
+          <list-style v-if="$storage.config['home:style'] === 'list'" :list="menu" @click="click"></list-style>
+        </widget-scroll-box>
+        <layout-tabbar/>
       </widget-background-color>
     </navigation-effect-box>
-    <widget-scroll-box>
-      <layout-navbar-shadow/>
-      <grid-style v-if="$storage.config['home:style'] === 'grid'" :list="menu" @click="click"></grid-style>
-      <list-style v-if="$storage.config['home:style'] === 'list'" :list="menu" @click="click"></list-style>
-    </widget-scroll-box>
-    <layout-tabbar/>
+    <layout-navbar-color/>
     <layout-navbar :title="$t('home@layout-navbar-title')" @tap="navbarTap">
       <a slot="right">
         <em v-if="$storage.config['home:style'] === 'grid'" v-html="list"/>
@@ -39,6 +40,7 @@ import star from '@/img/star.svg'
 import wish from '@/img/wish.svg'
 import layoutTabbar from '@/layout/tabbar'
 import layoutNavbar from '@/layout/navbar'
+import layoutNavbarColor from '@/layout/navbar-color'
 import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
 import widgetBackgroundColor from '@/widget/background-color'
@@ -54,6 +56,7 @@ export default {
     listStyle,
     layoutTabbar,
     layoutNavbar,
+    layoutNavbarColor,
     layoutNavbarShadow,
     widgetScrollBox,
     widgetBackgroundColor,
