@@ -16,6 +16,7 @@
         </widget-scroll-box>
       </widget-background-color>
     </navigation-effect-box>
+    <layout-navbar-color/>
     <layout-navbar :title="$t('about@layout-navbar-title')"/>
   </div>
 </template>
@@ -48,6 +49,7 @@ about@develop:
 import pkg from 'package.json'
 import icon from '@/img/logo.png'
 import layoutNavbar from '@/layout/navbar'
+import layoutNavbarColor from '@/layout/navbar-color'
 import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
 import widgetBackgroundColor from '@/widget/background-color'
@@ -59,6 +61,7 @@ const { version } = pkg
 export default {
   components: {
     layoutNavbar,
+    layoutNavbarColor,
     layoutNavbarShadow,
     widgetScrollBox,
     widgetBackgroundColor,
