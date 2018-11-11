@@ -2,6 +2,7 @@ import Vue from 'vue'
 
 const vm = new Vue()
 
+// 事件解耦通用模块
 window.$event = {
   on () {
     return vm.$on.apply(vm, arguments)
