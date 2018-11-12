@@ -2,7 +2,9 @@
   <div class="layout-navbar" @touchmove.prevent @click="click">
     <navigation-effect-header>
       <x-header :left-options="{ backText, showBack, preventGoBack }" :right-options="{ showMore }">
-        <span class="title" v-if="this.title">{{this.title}}</span>
+        <navigation-effect-title>
+          <span class="title" v-if="this.title">{{this.title}}</span>
+        </navigation-effect-title>
         <slot slot="left" name="left"/>
         <slot slot="right" name="right"/>
       </x-header>
@@ -30,6 +32,7 @@ layout-navbar@create:
 
 <script>
 import { XHeader } from 'vux'
+import navigationEffectTitle from '@/navigation/effect-title'
 import navigationEffectHeader from '@/navigation/effect-header'
 
 export default {
@@ -45,6 +48,7 @@ export default {
   },
   components: {
     XHeader,
+    navigationEffectTitle,
     navigationEffectHeader
   },
   computed: {
