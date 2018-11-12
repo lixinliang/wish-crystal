@@ -1,19 +1,41 @@
 import Vue from 'vue'
 // 动画时间
 import duration from './duration'
-// 导航栏 style
-import './style.scss'
 
 // 方向变量
 let direction = 'none'
 
+// resolve promise
+let resolvePromiseAfterEnter = window._.noop
+let resolvePromiseAfterLeave = window._.noop
+
+// disable all event
+async function inreactive () {
+  window.sdk.masker({ show: true, fullscreen: true })
+  const animation = []
+  {
+    const { promise, resolve } = window.util.promise()
+    animation.push(promise)
+    resolvePromiseAfterEnter = resolve
+  }
+  {
+    const { promise, resolve } = window.util.promise()
+    animation.push(promise)
+    resolvePromiseAfterLeave = resolve
+  }
+  await Promise.all(animation)
+  window.sdk.masker({ show: false, fullscreen: false })
+}
+
 // 占用 Vue 原型链 命名空间
 Vue.prototype.$pop = () => {
   direction = 'pop'
+  inreactive()
   window.router.go(-1)
 }
 Vue.prototype.$push = (name, params) => {
   direction = 'push'
+  inreactive()
   window.router.push({
     name,
     params
@@ -66,6 +88,7 @@ const methods = {
       el.classList.remove('navigation-pop-enter-start')
       el.classList.remove('navigation-pop-enter-end')
     }
+    resolvePromiseAfterEnter()
   },
   onBeforeLeave (el) {
     if (direction === 'none') {
@@ -104,6 +127,7 @@ const methods = {
       el.classList.remove('navigation-pop-leave-start')
       el.classList.remove('navigation-pop-leave-end')
     }
+    resolvePromiseAfterLeave()
   }
 }
 
