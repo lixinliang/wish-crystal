@@ -5,11 +5,12 @@ coming soon.
 
 # TODO
 
+* 模块缓存 / mainifest 缓存
+
 ---
 
 * 分类 tag 进度条
 * 心愿贴 删除 / 编辑
-* 模块缓存 / mainifest 缓存
 
 ---
 
