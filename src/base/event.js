@@ -16,6 +16,7 @@ window.$event = {
   once () {
     return vm.$once.apply(vm, arguments)
   },
+  // disposable
   listen (...args) {
     vm.$on.apply(vm, args)
     return {
