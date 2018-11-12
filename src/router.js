@@ -25,6 +25,10 @@ const config = {
     component: () => import(/* webpackChunkName: "checkcode" */'@/view/checkcode')
   },
   develop: {
+    assets: [
+      'JSONP-min.js',
+      'URI.min.js'
+    ],
     component: () => import(/* webpackChunkName: "develop" */'@/view/develop')
   },
   home: {
