@@ -16,6 +16,14 @@ export default {
 }
 </script>
 
+<style lang="scss" scoped>
+  .navigation-effect-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+</style>
+
+
 <style lang="scss">
   @mixin left {
     transform: translate3d(-50% ,0, 0);
