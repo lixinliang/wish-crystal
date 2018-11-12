@@ -22,6 +22,7 @@ if (/zh/.test(navigator.language)) {
   Vue.i18n.set('en')
 }
 
+// 占用全局命名空间
 window.i18n = store
 
 // webpage plugin i18n-loader 通讯使用
