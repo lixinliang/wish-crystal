@@ -19,6 +19,7 @@ export default {
     }
   },
   mounted () {
+    // navigation animation not working without repaint
     window.util.repaint(this.$el)
   }
 }
