@@ -179,3 +179,8 @@ util.debounce = (interval) => {
 util.repaint = (el) => {
   return el.offsetTop
 }
+
+// jsonp 封装 promise
+util.jsonp = async (url, data) => (new Promise((resolve) => {
+  window.JSONP.call(null, url, data, resolve)
+}))
