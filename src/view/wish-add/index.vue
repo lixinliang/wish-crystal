@@ -1,12 +1,17 @@
 <template>
   <div id="wish-add">
-    <widget-scroll-box>
-      <layout-navbar-shadow/>
-      <group>
-        <x-input v-model="title" :max="20" :placeholder="$t('wish-add@title')"/>
-        <x-textarea v-model="content" :max="200" :placeholder="$t('wish-add@content')"/>
-      </group>
-    </widget-scroll-box>
+    <navigation-effect-box>
+      <widget-background-color>
+        <widget-scroll-box>
+          <layout-navbar-shadow/>
+          <group>
+            <x-input v-model="title" :max="20" :placeholder="$t('wish-add@title')"/>
+            <x-textarea v-model="content" :max="200" :placeholder="$t('wish-add@content')"/>
+          </group>
+        </widget-scroll-box>
+      </widget-background-color>
+    </navigation-effect-box>
+    <layout-navbar-color/>
     <layout-navbar :title="$t('wish-add@layout-navbar-title')" @tap="navbarTap">
       <a slot="left">{{$t('layout-navbar@cancel')}}</a>
       <a slot="right" class="primary" :class="{ 'disabled': disabled }">{{$t('layout-navbar@create')}}</a>
@@ -29,8 +34,11 @@ wish-add@content:
 <script>
 import { Group, XInput, XTextarea } from 'vux'
 import layoutNavbar from '@/layout/navbar'
+import layoutNavbarColor from '@/layout/navbar-color'
 import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
+import widgetBackgroundColor from '@/widget/background-color'
+import navigationEffectBox from '@/navigation/effect-box'
 
 export default {
   components: {
@@ -38,8 +46,11 @@ export default {
     XInput,
     XTextarea,
     layoutNavbar,
+    layoutNavbarColor,
     layoutNavbarShadow,
-    widgetScrollBox
+    widgetScrollBox,
+    widgetBackgroundColor,
+    navigationEffectBox
   },
   data () {
     return {

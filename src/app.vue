@@ -1,6 +1,15 @@
 <template>
   <div id="app" :style="{ 'height': `${$window.screen.height}px` }">
-    <router-view ref="view"/>
+    <transition
+      @before-enter="onBeforeEnter"
+      @enter="onEnter"
+      @after-enter="onAfterEnter"
+      @before-leave="onBeforeLeave"
+      @leave="onLeave"      
+      @after-leave="onAfterLeave"      
+    >
+      <router-view ref="view"/>
+    </transition>
     <sdk/>
   </div>
 </template>
@@ -8,9 +17,13 @@
 <script>
 import './sdk'
 import router from './router'
+import navigation from './navigation'
+
+const { methods } = navigation
 
 export default {
-  router
+  router,
+  methods
 }
 </script>
 

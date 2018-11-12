@@ -41,6 +41,7 @@ Vue.use({
   }
 })
 
+// closure for v-mc
 const closure = {}
 
 // v-mc

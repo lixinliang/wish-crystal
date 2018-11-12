@@ -17,19 +17,13 @@ export default {
     }
   },
   created () {
-    // window.$event.on('app:actionsheet', ({ show, menus }) => {
-    //   this.show = !!show
-    //   this.menus = menus
-    // })
   },
   methods: {
     change (...args) {
       console.log('change', args)
-      // window.$event.emit('layout-actionsheet:click', key)
     },
     hide (...args) {
       console.log('hide', args)
-      // window.$event.emit('layout-actionsheet:close')
     }
   }
 }

@@ -1,9 +1,11 @@
+// 通用常量
 $background-color-normal: #f7f7f7;
 $background-color-active: #f3f3f3;
 
 $green-color: #09bb07;
 
 $navbar: 44px;
+$tabbar: 60px;
 $xheader: 46px;
 $ios-status-bar: 20px;
 $iphonex-status-bar: 24px;
@@ -21,6 +23,7 @@ $iphonex-home-indicator: 34px;
   background-position: center center;
 }
 
+// 清除浮动
 @mixin clearfix {
   &::after {
     content: "";
@@ -29,6 +32,7 @@ $iphonex-home-indicator: 34px;
   }
 }
 
+// 文字省略
 @mixin ellipsis ($line: 0) {
   @if ($line == 0) {
     overflow: hidden;
@@ -47,13 +51,17 @@ $iphonex-home-indicator: 34px;
   }
 }
 
+// 动态路由 router-view base 样式
 @mixin page-base {
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
   overflow: hidden;
-  position: relative;
-  background-color: $background-color-normal;
+  position: absolute;
 }
 
+// 路由 index 样式
 @mixin page-index {
   @include page-base;
   .logo {
@@ -79,10 +87,12 @@ $iphonex-home-indicator: 34px;
   }
 }
 
+// 导航栏 按钮 primary 样式
 @mixin navbar-button-primary {
   color: $green-color;
 }
 
+// 导航栏 按钮 disabled 样式
 @mixin navbar-button-disabled {
   opacity: .5;
   pointer-events: none;

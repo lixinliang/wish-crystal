@@ -142,26 +142,45 @@ util.uuid = (length) => (_.repeat('0', length) + Math.ceil(Math.random() * Math.
 // 创建范围
 util.range = (min, max) => (value) => (Math.max(min, Math.min(value, max)))
 
-// todo
-// 迁移到 sdk
-util.actionsheet = (options) => (new Promise((resolve) => {
-  const base = {
-    show: true
-  }
-  const disposable = [
-    window.$event.listen('layout-actionsheet:click', (payload) => {
-      _.forEach(disposable, (item) => item.remove())
-      resolve({
-        type: 'click',
-        payload
-      })
-    }),
-    window.$event.listen('layout-actionsheet:close', () => {
-      _.forEach(disposable, (item) => item.remove())
-      resolve({
-        type: 'close'
-      })
-    })
-  ]
-  window.$event.emit('app:actionsheet', _.assign({}, base, options))
+// 去抖 工厂
+// 返回一个 去抖函数实例 时间间隔为 interval
+// 相同 去抖函数实例 共享 trigger
+// 每一次调用时
+// trigger false 则 skip 效果等同去抖
+// trigger true 则 pass 且在 interval 内不再 resolve
+// 去抖函数实例 返回的 promise 不一定 resolve 所以不能使用 async 语法
+util.throttle = (interval) => {
+  let trigger = true
+  return () => (new Promise(async (resolve) => {
+    if (trigger) {
+      trigger = false
+      resolve()
+      await util.sleep(interval)
+      trigger = true
+    }
+  }))
+}
+
+// 节流 工厂
+// 返回一个 节流函数实例 时间间隔为 interval
+// 相同 节流函数实例 共享 queue
+// 每一次调用时
+// queue 链 新增 当前 promise 的 resolve 并添加一个单位的 interval
+// 下次调用的间隔若大于 一个单位的 interval 则直接调用 否则 需要等待达到 一个单位的 interval
+// 节流函数实例 返回的 promise 需要用到 resolve 链式调用 所以不能使用 async 语法
+util.debounce = (interval) => {
+  let queue = Promise.resolve()
+  return () => (new Promise((resolve) => {
+    queue = queue.then(resolve).then(() => util.sleep(interval))
+  }))
+}
+
+// 触发浏览器 repaint
+util.repaint = (el) => {
+  return el.offsetTop
+}
+
+// jsonp 封装 promise
+util.jsonp = async (url, data) => (new Promise((resolve) => {
+  window.JSONP.call(null, url, data, resolve)
 }))

@@ -1,10 +1,14 @@
 <template>
   <div class="layout-navbar" @touchmove.prevent @click="click">
-    <x-header :left-options="{ backText, showBack, preventGoBack }" :right-options="{ showMore }">
-      <span class="title" v-if="this.title">{{this.title}}</span>
-      <slot slot="left" name="left"/>
-      <slot slot="right" name="right"/>
-    </x-header>
+    <navigation-effect-header>
+      <x-header :left-options="{ backText, showBack, preventGoBack }" :right-options="{ showMore }">
+        <navigation-effect-title>
+          <span class="title" v-if="this.title">{{this.title}}</span>
+        </navigation-effect-title>
+        <slot slot="left" name="left"/>
+        <slot slot="right" name="right"/>
+      </x-header>
+    </navigation-effect-header>
   </div>
 </template>
 
@@ -28,6 +32,8 @@ layout-navbar@create:
 
 <script>
 import { XHeader } from 'vux'
+import navigationEffectTitle from '@/navigation/effect-title'
+import navigationEffectHeader from '@/navigation/effect-header'
 
 export default {
   props: {
@@ -41,7 +47,9 @@ export default {
     }
   },
   components: {
-    XHeader
+    XHeader,
+    navigationEffectTitle,
+    navigationEffectHeader
   },
   computed: {
     showBack () {
@@ -93,7 +101,6 @@ export default {
     left: 0;
     width: 100%;
     position: absolute;
-    background-color: #35495e;
     .title {
       font-weight: 400;
     }
@@ -107,6 +114,7 @@ export default {
       bottom: 0;
       width: 100%;
       position: absolute;
+      background-color: transparent;
       .vux-header-left {
         .vux-header-back {
           &:active {

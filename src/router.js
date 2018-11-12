@@ -9,6 +9,7 @@ const base = [
   'moment.min.js'
 ]
 
+// 路由配置
 const config = {
   about: {
     assets: ['hammer.min.js'],
@@ -24,6 +25,10 @@ const config = {
     component: () => import(/* webpackChunkName: "checkcode" */'@/view/checkcode')
   },
   develop: {
+    assets: [
+      'JSONP-min.js',
+      'URI.min.js'
+    ],
     component: () => import(/* webpackChunkName: "develop" */'@/view/develop')
   },
   home: {
@@ -34,6 +39,7 @@ const config = {
     assets: ['micro-app.min.js'],
     component: () => import(/* webpackChunkName: "index" */'@/view/index'),
     beforeEnter (to, from, next) {
+      // app 入口
       if (window.util.test('standalone')) {
         // app 环境 跳转到 启动动画
         next('splash')
@@ -80,6 +86,7 @@ const config = {
   }
 }
 
+// 路由配置
 const routes = _.map(config, ({ alias, assets = [], component, beforeEnter }, name) => {
   return _.assign({
     name,
@@ -95,8 +102,10 @@ const routes = _.map(config, ({ alias, assets = [], component, beforeEnter }, na
   })
 })
 
+// 路由对象
 const router = new VueRouter({ routes })
 
+// 路由钩子
 const beforeHook = async (to, from, next) => {
   console.log(`[router.js]@beforeHook:to.name=${to.name}`)
   // 加载依赖资源
@@ -115,6 +124,7 @@ const beforeHook = async (to, from, next) => {
   next()
 }
 
+// 路由钩子
 const afterHook = async (to, from) => {
 }
 

@@ -1,11 +1,16 @@
 <template>
   <div id="home">
-    <widget-scroll-box>
-      <layout-navbar-shadow/>
-      <grid-style v-if="$storage.config['home:style'] === 'grid'" :list="menu" @click="click"></grid-style>
-      <list-style v-if="$storage.config['home:style'] === 'list'" :list="menu" @click="click"></list-style>
-    </widget-scroll-box>
-    <layout-tabbar/>
+    <navigation-effect-box>
+      <widget-background-color>
+        <widget-scroll-box>
+          <layout-navbar-shadow/>
+          <grid-style v-if="$storage.config['home:style'] === 'grid'" :list="menu" @click="click"></grid-style>
+          <list-style v-if="$storage.config['home:style'] === 'list'" :list="menu" @click="click"></list-style>
+        </widget-scroll-box>
+        <layout-tabbar/>
+      </widget-background-color>
+    </navigation-effect-box>
+    <layout-navbar-color/>
     <layout-navbar :title="$t('home@layout-navbar-title')" @tap="navbarTap">
       <a slot="right">
         <em v-if="$storage.config['home:style'] === 'grid'" v-html="list"/>
@@ -35,8 +40,11 @@ import star from '@/img/star.svg'
 import wish from '@/img/wish.svg'
 import layoutTabbar from '@/layout/tabbar'
 import layoutNavbar from '@/layout/navbar'
+import layoutNavbarColor from '@/layout/navbar-color'
 import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
+import widgetBackgroundColor from '@/widget/background-color'
+import navigationEffectBox from '@/navigation/effect-box'
 import gridStyle from './grid-style'
 import listStyle from './list-style'
 import grid from '@/img/grid.svg'
@@ -48,8 +56,11 @@ export default {
     listStyle,
     layoutTabbar,
     layoutNavbar,
+    layoutNavbarColor,
     layoutNavbarShadow,
-    widgetScrollBox
+    widgetScrollBox,
+    widgetBackgroundColor,
+    navigationEffectBox
   },
   data () {
     return {
@@ -79,6 +90,10 @@ export default {
       if (name === 'more') {
         const content = this.$t('home@coming-soon')
         this.$sdk.alert({ content })
+        return
+      }
+      if (name === 'wish') {
+        this.$replace(name)
         return
       }
       this.$push(name)

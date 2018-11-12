@@ -98,7 +98,6 @@ const webpackConfig = merge(baseWebpackConfig, {
       children: true,
       minChunks: 3
     }),
-
     // copy custom static assets
     new CopyWebpackPlugin([
       {
@@ -107,14 +106,13 @@ const webpackConfig = merge(baseWebpackConfig, {
         ignore: ['.*']
       }
     ]),
-
     new AppCachePlugin({
-      cache: ['someOtherAsset.jpg'],
-      network: null,  // No network access allowed!
-      fallback: ['failwhale.jpg'],
-      settings: ['prefer-online'],
-      exclude: ['file.txt', /.*\.js$/],  // Exclude file.txt and all .js files
-      output: 'my-manifest.appcache'
+      cache: [],
+      network: null,
+      fallback: [],
+      settings: [],
+      exclude: [/.*\.js\.map$/],
+      output: 'manifest.appcache'
     })
   ]
 })

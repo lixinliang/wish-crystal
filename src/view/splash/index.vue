@@ -22,6 +22,8 @@ import heart from '@/img/heart.svg'
 const { _ } = window
 const { version } = pkg
 
+const zindex = 99999 // 启屏动画
+
 export default {
   async mounted () {
     // 创建画布
@@ -31,11 +33,12 @@ export default {
     const { canvas, context } = window.util.canvas(width, height)
     this.canvas = canvas
     this.context = context
+
     canvas.style['top'] = 0
     canvas.style['left'] = 0
     canvas.style['width'] = `${window.innerWidth}px`
     canvas.style['height'] = `${window.innerHeight}px`
-    canvas.style['z-index'] = 99999
+    canvas.style['z-index'] = zindex
     canvas.style['opacity'] = 1
     canvas.style['position'] = 'absolute'
     document.body.appendChild(canvas)
@@ -192,7 +195,7 @@ export default {
         // 进度变量 达到 动画终结点
         // 跳出 loop
         if (progressPercentage > deadline) {
-          await window.util.sleep(100)
+          await window.util.sleep(80)
           window.$event.emit('splash:fadeout')
           return
         }
@@ -201,12 +204,12 @@ export default {
         drawHeart()
         drawText()
         drawVersion()
-        await window.util.sleep(20)
+        await window.util.sleep(10)
         if (progressPercentage > progressPeak) {
           // 进度变量 达到 进度临时峰值
           // 动画缓停
         } else {
-          progressPercentage++
+          progressPercentage += 2
           // 进度变量 未达到 进度临时峰值
           // 动画继续
         }
@@ -227,7 +230,7 @@ export default {
       // 动画逻辑
       progressPeak = 30
       text = this.$t('splash@checking')
-      await window.util.sleep(800)
+      await window.util.sleep(500)
       if (this.$storage.config['splash:display-updating'] === version) {
         // noop
       } else {
@@ -266,14 +269,14 @@ export default {
           return
         }
         await window.util.sleep(10)
-        fadeoutPercentage += 7
+        fadeoutPercentage += 8
         resolve()
       })))
       // 放大
-      await window.util.sleep(200)
-      canvas.style['transition'] = 'transform .3s cubic-bezier(0, 0, 1, 0)'
-      canvas.style['transform'] = 'scale(20)'
-      await window.util.sleep(400)
+      await window.util.sleep(150)
+      canvas.style['transition'] = 'transform .25s cubic-bezier(0, 0, 1, 0)'
+      canvas.style['transform'] = 'scale(22)'
+      await window.util.sleep(300)
       window.$event.emit('splash:destroy')
     })
     // 动画销毁
@@ -290,7 +293,7 @@ export default {
     window.$event.emit('splash:init')
     window.$event.emit('splash:progress')
 
-    await window.util.sleep(100)
+    await window.util.sleep(20)
     this.$replace('home')
   }
 }

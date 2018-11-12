@@ -1,24 +1,29 @@
 <template>
   <div id="person">
-    <widget-scroll-box>
-      <layout-navbar-shadow/>
-      <group>
-        <cell is-link @click.native="$push('profile')">
-          <template slot="icon">
-            <div class="avatar">
-              <widget-default-avatar :width="60" :height="60"/>
-            </div>
-          </template>
-          <template slot="title">
-            <widget-default-name/>
-          </template>
-        </cell>
-      </group>
-      <group>
-        <cell :title="$t('person@setting')" is-link @click.native="$push('setting')"></cell>
-      </group>
-    </widget-scroll-box>
-    <layout-tabbar/>
+    <navigation-effect-box>
+      <widget-background-color>
+        <widget-scroll-box>
+          <layout-navbar-shadow/>
+          <group>
+            <cell is-link @click.native="$push('profile')">
+              <template slot="icon">
+                <div class="avatar">
+                  <widget-default-avatar :width="60" :height="60"/>
+                </div>
+              </template>
+              <template slot="title">
+                <widget-default-name/>
+              </template>
+            </cell>
+          </group>
+          <group>
+            <cell :title="$t('person@setting')" is-link @click.native="$push('setting')"></cell>
+          </group>
+        </widget-scroll-box>
+        <layout-tabbar/>
+      </widget-background-color>
+    </navigation-effect-box>
+    <layout-navbar-color/>
     <layout-navbar :title="$t('person@layout-navbar-title')"/>
   </div>
 </template>
@@ -36,8 +41,11 @@ person@setting:
 import { Cell, Group } from 'vux'
 import layoutTabbar from '@/layout/tabbar'
 import layoutNavbar from '@/layout/navbar'
+import layoutNavbarColor from '@/layout/navbar-color'
 import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
+import widgetBackgroundColor from '@/widget/background-color'
+import navigationEffectBox from '@/navigation/effect-box'
 import widgetDefaultName from '@/widget/default-name'
 import widgetDefaultAvatar from '@/widget/default-avatar'
 
@@ -47,8 +55,11 @@ export default {
     Group,
     layoutTabbar,
     layoutNavbar,
+    layoutNavbarColor,
     layoutNavbarShadow,
     widgetScrollBox,
+    widgetBackgroundColor,
+    navigationEffectBox,
     widgetDefaultName,
     widgetDefaultAvatar
   }

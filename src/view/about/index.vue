@@ -1,17 +1,22 @@
 <template>
   <div id="about">
-    <widget-scroll-box>
-      <layout-navbar-shadow/>
-      <div class="logo" v-mc="hammer">
-        <i v-image:size.96x96="icon"/>
-      </div>
-      <p>{{$t('about@app')}}</p>
-      <p @click="toast">{{$t('about@version')}}：{{version}}.{{$timestamp|format('YYYYMMDD.HHmmss')}}</p>
-      <p>
-        <em><span @click="$push('changelog')">{{$t('about@changelog')}}</span>·<span @click="$push('tree')">{{$t('about@tree')}}</span></em>
-      </p>
-      <div class="copyright">李昕亮(393464140@qq.com) 版权所有<br>Copyright © {{year}} lixinliang. All Rights Reserved.</div>
-    </widget-scroll-box>
+    <navigation-effect-box>
+      <widget-background-color>
+        <widget-scroll-box>
+          <layout-navbar-shadow/>
+          <div class="logo" v-mc="hammer" @click="click">
+            <i v-image:size.96x96="icon"/>
+          </div>
+          <p>{{$t('about@app')}}</p>
+          <p @click="toast">{{$t('about@version')}}：{{version}}.{{$timestamp|format('YYYYMMDD.HHmmss')}}</p>
+          <p>
+            <em><span @click="$push('changelog')">{{$t('about@changelog')}}</span>·<span @click="$push('tree')">{{$t('about@tree')}}</span></em>
+          </p>
+          <div class="copyright">李昕亮(393464140@qq.com) 版权所有<br>Copyright © {{year}} lixinliang. All Rights Reserved.</div>
+        </widget-scroll-box>
+      </widget-background-color>
+    </navigation-effect-box>
+    <layout-navbar-color/>
     <layout-navbar :title="$t('about@layout-navbar-title')"/>
   </div>
 </template>
@@ -44,8 +49,11 @@ about@develop:
 import pkg from 'package.json'
 import icon from '@/img/logo.png'
 import layoutNavbar from '@/layout/navbar'
+import layoutNavbarColor from '@/layout/navbar-color'
 import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
+import widgetBackgroundColor from '@/widget/background-color'
+import navigationEffectBox from '@/navigation/effect-box'
 
 const { _ } = window
 const { version } = pkg
@@ -53,8 +61,11 @@ const { version } = pkg
 export default {
   components: {
     layoutNavbar,
+    layoutNavbarColor,
     layoutNavbarShadow,
-    widgetScrollBox
+    widgetScrollBox,
+    widgetBackgroundColor,
+    navigationEffectBox
   },
   data () {
     return {
@@ -78,26 +89,36 @@ export default {
       const text = this.$t('about@up-to-date')
       this.$sdk.toast({ text })
     },
+    async actionsheet () {
+      const menus = [this.$t(`about@develop`)]
+      const result = await this.$sdk.actionsheet({ menus })
+      const { index } = result
+      if (index === 0) {
+        this.$push('develop')
+      }
+    },
+    click () {
+      if (window.util.test('development')) {
+        this.actionsheet()
+      }
+    },
     hammer (mc) {
       mc.add([new window.Hammer.Press()])
-      let pressup
-      mc.on('press', async (event) => {
-        const { promise, resolve } = window.util.promise()
-        pressup = resolve
-        const stop = await Promise.race([promise, window.util.sleep(5000)])
-        if (stop) {
-          return
-        }
-        const menus = [this.$t(`about@develop`)]
-        const result = await this.$sdk.actionsheet({ menus })
-        const { index } = result
-        if (index === 0) {
-          this.$push('develop')
-        }
-      })
-      mc.on('pressup', (event) => {
-        pressup(true)
-      })
+      if (window.util.test('production')) {
+        let pressup
+        mc.on('press', async (event) => {
+          const { promise, resolve } = window.util.promise()
+          pressup = resolve
+          const stop = await Promise.race([promise, window.util.sleep(5000)])
+          if (stop) {
+            return
+          }
+          this.actionsheet()
+        })
+        mc.on('pressup', (event) => {
+          pressup(true)
+        })
+      }
     }
   }
 }

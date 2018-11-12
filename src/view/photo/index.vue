@@ -1,7 +1,12 @@
 <template>
   <div id="photo" @touchmove.prevent>
-    <input ref="file" type="file" accept="image/*" @change="change">
-    <widget-default-avatar :width="size" :height="size"/>
+    <navigation-effect-box>
+      <widget-background-color :color="'#000'">
+        <input ref="file" type="file" accept="image/*" @change="change">
+        <widget-default-avatar :width="size" :height="size"/>
+      </widget-background-color>
+    </navigation-effect-box>
+    <layout-navbar-color/>
     <layout-navbar :title="$t('photo@layout-navbar-title')" :right="'more'" @tap="navbarTap"/>
   </div>
 </template>
@@ -17,12 +22,18 @@ photo@select-photo:
 
 <script>
 import layoutNavbar from '@/layout/navbar'
+import layoutNavbarColor from '@/layout/navbar-color'
 import widgetDefaultAvatar from '@/widget/default-avatar'
+import widgetBackgroundColor from '@/widget/background-color'
+import navigationEffectBox from '@/navigation/effect-box'
 
 export default {
   components: {
     layoutNavbar,
-    widgetDefaultAvatar
+    layoutNavbarColor,
+    widgetDefaultAvatar,
+    widgetBackgroundColor,
+    navigationEffectBox
   },
   data () {
     return {
@@ -64,7 +75,9 @@ export default {
   @import '~@/global';
   #photo {
     @include page-base;
-    background-color: #000;
+    .widget-background-color {
+      overflow: hidden;
+    }
     .widget-default-avatar {
       top: 50%;
       transform: translateY(-50%);

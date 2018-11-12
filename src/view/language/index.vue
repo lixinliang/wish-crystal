@@ -1,13 +1,18 @@
 <template>
   <div id="language">
-    <widget-scroll-box>
-      <layout-navbar-shadow/>
-      <group>
-        <cell v-for="(item, $index) in list" :key="$index" :title="item.title" :disabled="$storage.user.lang === item.language" @click.native="set(item)">
-          <icon v-visible="$storage.user.lang === item.language" slot type="success-no-circle"></icon>
-        </cell>
-      </group>
-    </widget-scroll-box>
+    <navigation-effect-box>
+      <widget-background-color>
+        <widget-scroll-box>
+          <layout-navbar-shadow/>
+          <group>
+            <cell v-for="(item, $index) in list" :key="$index" :title="item.title" :disabled="$storage.user.lang === item.language" @click.native="set(item)">
+              <icon v-visible="$storage.user.lang === item.language" slot type="success-no-circle"></icon>
+            </cell>
+          </group>
+        </widget-scroll-box>
+      </widget-background-color>
+    </navigation-effect-box>
+    <layout-navbar-color/>
     <layout-navbar :title="$t('language@layout-navbar-title')"/>
   </div>
 </template>
@@ -21,8 +26,11 @@ language@layout-navbar-title:
 <script>
 import { Cell, Icon, Group } from 'vux'
 import layoutNavbar from '@/layout/navbar'
+import layoutNavbarColor from '@/layout/navbar-color'
 import layoutNavbarShadow from '@/layout/navbar-shadow'
 import widgetScrollBox from '@/widget/scroll-box'
+import widgetBackgroundColor from '@/widget/background-color'
+import navigationEffectBox from '@/navigation/effect-box'
 
 export default {
   components: {
@@ -30,8 +38,11 @@ export default {
     Icon,
     Group,
     layoutNavbar,
+    layoutNavbarColor,
     layoutNavbarShadow,
-    widgetScrollBox
+    widgetScrollBox,
+    widgetBackgroundColor,
+    navigationEffectBox
   },
   data () {
     return {
