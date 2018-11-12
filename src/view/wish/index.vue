@@ -1,7 +1,7 @@
 <template>
-  <div id="wish" :class="{ 'has-list': list.length }">
+  <div id="wish">
     <navigation-effect-box>
-      <widget-background-color>
+      <widget-background-color :color="color">
         <widget-scroll-box>
           <layout-navbar-shadow/>
           <list v-if="list.length" :list="list"/>
@@ -76,7 +76,14 @@ export default {
         return n.time - m.time
       })
       .value()
-    }
+    },
+    color () {
+      let color = ''
+      if (this.list.length) {
+        color = '#bdc5ca'
+      }
+      return color
+    },
   },
   methods: {
     async navbarTap ({ type }) {
@@ -92,9 +99,6 @@ export default {
   @import '~@/global';
   #wish {
     @include page-base;
-    &.has-list {
-      background-color: #bdc5ca;
-    }
   }
 </style>
 
