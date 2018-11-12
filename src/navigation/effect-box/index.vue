@@ -17,6 +17,9 @@ export default {
     return {
       duration
     }
+  },
+  mounted () {
+    window.util.repaint(this.$el)
   }
 }
 </script>
