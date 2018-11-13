@@ -12,7 +12,6 @@ const base = [
 // 路由配置
 const config = {
   about: {
-    assets: ['hammer.min.js'],
     component: () => import(/* webpackChunkName: "about" */'@/view/about')
   },
   blank: {
