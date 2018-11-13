@@ -48,6 +48,9 @@ const config = {
       next()
     }
   },
+  lab: {
+    component: () => import(/* webpackChunkName: "lab" */'@/view/lab')
+  },
   language: {
     component: () => import(/* webpackChunkName: "language" */'@/view/language')
   },
@@ -63,11 +66,20 @@ const config = {
   profile: {
     component: () => import(/* webpackChunkName: "profile" */'@/view/profile')
   },
+  sample: {
+    component: () => import(/* webpackChunkName: "sample" */'@/view/sample')
+  },
   setting: {
     component: () => import(/* webpackChunkName: "setting" */'@/view/setting')
   },
   splash: {
     component: () => import(/* webpackChunkName: "splash" */'@/view/splash')
+  },
+  'test-api': {
+    component: () => import(/* webpackChunkName: "test-api" */'@/view/test-api')
+  },
+  'test-sdk': {
+    component: () => import(/* webpackChunkName: "test-sdk" */'@/view/test-sdk')
   },
   tree: {
     component: () => import(/* webpackChunkName: "tree" */'@/view/tree')
