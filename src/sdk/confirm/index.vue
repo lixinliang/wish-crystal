@@ -1,11 +1,22 @@
 <template>
   <div class="sdk-confirm">
-    <confirm v-model="show" :title="'title'" :content="'content'" :confirmText="'confirmText'" :cancelText="'cancelText'" @on-cancel="cancel" @on-confirm="confirm" @on-hide="hide"/>
+    <confirm v-model="show" :title="title" :content="content" :confirmText="$t('sdk-confirm@confirm')" :cancelText="$t('sdk-confirm@cancel')" @on-cancel="cancel" @on-confirm="confirm"/>
   </div>
 </template>
 
+<i18n>
+sdk-confirm@confirm:
+  en: Confirm
+  zh-CN: 确定
+sdk-confirm@cancel:
+  en: Cancel
+  zh-CN: 取消
+</i18n>
+
 <script>
 import { Confirm } from 'vux'
+
+let resolve
 
 export default {
   components: {
@@ -13,20 +24,32 @@ export default {
   },
   data () {
     return {
-      show: false
+      show: false,
+      title: '',
+      content: ''
     }
   },
   created () {
+    window.sdk.confirm = async ({ title = '', content = '' }) => {
+      this.show = true
+      this.title = `${title}`
+      this.content = `${content}`
+      let promise
+      ({ promise, resolve } = window.util.promise())
+      const result = await promise
+      return result
+    }
   },
   methods: {
-    confirm (...args) {
-      console.log('confirm', args)
+    confirm () {
+      resolve({
+        index: 1
+      })
     },
-    cancel (...args) {
-      console.log('cancel', args)
-    },
-    hide (...args) {
-      console.log('hide', args)
+    cancel () {
+      resolve({
+        index: 0
+      })
     }
   }
 }
