@@ -17,7 +17,7 @@
       </widget-background-color>
     </navigation-effect-box>
     <layout-navbar-color/>
-    <layout-navbar :title="$t('about@layout-navbar-title')" :right="'more'" @tap="navbarTap"/>
+    <layout-navbar :title="$t('about@layout-navbar-title')" :right="develop ? 'more' : ''" @tap="navbarTap"/>
   </div>
 </template>
 
@@ -60,6 +60,9 @@ const { version } = pkg
 
 let resolve
 
+// keep alive
+const observe = util.observe({ develop: false })
+
 export default {
   components: {
     layoutNavbar,
@@ -72,11 +75,13 @@ export default {
   data () {
     return {
       icon,
-      version,
-      develop: false
+      version
     }
   },
   computed: {
+    develop () {
+      return observe.develop
+    },
     year () {
       const $year = 2018
       const year = new Date(this.$.now).getFullYear()
@@ -89,7 +94,7 @@ export default {
   },
   created () {
     if (window.util.test('development')) {
-      this.develop = true
+      observe.develop = true
     }
   },
   methods: {
@@ -117,7 +122,7 @@ export default {
       if (stop) {
         return
       }
-      this.develop = true
+      observe.develop = true
     },
     touchend () {
       if (window.util.test('development')) {
@@ -170,16 +175,6 @@ export default {
       line-height: 1.5;
       text-align: center;
       position: absolute;
-    }
-  }
-</style>
-
-<style lang="scss">
-  #about {
-    .layout-navbar {
-      .vux-header-right {
-        display: none;
-      }
     }
   }
 </style>
