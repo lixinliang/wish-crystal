@@ -10,7 +10,7 @@
     >
       <router-view ref="view"/>
     </transition>
-    <sdk/>
+    <sdk ref="sdk"/>
   </div>
 </template>
 
