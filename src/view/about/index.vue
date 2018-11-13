@@ -4,7 +4,7 @@
       <widget-background-color>
         <widget-scroll-box>
           <layout-navbar-shadow/>
-          <div class="logo" v-mc="hammer" @click="click">
+          <div class="logo" @touchstart="touchstart" @touchend="touchend">
             <i v-image:size.96x96="icon"/>
           </div>
           <p>{{$t('about@app')}}</p>
@@ -17,7 +17,7 @@
       </widget-background-color>
     </navigation-effect-box>
     <layout-navbar-color/>
-    <layout-navbar :title="$t('about@layout-navbar-title')"/>
+    <layout-navbar :title="$t('about@layout-navbar-title')" :right="'more'" @tap="navbarTap"/>
   </div>
 </template>
 
@@ -58,6 +58,8 @@ import navigationEffectBox from '@/navigation/effect-box'
 const { _ } = window
 const { version } = pkg
 
+let resolve
+
 export default {
   components: {
     layoutNavbar,
@@ -70,7 +72,8 @@ export default {
   data () {
     return {
       icon,
-      version
+      version,
+      develop: false
     }
   },
   computed: {
@@ -84,41 +87,43 @@ export default {
       }
     }
   },
+  created () {
+    if (window.util.test('development')) {
+      this.develop = true
+    }
+  },
   methods: {
     toast () {
       const text = this.$t('about@up-to-date')
       this.$sdk.toast({ text })
     },
-    async actionsheet () {
-      const menus = [this.$t(`about@develop`)]
-      const result = await this.$sdk.actionsheet({ menus })
-      const { index } = result
-      if (index === 0) {
-        this.$push('develop')
+    async navbarTap ({ type }) {
+      if (type === 'right') {
+        const menus = [this.$t(`about@develop`)]
+        const result = await this.$sdk.actionsheet({ menus })
+        const { index } = result
+        if (index === 0) {
+          this.$push('develop')
+        }
       }
     },
-    click () {
+    async touchstart () {
       if (window.util.test('development')) {
-        this.actionsheet()
+        return
       }
+      let promise
+      ({ promise, resolve } = window.util.promise())
+      const stop = await Promise.race([promise, window.util.sleep(5000)])
+      if (stop) {
+        return
+      }
+      this.develop = true
     },
-    hammer (mc) {
-      mc.add([new window.Hammer.Press()])
-      if (window.util.test('production')) {
-        let pressup
-        mc.on('press', async (event) => {
-          const { promise, resolve } = window.util.promise()
-          pressup = resolve
-          const stop = await Promise.race([promise, window.util.sleep(5000)])
-          if (stop) {
-            return
-          }
-          this.actionsheet()
-        })
-        mc.on('pressup', (event) => {
-          pressup(true)
-        })
+    touchend () {
+      if (window.util.test('development')) {
+        return
       }
+      resolve(true)
     }
   }
 }
@@ -165,6 +170,16 @@ export default {
       line-height: 1.5;
       text-align: center;
       position: absolute;
+    }
+  }
+</style>
+
+<style lang="scss">
+  #about {
+    .layout-navbar {
+      .vux-header-right {
+        display: none;
+      }
     }
   }
 </style>
