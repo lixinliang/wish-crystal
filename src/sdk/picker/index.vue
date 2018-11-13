@@ -1,6 +1,6 @@
 <template>
   <div class="sdk-picker">
-    <popup-picker :title="title" :confirmText="$t('sdk-picker@confirm')" :cancelText="$t('sdk-picker@cancel')" :data="data" @on-change="change" @on-hide="hide"/>
+    <popup-picker v-if="false" :title="title" :confirmText="$t('sdk-picker@confirm')" :cancelText="$t('sdk-picker@cancel')" :data="data" @on-change="change" @on-hide="hide"/>
   </div>
 </template>
 
