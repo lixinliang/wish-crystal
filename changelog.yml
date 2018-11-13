@@ -1,3 +1,10 @@
+v1.0.3 - null:
+  zh-CN:
+    - '[feature] 新增「实验室」页面'
+    - '[fixed] 长按事件与 action sheet 冲突的问题'
+    - '[feature] 新增 SDK 模块'
+    - '[fixed] 调整 SDK 组件部分文案'
+
 v1.0.2 - 2018-11-12:
   zh-CN:
     - '[feature] 新增 manifest 缓存模块'
