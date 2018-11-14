@@ -6,10 +6,11 @@
 
 <script>
 import widgetBackgroundColor from '@/widget/background-color'
+
 export default {
   components: {
     widgetBackgroundColor
-  },
+  }
 }
 </script>
 
