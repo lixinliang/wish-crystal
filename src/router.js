@@ -84,6 +84,7 @@ const config = {
     component: () => import(/* webpackChunkName: "tree" */'@/view/tree')
   },
   wish: {
+    assets: ['hammer.min.js'],
     component: () => import(/* webpackChunkName: "wish" */'@/view/wish')
   },
   'wish-add': {
