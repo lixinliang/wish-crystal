@@ -51,7 +51,7 @@ Vue.use({
       bind (el, { value }) {
         let uuid
         const mc = new window.Hammer.Manager(el)
-        while (uuid && !closure[uuid]) {
+        while (!uuid && !closure[uuid]) {
           uuid = window.util.uuid(4)
         }
         closure[uuid] = mc
@@ -60,6 +60,7 @@ Vue.use({
       },
       unbind (el, { value }) {
         const uuid = el.dataset.mc
+        el.dataset.mc = ''
         const mc = closure[uuid]
         closure[uuid] = null
         mc.destroy()
