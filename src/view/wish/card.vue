@@ -1,5 +1,5 @@
 <template>
-  <div class="card" @click="$push('wish-detail', { item })">
+  <div class="card" v-mc="hammer" @touchforcechange="touchforcechange">
     <div class="main">
       <div class="hd">
         <div class="time">{{item.time|format('YYYY-MM-DD HH:mm:ss')}}</div>
@@ -22,6 +22,42 @@ export default {
     index: {
       type: Number,
       default: -1
+    }
+  },
+  methods: {
+    hammer (mc) {
+      const { item } = this
+      mc.add([
+        new window.Hammer.Tap(),
+        new window.Hammer.Pan(),
+        new window.Hammer.Press()
+      ])
+      mc.on('tap', (event) => {
+        this.$push('wish-detail', { item })
+      })
+      mc.on('press', (event) => {
+        this.$sdk.toast({ text: 'press' })
+      })
+      mc.on('panleft', (event) => {
+        this.$sdk.toast({ text: 'panleft' })
+      })
+      mc.on('panright', (event) => {
+        this.$sdk.toast({ text: 'panright' })
+      })
+      mc.on('panup', (event) => {
+        this.$sdk.toast({ text: 'panup' })
+      })
+      mc.on('pandown', (event) => {
+        this.$sdk.toast({ text: 'pandown' })
+      })
+    },
+    touchforcechange (event) {
+      const touch = event.touches[0]
+      if (!touch) {
+        return
+      }
+      const { force } = touch
+      console.log(force)
     }
   }
 }
