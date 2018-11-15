@@ -16,7 +16,9 @@
             <cell :title="$t('lab@environment-server')" is-link @click.native="$push('environment-server')"></cell>
           </group>
           <group>
-            <cell :title="$t('lab@test-native')" is-link @click.native="$push('test-native')"></cell>
+            <group-title slot="title">{{$t('lab@native')}}</group-title>
+            <cell :title="$t('lab@native-api')" is-link @click.native="$push('native-api')"></cell>
+            <cell :title="$t('lab@native-auth')" is-link @click.native="$push('native-auth')"></cell>
           </group>
           <group>
             <group-title slot="title">{{$t('lab@test')}}</group-title>
@@ -45,6 +47,7 @@ lab@sample:
 lab@splash:
   en: Splash
   zh-CN: 启屏动画
+
 lab@environment:
   en: Environment Setting
   zh-CN: 环境配置
@@ -54,6 +57,17 @@ lab@environment-client:
 lab@environment-server:
   en: Server Side
   zh-CN: 服务端
+
+lab@native:
+  en: System Capability
+  zh-CN: 系统功能
+lab@native-api:
+  en: System Interface
+  zh-CN: 系统接口
+lab@native-auth:
+  en: System Permission
+  zh-CN: 系统授权
+
 lab@test:
   en: Unit Testing
   zh-CN: 单元测试
@@ -63,6 +77,7 @@ lab@test-api:
 lab@test-sdk:
   en: SDK Unit Testing
   zh-CN: SDK 单元测试
+
 lab@third-party-app:
   en: Third Party App
   zh-CN: 第三方应用
