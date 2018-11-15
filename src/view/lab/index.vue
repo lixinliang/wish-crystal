@@ -20,7 +20,7 @@
           </group>
           <group>
             <group-title slot="title">{{$t('lab@third-party-app')}}</group-title>
-            <cell v-for="(item, $index) in website" :key="$index" :title="item" is-link @click.native="$push('webview', { item })"></cell>
+            <cell v-for="(item, $index) in website" :key="$index" :title="item.title" is-link @click.native="$push('webview', { item })"></cell>
           </group>
         </widget-scroll-box>
       </widget-background-color>
@@ -78,9 +78,18 @@ export default {
   data () {
     return {
       website: [
-        'yy.com',
-        'qq.com',
-        'baidu.com'
+        {
+          title: 'yy.com',
+          url: 'https://www.yy.com'
+        },
+        {
+          title: 'qq.com',
+          url: 'https://www.qq.com'
+        },
+        {
+          title: 'baidu.com',
+          url: 'https://www.baidu.com'
+        }
       ]
     }
   }
