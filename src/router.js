@@ -30,6 +30,12 @@ const config = {
     ],
     component: () => import(/* webpackChunkName: "develop" */'@/view/develop')
   },
+  'environment-client': {
+    component: () => import(/* webpackChunkName: "environment-client" */'@/view/environment-client')
+  },
+  'environment-server': {
+    component: () => import(/* webpackChunkName: "environment-server" */'@/view/environment-server')
+  },
   home: {
     component: () => import(/* webpackChunkName: "home" */'@/view/home')
   },
@@ -56,6 +62,12 @@ const config = {
   name: {
     component: () => import(/* webpackChunkName: "name" */'@/view/name')
   },
+  'native-api': {
+    component: () => import(/* webpackChunkName: "native-api" */'@/view/native-api')
+  },
+  'native-auth': {
+    component: () => import(/* webpackChunkName: "native-auth" */'@/view/native-auth')
+  },
   person: {
     component: () => import(/* webpackChunkName: "person" */'@/view/person')
   },
@@ -76,9 +88,6 @@ const config = {
   },
   'test-api': {
     component: () => import(/* webpackChunkName: "test-api" */'@/view/test-api')
-  },
-  'test-native': {
-    component: () => import(/* webpackChunkName: "test-native" */'@/view/test-native')
   },
   'test-sdk': {
     component: () => import(/* webpackChunkName: "test-sdk" */'@/view/test-sdk')
