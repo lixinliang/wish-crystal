@@ -1,6 +1,6 @@
 <template>
   <div id="app" :style="{ 'height': `${$window.screen.height}px` }">
-    <layout-under-layer/>
+    <!-- <layout-under-layer/> -->
     <transition
       @before-enter="onBeforeEnter"
       @enter="onEnter"
