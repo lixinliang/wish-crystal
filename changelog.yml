@@ -1,7 +1,12 @@
 v1.0.3 - null:
   zh-CN:
+    - '[feature] 新增「环境配置」'
+    - '[feature] 新增「系统功能」'
+    - '[feature] 新增「单元测试」'
+    - '[feature] 新增「第三方应用」'
+    - '[fixed] 无法访问服务器'
     - '[feature] 新增「实验室」页面'
-    - '[fixed] 长按事件与 action sheet 冲突的问题'
+    - '[fixed] 长按事件与 Action Sheet 冲突的问题'
     - '[feature] 新增 SDK 模块'
     - '[fixed] 调整 SDK 组件部分文案'
 
