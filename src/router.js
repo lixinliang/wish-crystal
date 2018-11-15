@@ -77,11 +77,17 @@ const config = {
   'test-api': {
     component: () => import(/* webpackChunkName: "test-api" */'@/view/test-api')
   },
+  'test-native': {
+    component: () => import(/* webpackChunkName: "test-native" */'@/view/test-native')
+  },
   'test-sdk': {
     component: () => import(/* webpackChunkName: "test-sdk" */'@/view/test-sdk')
   },
   tree: {
     component: () => import(/* webpackChunkName: "tree" */'@/view/tree')
+  },
+  webview: {
+    component: () => import(/* webpackChunkName: "webview" */'@/view/webview')
   },
   wish: {
     assets: ['hammer.min.js'],
