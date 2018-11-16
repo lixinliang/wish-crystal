@@ -1,6 +1,6 @@
 <template>
   <div class="sdk-picker">
-    <popup-picker v-if="false" :title="title" :confirmText="$t('sdk-picker@confirm')" :cancelText="$t('sdk-picker@cancel')" :data="data" @on-change="change" @on-hide="hide"/>
+    <popup-picker :show="show" :popup-title="title" :confirmText="$t('sdk-picker@confirm')" :cancelText="$t('sdk-picker@cancel')" :data="data" @on-change="change" @on-hide="hide"/>
   </div>
 </template>
 
@@ -24,14 +24,16 @@ export default {
   },
   data () {
     return {
+      show: false,
       title: '',
       data: []
     }
   },
   created () {
-    window.sdk.picker = async ({ title = '', data }) => {
+    window.sdk.picker = async ({ title = '', data }) => {      
       this.title = `${title}`
       this.data = data
+      this.show = true
       let promise
       ({ promise, resolve } = window.util.promise())
       const result = await promise
@@ -39,10 +41,14 @@ export default {
     }
   },
   methods: {
-    change (...args) {
-      console.log('change', args)
+    change (value) {
+      this.show = false
+      resolve({
+        value
+      })
     },
     hide (bool) {
+      this.show = false
       if (bool) {
         // noop
       } else {
