@@ -15,8 +15,8 @@
 
 <i18n>
 test-api@layout-navbar-title:
-  en: Sample
-  zh-CN: 示例
+  en: API Unit Testing
+  zh-CN: API 单元测试
 </i18n>
 
 <script>
