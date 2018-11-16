@@ -30,7 +30,7 @@ export default {
     }
   },
   created () {
-    window.sdk.picker = async ({ title = '', data }) => {      
+    window.sdk.picker = async ({ title = '', data }) => {
       this.title = `${title}`
       this.data = data
       this.show = true
