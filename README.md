@@ -7,15 +7,22 @@ coming soon.
 
 * 离线样式
 * 数据同步状态样式
+
+---
+
 * 心愿贴 查看 / 编辑 标题不再使用默认标题
 * 分类 tag 进度条
 * 心愿贴 删除 / 编辑 功能
+
+---
+
 * 模块显式文件名 chunk name
 
 ---
 
 * webview bug
 * under layer bug
+* 邮件
 
 ---
 
