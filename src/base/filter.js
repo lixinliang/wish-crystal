@@ -7,7 +7,7 @@ Vue.filter('stringify', (value, size) => {
 
 // string ellipsis
 Vue.filter('ellipsis', (value, size) => {
-  return `${value}`.length > size ? '...' : value
+  return `${value}`.length > size ? `${`${value}`.slice(0, size)}...` : value
 })
 
 // number toFixed
