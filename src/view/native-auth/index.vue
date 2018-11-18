@@ -5,7 +5,7 @@
         <widget-scroll-box>
           <layout-navbar-shadow/>
           <group>
-            <x-switch :title="`${geolocation}`" v-model="geolocation" prevent-default @on-click="click('geolocation')"/>
+            <!-- <x-switch :title="`${geolocation}`" v-model="geolocation" prevent-default @on-click="click('geolocation')"/> -->
             <!-- <cell :title="'navigator.mediaDevices.getUserMedia'"/> -->
             <!-- <cell :title="'navigator.serviceWorker'"/> -->
             <!-- <cell :title="'ApplePaySession'"/> -->
