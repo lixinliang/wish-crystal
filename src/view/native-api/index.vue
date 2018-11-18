@@ -7,7 +7,7 @@
           <group>
             <cell :title="'Alert'" is-link @click.native="alert = $window.alert('alert')">{{alert}}</cell>
             <cell :title="'Confirm'" is-link @click.native="confirm = $window.confirm('confirm')">{{confirm}}</cell>
-            <cell :title="'Prompt'" is-link @click.native="prompt = $window.prompt('prompt')">{{prompt}}</cell>
+            <cell :title="'Prompt'" is-link @click.native="prompt = $window.prompt('prompt')">{{prompt | ellipsis(5)}}</cell>
           </group>
           <group>
             <cell :title="'Worker'"/>
