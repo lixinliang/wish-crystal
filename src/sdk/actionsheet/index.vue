@@ -6,7 +6,7 @@
 
 <i18n>
 sdk-actionsheet@cancel:
-  en: cancel
+  en: Cancel
   zh-CN: 取消
 </i18n>
 

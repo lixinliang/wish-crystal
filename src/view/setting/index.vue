@@ -6,8 +6,10 @@
           <layout-navbar-shadow/>
           <group>
             <cell :title="$t('setting@language')" is-link @click.native="$push('language')"></cell>
-            <cell :title="$t('setting@splash')" is-link @click.native="$replace('splash')"></cell>
             <cell :title="$t('setting@about')" :value="version" is-link @click.native="$push('about')"></cell>
+          </group>
+          <group>
+            <cell :title="$t('setting@lab')" is-link @click.native="$push('lab')"></cell>
           </group>
           <group>
             <cell :title="$t('setting@clear-cache')" :isLoading="clearCacheProcessing" :disabled="clearCacheProcessing" is-link @click.native="clear"></cell>
@@ -33,12 +35,12 @@ setting@layout-navbar-title:
 setting@language:
   en: Language
   zh-CN: 多语言
-setting@splash:
-  en: Splash
-  zh-CN: 启屏动画
 setting@about:
   en: About
   zh-CN: 关于
+setting@lab:
+  en: Lab
+  zh-CN: 实验室
 setting@clear-cache:
   en: Clear Cache
   zh-CN: 清除缓存

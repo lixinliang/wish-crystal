@@ -12,7 +12,6 @@ const base = [
 // 路由配置
 const config = {
   about: {
-    assets: ['hammer.min.js'],
     component: () => import(/* webpackChunkName: "about" */'@/view/about')
   },
   blank: {
@@ -31,6 +30,12 @@ const config = {
     ],
     component: () => import(/* webpackChunkName: "develop" */'@/view/develop')
   },
+  'environment-client': {
+    component: () => import(/* webpackChunkName: "environment-client" */'@/view/environment-client')
+  },
+  'environment-server': {
+    component: () => import(/* webpackChunkName: "environment-server" */'@/view/environment-server')
+  },
   home: {
     component: () => import(/* webpackChunkName: "home" */'@/view/home')
   },
@@ -48,11 +53,20 @@ const config = {
       next()
     }
   },
+  lab: {
+    component: () => import(/* webpackChunkName: "lab" */'@/view/lab')
+  },
   language: {
     component: () => import(/* webpackChunkName: "language" */'@/view/language')
   },
   name: {
     component: () => import(/* webpackChunkName: "name" */'@/view/name')
+  },
+  'native-api': {
+    component: () => import(/* webpackChunkName: "native-api" */'@/view/native-api')
+  },
+  'native-auth': {
+    component: () => import(/* webpackChunkName: "native-auth" */'@/view/native-auth')
   },
   person: {
     component: () => import(/* webpackChunkName: "person" */'@/view/person')
@@ -63,16 +77,29 @@ const config = {
   profile: {
     component: () => import(/* webpackChunkName: "profile" */'@/view/profile')
   },
+  sample: {
+    component: () => import(/* webpackChunkName: "sample" */'@/view/sample')
+  },
   setting: {
     component: () => import(/* webpackChunkName: "setting" */'@/view/setting')
   },
   splash: {
     component: () => import(/* webpackChunkName: "splash" */'@/view/splash')
   },
+  'test-api': {
+    component: () => import(/* webpackChunkName: "test-api" */'@/view/test-api')
+  },
+  'test-sdk': {
+    component: () => import(/* webpackChunkName: "test-sdk" */'@/view/test-sdk')
+  },
   tree: {
     component: () => import(/* webpackChunkName: "tree" */'@/view/tree')
   },
+  webview: {
+    component: () => import(/* webpackChunkName: "webview" */'@/view/webview')
+  },
   wish: {
+    assets: ['hammer.min.js'],
     component: () => import(/* webpackChunkName: "wish" */'@/view/wish')
   },
   'wish-add': {

@@ -71,6 +71,10 @@ export default {
         {
           title: 'Standalone',
           desc: `${window.navigator.standalone}`
+        },
+        {
+          title: 'Online',
+          desc: `${window.navigator.onLine}`
         }
       ]
     }

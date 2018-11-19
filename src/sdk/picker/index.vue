@@ -1,11 +1,22 @@
 <template>
   <div class="sdk-picker">
-    <popup-picker :show="show" :title="'title'" :confirmText="'confirmText'" :cancelText="'cancelText'" :data="[['1', '2']]" @on-change="change" @on-hide="hide"/>
+    <popup-picker :show="show" :popup-title="title" :confirmText="$t('sdk-picker@confirm')" :cancelText="$t('sdk-picker@cancel')" :data="data" @on-change="change" @on-hide="hide"/>
   </div>
 </template>
 
+<i18n>
+sdk-picker@confirm:
+  en: Confirm
+  zh-CN: 确定
+sdk-picker@cancel:
+  en: Cancel
+  zh-CN: 取消
+</i18n>
+
 <script>
 import { PopupPicker } from 'vux'
+
+let resolve
 
 export default {
   components: {
@@ -13,17 +24,38 @@ export default {
   },
   data () {
     return {
-      show: false
+      show: false,
+      title: '',
+      data: []
     }
   },
   created () {
+    window.sdk.picker = async ({ title = '', data }) => {
+      this.title = `${title}`
+      this.data = data
+      this.show = true
+      let promise
+      ({ promise, resolve } = window.util.promise())
+      const result = await promise
+      return result
+    }
   },
   methods: {
-    change (...args) {
-      console.log('change', args)
+    change (value) {
+      this.show = false
+      resolve({
+        value
+      })
     },
-    hide (...args) {
-      console.log('hide', args)
+    hide (bool) {
+      this.show = false
+      if (bool) {
+        // noop
+      } else {
+        resolve({
+          index: -1
+        })
+      }
     }
   }
 }

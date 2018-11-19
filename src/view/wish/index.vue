@@ -63,9 +63,10 @@ export default {
   computed: {
     list () {
       return _(this.$storage.wish.map)
-      .map(({ name, title, content }, key) => {
+      .map(({ wid, name, title, content }, key) => {
         const time = +key.slice(0, -4)
         return {
+          wid,
           name,
           time,
           title,
@@ -74,6 +75,9 @@ export default {
       })
       .sort((m, n) => {
         return n.time - m.time
+      })
+      .uniqBy(({ wid }) => {
+        return wid
       })
       .value()
     },

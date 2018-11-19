@@ -184,3 +184,5 @@ util.repaint = (el) => {
 util.jsonp = async (url, data) => (new Promise((resolve) => {
   window.JSONP.call(null, url, data, resolve)
 }))
+
+util.typeof = (value) => ({}).toString.call(value).slice(8, -1)

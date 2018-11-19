@@ -1,9 +1,17 @@
 import _ from 'lodash'
 import Vue from 'vue'
 import pkg from 'package.json'
+import auth from './auth'
 import user from './user'
 import wish from './wish'
 import config from './config'
+
+const bundle = {
+  auth,
+  user,
+  wish,
+  config
+}
 
 const closure = {}
 const separator = '@'
@@ -22,6 +30,7 @@ function ellipsis (value) {
   }
 }
 
+// forage 更新
 const forage = async ({ type, key, value }) => {
   const [ storageName, keyName ] = key.split(separator)
   const storage = closure[storageName]
@@ -49,14 +58,11 @@ const forage = async ({ type, key, value }) => {
   }
 }
 
+// 占用 Vue 原型链 命名空间
 Vue.prototype.$forage = forage
 
 export default async function () {
-  await Promise.all(_.map({
-    user,
-    wish,
-    config
-  }, async (proto, storageName) => {
+  await Promise.all(_.map(bundle, async (proto, storageName) => {
     const name = `${storageName}#${appVersion}`
     const storage = window.localforage.createInstance({
       name

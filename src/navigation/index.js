@@ -12,6 +12,7 @@ let resolvePromiseAfterLeave = window._.noop
 // disable all event
 async function inreactive () {
   window.sdk.masker({ show: true, fullscreen: true })
+  window.$event.emit('navigation:animation-start')
   const animation = []
   {
     const { promise, resolve } = window.util.promise()
@@ -24,6 +25,7 @@ async function inreactive () {
     resolvePromiseAfterLeave = resolve
   }
   await Promise.all(animation)
+  window.$event.emit('navigation:animation-end')
   window.sdk.masker({ show: false, fullscreen: false })
 }
 

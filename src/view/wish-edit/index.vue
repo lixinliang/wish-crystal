@@ -43,6 +43,8 @@ import widgetScrollBox from '@/widget/scroll-box'
 import widgetBackgroundColor from '@/widget/background-color'
 import navigationEffectBox from '@/navigation/effect-box'
 
+const { _ } = window
+
 export default {
   components: {
     Group,
@@ -82,14 +84,45 @@ export default {
   },
   methods: {
     async navbarTap ({ type, preventDefault }) {
+      const { item } = this
       if (type === 'left') {
         preventDefault()
-        const { item } = this
         this.$replace('wish-detail', { item })
       }
       if (type === 'right') {
-        const content = this.$t('wish-edit@can-not-edit')
-        this.$sdk.alert({ content })
+        const result = _(this.$storage.wish.map)
+        .map((item, key) => {
+          const { wid } = item
+          const time = +key.slice(0, -4)
+          return {
+            wid,
+            time,
+            item
+          }
+        })
+        .sort((m, n) => {
+          return n.time - m.time
+        })
+        .find(({ wid }) => {
+          return wid === item.wid
+        })
+        {
+          const item = window.util.copy(result.item)
+          const value = item
+          const { now } = this.$
+          const { name, checkcode } = this.$storage.user
+          const key = `${now}${checkcode}`
+          const uid = checkcode
+          item.name = name
+          item.uid = uid
+          item.title = encodeURIComponent(this.title)
+          item.content = encodeURIComponent(this.content)
+          this.$set(this.$storage.wish.map, key, value)
+          await this.$forage({ type: 'update', key: 'wish@map' })
+          const text = this.$t('sdk-toast@save-success')
+          this.$sdk.toast({ text })
+          this.$replace('wish-detail', { item })
+        }
       }
     }
   }

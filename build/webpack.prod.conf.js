@@ -108,7 +108,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     ]),
     new AppCachePlugin({
       cache: [],
-      network: null,
+      network: ['*'],
       fallback: [],
       settings: [],
       exclude: [/.*\.js\.map$/],

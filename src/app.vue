@@ -1,5 +1,6 @@
 <template>
   <div id="app" :style="{ 'height': `${$window.screen.height}px` }">
+    <!-- <layout-under-layer/> -->
     <transition
       @before-enter="onBeforeEnter"
       @enter="onEnter"
@@ -10,12 +11,13 @@
     >
       <router-view ref="view"/>
     </transition>
-    <sdk/>
+    <sdk ref="sdk"/>
   </div>
 </template>
 
 <script>
 import './sdk'
+import layoutUnderLayer from '@/layout/under-layer'
 import router from './router'
 import navigation from './navigation'
 
@@ -23,7 +25,10 @@ const { methods } = navigation
 
 export default {
   router,
-  methods
+  methods,
+  components: {
+    layoutUnderLayer
+  }
 }
 </script>
 
@@ -32,8 +37,7 @@ export default {
   #app {
     margin: 0 auto;
     max-width: 750px;
-    overflow: hidden;
+    overflow: scroll;
     position: relative;
-    background-color: $background-color-normal;
   }
 </style>
