@@ -36,8 +36,6 @@ if (onLine) {
 // 开发环境
 if (process.env.NODE_ENV === 'development') {
   html.classList.add('development')
-  // 模拟 PWA
-  html.classList.add('standalone')
 }
 
 // 生产环境
