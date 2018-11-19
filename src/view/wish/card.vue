@@ -29,8 +29,8 @@ export default {
       const { item } = this
       mc.add([
         new window.Hammer.Tap(),
-        new window.Hammer.Pan(),
-        new window.Hammer.Press()
+        // new window.Hammer.Pan(),
+        // new window.Hammer.Press()
       ])
       mc.on('tap', (event) => {
         this.$push('wish-detail', { item })
