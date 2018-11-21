@@ -19,7 +19,7 @@ document.title = title
 let axios
 let localforage
 
-if (window.util.test('standalone')) {
+if (window.util.test('standalone') || window.util.test('development')) {
   // app 环境 引入依赖模块
   axios = window.util.load('axios.min.js')
   localforage = window.util.load('localforage.min.js')
@@ -27,7 +27,7 @@ if (window.util.test('standalone')) {
 
 // 启动应用
 window.$event.once('root:launch', async () => {
-  if (window.util.test('standalone')) {
+  if (window.util.test('standalone') || window.util.test('development')) {
     // app 环境 引入依赖模块
     await axios
     await localforage
