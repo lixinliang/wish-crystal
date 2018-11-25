@@ -6,6 +6,18 @@ coming soon.
 # TODO
 
 * 模块冗余
+* 登录记录 ip 地址 + 时间
+* 云宠物
+* 晚安墙
+* 开发中 弹窗动画
+* modal view
+* modal webview
+* 微信 floating webview
+* 右滑删除
+* 3d touch
+* 长按编辑
+* 左滑 pop
+* 定位授权
 
 ---
 
