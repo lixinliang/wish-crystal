@@ -3,7 +3,7 @@ const { userAgent, standalone, onLine } = window.navigator
 const { width, height } = window.screen
 
 // 设备检查
-if (/android/.test(userAgent)) {
+if (/android/i.test(userAgent)) {
   html.classList.add('android')
 } else {
   html.classList.add('ios')
