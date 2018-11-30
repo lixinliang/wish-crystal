@@ -1,6 +1,6 @@
 v1.0.4 - null:
   zh-CN:
-    - '[feature] null'
+    - '[fixed] 优化设备判断逻辑'
 
 v1.0.3 - 2018-11-18:
   zh-CN:
